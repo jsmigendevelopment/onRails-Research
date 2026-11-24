@@ -173,7 +173,7 @@ test("secrets, e-mail addresses, home paths, hidden text and private terms are r
     "Built for Project Zebra.",
   ].join("\n") + "\n");
   const result = check({ root, all: true, today: TODAY });
-  for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "HTML comment"]) assert.ok(has(result, text), text);
+  for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "raw HTML"]) assert.ok(has(result, text), text);
   process.env.PRIVATE_TERMS = "other thing, project zebra";
   try {
     const terms = (extra) => check({ root, today: TODAY, ...extra }).errors.filter((e) => e.includes("private term"));
@@ -278,7 +278,7 @@ test("a contributor may change only .md, .json and .csv files inside a dossier f
   const maintainer = pr(root, { maintainer: true });
   assert.ok(!has(maintainer, "only a maintainer may change"));
   // Agent files inside a dossier are refused for the maintainer too.
-  for (const name of ["GEMINI.md", ".mcp.json", ".agents/x.md"]) assert.ok(has(maintainer, `${D}/${name}: is an agent instruction`), name);
+  for (const name of ["GEMINI.md", ".mcp.json", ".agents/x.md"]) assert.ok(has(maintainer, `${D}/${name}: is named like an agent`), name);
 });
 
 test("a symbolic link in a pull request is refused before anything is read", () => {
@@ -400,7 +400,7 @@ test("wider hidden-character rule, for contents and paths", async () => {
   const { scanText } = await import("../lib/hygiene.mjs");
   const { collector } = await import("../lib/store.mjs");
   const hidden = ["\u00A0", "\u2007", "\u3000", "\u00AD", "\u115F", "\u1160", "\u3164", "\uFFA0", "\u180B", "\u180E", "\uFFF9", "\uFE00", "\uFE0E",
-    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378"];
+    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378", "\u2800", "\u17B4", "\u17B5", "\u034F", "\u2065"];
   for (const ch of hidden) {
     const problems = collector();
     scanText(`before${ch}after`, "a.md", { hiddenText: true }, problems);
@@ -417,9 +417,40 @@ test("wider hidden-character rule, for contents and paths", async () => {
   assert.ok(has(pr(root), '"no\u00A0break.md": has a control or invisible character in its name'));
 });
 
-test("an HTML comment in dossier Markdown is refused whatever the extension's case", () => {
+test("raw HTML in dossier Markdown is refused whatever the extension's case", () => {
   const root = makeCommons();
   const { dir, rel } = addDossier(root);
   writeFileSync(join(dir, "notes.MD"), "<!-- hidden -->\n");
-  assert.ok(has(all(root), `${rel}/notes.MD:1: has an HTML comment`));
+  assert.ok(has(all(root), `${rel}/notes.MD:1: has raw HTML`));
+});
+
+test("stricter dossier Markdown: no reference definitions and no raw HTML outside code", () => {
+  const root = makeCommons();
+  const { dir, rel } = addDossier(root);
+  const refused = ["[//]: # (x)", "[x]: <> (y)", "<span hidden>x</span>", "> [//]: # (in a quote)", "- [a\\]b]: //x", "Text <b>bold</b>", "<!-- note -->", "\\`<span hidden>x</span>`"];
+  const allowed = ["Write `<span hidden>x</span>` in code.", "```", "<span hidden>inside a fence</span>", "[x]: //inside a fence", "```", "A [link](https://example.com/a) and 2 < 3.", "Use `[x]: y` for a definition."];
+  writeFileSync(join(dir, "notes.md"), [...refused, ...allowed].join("\n") + "\n");
+  const errors = all(root).errors.filter((e) => e.startsWith(`${rel}/notes.md:`));
+  const lines = (text) => errors.filter((e) => e.includes(text)).map((e) => Number(/notes\.md:(\d+)/.exec(e)[1]));
+  assert.deepEqual(lines("link reference definition"), [1, 2, 4, 5], errors.join("\n"));
+  assert.deepEqual(lines("raw HTML"), [3, 6, 7, 8], errors.join("\n"));
+});
+
+test("stricter dossier file names", () => {
+  const root = makeCommons();
+  const { rel } = addDossier(root);
+  commit(root, "add");
+  branch(root);
+  const agent = ["CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
+  const badName = ["Notes.md", "notes/README.md", "a.md/b.md", "under_score.md", "-dash.md", "data/Big.csv"];
+  for (const name of [...agent, ...badName]) {
+    mkdirSync(join(root, rel, name, ".."), { recursive: true });
+    writeFileSync(join(root, rel, name), "Text.\n");
+  }
+  for (const result of [pr(root), pr(root, { maintainer: true })]) {
+    for (const name of agent) assert.ok(has(result, `${rel}/${name}: is named like an agent`), `${name}\n${result.errors.join("\n")}`);
+    for (const name of badName) assert.ok(has(result, `${rel}/${name}: has a name that isn't lower-case kebab-case`), name);
+  }
+  for (const name of [...agent, ...badName]) assert.ok(has(pr(root), `${rel}/${name}: only a maintainer may change`), name);
+  assert.ok(!has(pr(root), `${rel}/README.md: has a name`));
 });

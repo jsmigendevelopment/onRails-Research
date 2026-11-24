@@ -21,7 +21,7 @@ import { checkStores } from "./lib/desk.mjs";
 import { changedFiles, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
 import { HIDDEN, privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
-import { agentFileInDossier, checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
+import { agentFileInDossier, badDossierName, checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
 import { CARD, collector, isFile, listDossiers, NOT_REGULAR, readJson, readText, STORE, strayInStore } from "./lib/store.mjs";
 import { loadTags } from "./lib/tags.mjs";
 
@@ -56,7 +56,7 @@ function scanFiles(root, paths, { hideWhere, every }, problems) {
   for (const path of paths) {
     const inStore = path.startsWith(`${STORE}/`);
     if (!(every || TEXT.test(path) || inStore) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
-    scanText(readText(join(root, path)), path, { terms, hiddenText: true, comments: inStore && /\.md$/i.test(path), onTerm }, problems);
+    scanText(readText(join(root, path)), path, { terms, hiddenText: true, markdown: inStore && /\.md$/i.test(path), onTerm }, problems);
   }
   if (found) problems.errors.push(PRIVATE_FOUND);
   return terms.length;
@@ -80,13 +80,15 @@ function refusePaths(root, paths, links, problems) {
   return bad.size > 0;
 }
 
-const AGENT_FILE = "is an agent instruction or configuration file (CLAUDE.md, AGENTS.md, GEMINI.md, .claude, .mcp.json, .agents). None may sit inside a dossier";
+const AGENT_FILE = "is named like an agent instruction or configuration file (claude, agents, gemini, copilot, cursor, windsurf, .mcp.json and the like). None may sit inside a dossier";
+const BAD_NAME = "has a name that isn't lower-case kebab-case: folders use a-z, 0-9 and -, files add one allowed extension. README.md is allowed only at the top of the dossier. Rename it";
 
 /** Paths under dossiers/ outside a dossier folder, and agent files inside one. Reports each. */
 function checkStorePaths(paths, problems) {
   for (const path of paths) {
     if (strayInStore(path)) problems.error(path, STRAY);
     else if (agentFileInDossier(path)) problems.error(path, AGENT_FILE);
+    else if (badDossierName(path)) problems.error(path, BAD_NAME);
   }
 }
 

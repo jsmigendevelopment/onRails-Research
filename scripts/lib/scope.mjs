@@ -2,7 +2,7 @@
 import { lstatSync } from "node:fs";
 import { join } from "node:path";
 import { fileAt } from "./git.mjs";
-import { CARD, idOfPath, isFile, NOT_REGULAR, readText, STORE, walk } from "./store.mjs";
+import { CARD, idOfPath, isFile, NOT_REGULAR, readText, walk } from "./store.mjs";
 
 export const MAX_FILE = 400 * 1024;
 export const MAX_DOSSIER = 1024 * 1024;
@@ -12,20 +12,31 @@ const GROWS = /(^|\/)(sources|claims|fact-check)\.csv$/;
 const FROZEN = /(^|\/)(runs|briefs)\//;
 const CORE = ["README.md", CARD, "provenance.json", "sources.csv", "claims.csv"];
 const LIFECYCLE = ["status", "superseded_by", "recheck", "history"];
-// What a contributor's pull request may touch: Markdown, JSON and CSV files inside one well-formed
-// dossier folder, with plain names. Everything else is the maintainer's: an allow list, case-sensitive,
-// because a block list of what is dangerous always has gaps.
-const NAME = "[A-Za-z0-9][A-Za-z0-9_-]*(?:\\.[A-Za-z0-9_-]+)*";
-const CONTRIBUTOR_PATH = new RegExp(`^${STORE}/\\d{4}/\\d{2}/[a-z0-9-]+/(?:${NAME}/)*${NAME}\\.(?:md|json|csv)$`);
+// Names inside a dossier: an allow list, because a block list of what is dangerous always has gaps.
+// Every folder and file below the dossier id is lower-case kebab-case; folders have no extension. The
+// one exception is README.md at the top of the dossier, which GitHub shows with the folder.
+const FOLDER = /^[a-z0-9][a-z0-9-]*$/;
+const FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv|tsv|txt|svg|mjs|js|py|sh)$/;
+const CONTRIBUTOR_FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv)$/;
 // Names that instruct or configure agents, refused inside a dossier for everyone, maintainer included.
-const AGENT_NAMES = new Set(["claude.md", "agents.md", "gemini.md", ".claude", ".mcp.json", ".agents"]);
+const AGENT_NAME = /^(claude|agents|gemini|copilot|cursor|windsurf)([.-].*)?$|^\.(claude|agents|mcp\.json|cursorrules|windsurfrules)$/i;
 
-/** True for a path a contributor may change. */
+const below = (path) => path.split("/").slice(4);
+
+/** True when every name below the dossier id fits the allow list (`file` is the pattern for the file name). */
+function namesFit(path, file) {
+  const names = below(path), last = names.length - 1;
+  return names.every((name, n) => (n < last ? FOLDER.test(name) : file.test(name) || (n === 0 && name === "README.md")));
+}
+
 /** True for a path inside a dossier with an agent-instruction name at any depth. */
-export const agentFileInDossier = (path) => idOfPath(path) !== null && path.split("/").slice(4).some((part) => AGENT_NAMES.has(part.toLowerCase()));
+export const agentFileInDossier = (path) => idOfPath(path) !== null && below(path).some((name) => AGENT_NAME.test(name));
 
-/** True for a path a contributor may change. */
-export const contributorMay = (path) => CONTRIBUTOR_PATH.test(path) && idOfPath(path) !== null && !agentFileInDossier(path);
+/** True for a path inside a dossier whose names don't fit the allow list, for anyone. */
+export const badDossierName = (path) => idOfPath(path) !== null && !namesFit(path, FILE);
+
+/** True for a path a contributor may change: an .md, .json or .csv file inside a dossier, with allowed names. */
+export const contributorMay = (path) => idOfPath(path) !== null && namesFit(path, CONTRIBUTOR_FILE) && !agentFileInDossier(path);
 const kb = (n) => `${Math.ceil(n / 1024)} KB`;
 
 /** Sorts changed paths into dossiers (by id), tag lists and everything else. */

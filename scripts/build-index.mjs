@@ -49,7 +49,8 @@ export function collect(root, today) {
 }
 
 const LABEL = { fresh: "fresh", "due-soon": "due soon", stale: "stale", superseded: "superseded", retracted: "retracted" };
-const esc = (s) => String(s ?? "").replace(/\|/g, "\\|").replace(/[\r\n]+/g, " ");
+// A title is contributor text: every Markdown special character is backslash-escaped, so it stays plain text.
+export const esc = (s) => String(s ?? "").replace(/[\r\n]+/g, " ").replace(/[\\`*_[\]()!<>|~]/g, "\\$&");
 
 function state(e) {
   if (e.freshness === "stale") return `**stale**: re-check was due ${e.recheck}`;
