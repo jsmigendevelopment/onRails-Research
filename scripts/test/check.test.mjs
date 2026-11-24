@@ -173,7 +173,7 @@ test("secrets, e-mail addresses, home paths, hidden text and private terms are r
     "Built for Project Zebra.",
   ].join("\n") + "\n");
   const result = check({ root, all: true, today: TODAY });
-  for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "raw HTML"]) assert.ok(has(result, text), text);
+  for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "has a < character"]) assert.ok(has(result, text), text);
   process.env.PRIVATE_TERMS = "other thing, project zebra";
   try {
     const terms = (extra) => check({ root, today: TODAY, ...extra }).errors.filter((e) => e.includes("private term"));
@@ -417,23 +417,61 @@ test("wider hidden-character rule, for contents and paths", async () => {
   assert.ok(has(pr(root), '"no\u00A0break.md": has a control or invisible character in its name'));
 });
 
-test("raw HTML in dossier Markdown is refused whatever the extension's case", () => {
+test("a < in dossier Markdown is refused whatever the extension's case", () => {
   const root = makeCommons();
   const { dir, rel } = addDossier(root);
   writeFileSync(join(dir, "notes.MD"), "<!-- hidden -->\n");
-  assert.ok(has(all(root), `${rel}/notes.MD:1: has raw HTML`));
+  assert.ok(has(all(root), `${rel}/notes.MD:1: has a < character`));
 });
 
-test("stricter dossier Markdown: no reference definitions and no raw HTML outside code", () => {
+test("simpler dossier Markdown rules: every probe is refused, plain Markdown passes", () => {
   const root = makeCommons();
   const { dir, rel } = addDossier(root);
-  const refused = ["[//]: # (x)", "[x]: <> (y)", "<span hidden>x</span>", "> [//]: # (in a quote)", "- [a\\]b]: //x", "Text <b>bold</b>", "<!-- note -->", "\\`<span hidden>x</span>`"];
-  const allowed = ["Write `<span hidden>x</span>` in code.", "```", "<span hidden>inside a fence</span>", "[x]: //inside a fence", "```", "A [link](https://example.com/a) and 2 < 3.", "Use `[x]: y` for a definition."];
-  writeFileSync(join(dir, "notes.md"), [...refused, ...allowed].join("\n") + "\n");
+  // [line, the message it must get]; null means it must pass. Fenced lines get only the character rules.
+  const cases = [
+    ["[//]: # (x)", "]:"],
+    ["[x]: <> (y)", "]:"],
+    ["<span hidden>x</span>", "< character"],
+    ["> [//]: # (in a quote)", "]:"],
+    ["- [a\\]b]: //x", "]:"],
+    ["Text <b>bold</b>", "< character"],
+    ["<!-- note -->", "< character"],
+    ["\\`<span hidden>x</span>`", "< character"],
+    ["A span `opens here", "code span"],
+    ["<!-- and closes` here -->", "< character"],
+    ["[a label split", "starts with ["],
+    ["over two lines]: //x", "]:"],
+    ["Bidi &#x202E; and &#8238; and &rlo; and &nbsp;", "character reference"],
+    ["Math $x$ here", "$ character"],
+    ["An image ![i](//x.example/p.png)", "image"],
+    ['A [titled](//x.example "hidden title") link', "link title"],
+    ["A [titled](//x.example (hidden title)) link", "link title"],
+    ["A [split](//x.example", "doesn't close on the same line"],
+    ["```a`b", "code fence"],
+    ["<b>not a fence: a backtick fence's info can't hold a backtick</b>", "< character"],
+    ["~~~&#x202E;", "code fence"],
+    ["~~~", null],
+    ["<b>after a tilde fence that closed</b>", "< character"],
+    ["Plain words, a [link](https://example.com/a), `code`, *em*, R&D and 2 > 1.", null],
+    ["```js", null],
+    ["const tag = '<span hidden>' + '&#x202E;' + '$1' + '![x](y)' + '[a]: b';", null],
+    ["   ```", null],
+    ["After the fence: <b>", "< character"],
+    ["~~~", null],
+    ["Inside a tilde fence: <b> and ```", null],
+    ["~~~", null],
+    // A fence after a list or quote marker, or indented, is refused; the file fails on that line.
+    ["- ```", "code fence"],
+    ["> ```", "code fence"],
+    ["\t```", "code fence"],
+  ];
+  writeFileSync(join(dir, "notes.md"), cases.map(([line]) => line).join("\n") + "\n");
   const errors = all(root).errors.filter((e) => e.startsWith(`${rel}/notes.md:`));
-  const lines = (text) => errors.filter((e) => e.includes(text)).map((e) => Number(/notes\.md:(\d+)/.exec(e)[1]));
-  assert.deepEqual(lines("link reference definition"), [1, 2, 4, 5], errors.join("\n"));
-  assert.deepEqual(lines("raw HTML"), [3, 6, 7, 8], errors.join("\n"));
+  cases.forEach(([line, message], n) => {
+    const mine = errors.filter((e) => e.startsWith(`${rel}/notes.md:${n + 1}:`));
+    if (message === null) assert.deepEqual(mine, [], `line ${n + 1} should pass: ${line}`);
+    else assert.ok(mine.some((e) => e.includes(message)), `line ${n + 1} (${line}) needs "${message}":\n${mine.join("\n")}`);
+  });
 });
 
 test("stricter dossier file names", () => {
@@ -441,7 +479,7 @@ test("stricter dossier file names", () => {
   const { rel } = addDossier(root);
   commit(root, "add");
   branch(root);
-  const agent = ["CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
+  const agent = ["agent.md", "Crush.md", "QWEN.md", "warp.md", "notes/Agent.md", "CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
   const badName = ["Notes.md", "notes/README.md", "a.md/b.md", "under_score.md", "-dash.md", "data/Big.csv"];
   for (const name of [...agent, ...badName]) {
     mkdirSync(join(root, rel, name, ".."), { recursive: true });

@@ -6,7 +6,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { REPO } from "./helpers.mjs";
+import { loadCommonmark, REPO } from "./helpers.mjs";
 
 const workflow = readFileSync(join(REPO, ".github/workflows/review.yml"), "utf8").split("\n");
 const start = workflow.findIndex((l) => l.trim() === `jq -r --arg sha "\${SHA::7}" --arg model "$MODEL" '`);
@@ -50,8 +50,7 @@ const verdictWith = (text) => ({
   injection: { found: true, notes: text },
 });
 
-const commonmark = process.env.COMMONMARK ? await import(process.env.COMMONMARK) : null;
-const toHtml = (md) => new commonmark.HtmlRenderer().render(new commonmark.Parser().parse(md));
+const commonmark = await loadCommonmark();
 
 test("post model text as code", { skip: !hasJq && "jq is not installed" }, () => {
   assert.ok(start > 0 && end > start, "the jq program in review.yml");
@@ -60,7 +59,7 @@ test("post model text as code", { skip: !hasJq && "jq is not installed" }, () =>
     assert.ok(comment.startsWith("<!-- claude-review -->\n### Claude review: needs-changes"), comment);
     assert.ok(!outsideFences(comment).includes("EVIL"), `model text outside a code block:\n${comment}`);
     if (!commonmark) continue;
-    const html = toHtml(comment);
+    const html = commonmark.render(comment);
     for (const tag of ["<a ", "<img", "<script", "<pre>[x]"]) assert.ok(!html.includes(tag), `${tag} in:\n${html}`);
     assert.ok(!/EVIL/.test(html.replace(/<pre><code>[\s\S]*?<\/code><\/pre>/g, "")), `model text outside code:\n${html}`);
   }

@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { buildIndex, esc, freshnessOf, PAGE_ROWS } from "../build-index.mjs";
 import { slugify } from "../new-dossier.mjs";
-import { addDossier, editJson, makeCommons, TODAY } from "./helpers.mjs";
+import { addDossier, editJson, loadCommonmark, makeCommons, TODAY } from "./helpers.mjs";
 
 const out = () => mkdtempSync(join(tmpdir(), "index-"));
 
@@ -69,9 +69,9 @@ test("a title is escaped so it stays plain text in the index", async () => {
   const cell = esc(title);
   assert.ok(!cell.includes("\n"));
   for (const ch of ["[", "]", "(", ")", "!", "<", ">", "`", "*", "_", "|"]) assert.ok(!new RegExp(`(^|[^\\\\])(\\\\\\\\)*\\${ch}`).test(cell), ch);
-  if (!process.env.COMMONMARK) return;
-  const commonmark = await import(process.env.COMMONMARK);
-  const html = new commonmark.HtmlRenderer().render(new commonmark.Parser().parse(`[${cell}](https://example.com/d)`));
+  const commonmark = await loadCommonmark();
+  if (!commonmark) return;
+  const html = commonmark.render(`[${cell}](https://example.com/d)`);
   assert.equal((html.match(/<a /g) ?? []).length, 1, html);
   assert.ok(!/<img|<span|<code|<em/.test(html), html);
 });

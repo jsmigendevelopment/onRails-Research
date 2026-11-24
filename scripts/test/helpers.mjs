@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { cpSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { newDossier } from "../new-dossier.mjs";
 
 export const REPO = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
@@ -51,3 +51,14 @@ export function addDossier(root, { title = "Which index format scales to ten tho
 }
 
 export const editJson = (path, change) => { const value = json(path); change(value); save(path, value); };
+
+/**
+ * commonmark.js from the path in COMMONMARK (kept out of this repo's dependencies), or null when unset.
+ * Works with the CommonJS build (dist/commonmark.js) and the ES module (lib/index.js).
+ */
+export async function loadCommonmark() {
+  if (!process.env.COMMONMARK) return null;
+  const mod = await import(pathToFileURL(resolve(process.env.COMMONMARK)).href);
+  const commonmark = mod.Parser ? mod : mod.default;
+  return { render: (markdown) => new commonmark.HtmlRenderer().render(new commonmark.Parser().parse(markdown)) };
+}

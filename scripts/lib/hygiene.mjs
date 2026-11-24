@@ -40,32 +40,51 @@ function scanLine(line) {
   return found;
 }
 
-// Dossier Markdown is read by agents as well as people, so nothing in it may be invisible on the page:
-// no link reference definitions and no raw HTML (tags or comments) outside code. Lines inside a fence
-// are skipped; a line's code spans are skipped unless it has an escaped backtick, which can end one.
-const CONTAINER = /^(?:[ \t]*(?:>|[-*+]|\d{1,9}[.)])(?=[ \t]|$))*[ \t]*/;
-const REF_DEF = /^\[(?:[^\]\\]|\\.)+\]:/;
-const FENCE = /^ {0,3}(`{3,}|~{3,})/;
+// Dossier Markdown is read by agents as well as people, so nothing in it may be hidden on the page.
+// The rules are flat, per line and per character, so no Markdown construct split across lines can slip
+// past them. Outside fenced code: no `<` at all (no HTML, comments or autolinks), no character
+// references, no reference definitions, no math, no images, no link titles, no link that doesn't close
+// on its line, and every code span closes on its line. Inside a fence only the character rules apply.
+// A fence opens only at the very start of a line, with at most a plain word after it, and closes the
+// way CommonMark closes it. Anything else that CommonMark could read as a fence (indented, after a quote
+// or list marker, or with another info string) is refused, so this reading never drifts from CommonMark's.
+const OPEN = /^(`{3,}|~{3,})[A-Za-z0-9+._-]*[ \t]*$/;
+const FENCE_LIKE = /^(?:[ \t]*(?:>|[-*+]|\d{1,9}[.)]))*[ \t]*(`{3,}|~{3,})/;
+const ROOT_OPEN = /^ {0,3}(`{3,}(?!.*`)|~{3,})/;
 const CLOSE = /^ {0,3}(`{3,}|~{3,})[ \t]*$/;
-const SPAN = /(`+)(?!`)[\s\S]*?(?<!`)\1(?!`)/g;
-const TAG = /<[A-Za-z/!?]/;
-export const REF_MESSAGE = "has a link reference definition: readers can't see it, so it isn't allowed in a dossier. Write the link inline";
-export const HTML_MESSAGE = "has raw HTML (a tag or an HTML comment): it can hide text, so it isn't allowed in a dossier. Put it in `code`, or write plain Markdown";
+export const FENCE_MESSAGE = "looks like a code fence that doesn't start the line or has more than a plain word after it: start fences at the very start of a line, as ``` or ```js";
+export const MARKDOWN_RULES = [
+  [/</, "has a < character: it can start HTML or a comment. Put code that needs it in a fenced block"],
+  [/&(#|[A-Za-z][A-Za-z0-9]*;)/, "has a character reference (&#...; or &name;): write the character itself"],
+  [/\]:/, "has ]:, which can start a link reference definition: write links inline"],
+  [/^(?: {0,3}>)* {0,3}\[[^\]]*$/, "starts with [ and doesn't close it on the same line: keep a link's text on one line"],
+  [/\$/, "has a $ character: math isn't allowed; write the amount in words, such as 20 dollars"],
+  [/!\[/, "has an image (![): link to it instead"],
+  [/\]\([^)]*[ \t]["'(]/, "has a link title: write the link as [text](url) only"],
+  [/\]\([^)]*$/, "has a link that doesn't close on the same line: keep [text](url) on one line"],
+];
+const SPAN_RUNS = /`+/g;
+export const SPAN_MESSAGE = "has a code span that doesn't close on the same line: keep each `code` on one line";
 
 /** Reports hidden Markdown in one dossier Markdown file. */
 export function scanMarkdown(text, where, problems) {
   let fence = null;
   text.split(/\r\n|\r|\n/).forEach((line, n) => {
-    const inner = line.replace(CONTAINER, "");
-    const open = FENCE.exec(inner);
     if (fence) {
-      const close = CLOSE.exec(inner);
+      const close = CLOSE.exec(line);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) fence = null;
       return;
     }
+    const open = OPEN.exec(line);
     if (open) { fence = open[1]; return; }
-    if (REF_DEF.test(inner)) problems.error(`${where}:${n + 1}`, REF_MESSAGE);
-    if (TAG.test(line.includes("\\`") ? line : line.replace(SPAN, ""))) problems.error(`${where}:${n + 1}`, HTML_MESSAGE);
+    if (FENCE_LIKE.test(line)) {
+      problems.error(`${where}:${n + 1}`, FENCE_MESSAGE);
+      // The file fails either way; follow CommonMark's fence so the lines after it are read as it reads them.
+      const root = ROOT_OPEN.exec(line);
+      if (root) { fence = root[1]; return; }
+    }
+    for (const [rule, message] of MARKDOWN_RULES) if (rule.test(line)) problems.error(`${where}:${n + 1}`, message);
+    if ((line.match(SPAN_RUNS) ?? []).length % 2) problems.error(`${where}:${n + 1}`, SPAN_MESSAGE);
   });
 }
 

@@ -93,7 +93,7 @@ export function newDossier(root, opts) {
   for (const file of files) {
     let text = readFileSync(join(template, file), "utf8");
     const v = file.endsWith(".json") ? { ...values, title: quote(values.title), question: quote(values.question) } : values;
-    text = fill(text, v).replace(/^<!--[\s\S]*?-->\n\n/m, "");
+    text = fill(text, v).replace(/^<!--[\s\S]*?-->\n\n/gm, "");
     mkdirSync(dirname(join(dir, file)), { recursive: true });
     writeFileSync(join(dir, file), file === "dossier.json" ? `${JSON.stringify(JSON.parse(text), null, 2)}\n` : text);
   }
