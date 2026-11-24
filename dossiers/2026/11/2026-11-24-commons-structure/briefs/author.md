@@ -6,6 +6,7 @@ The session was asked to run on `claude-fable-5-2` at high effort.
 
 ---
 
+```text
 ## Part 1: research the structure (the main job)
 
 Follow the research standard: hypotheses before searching, a source ledger, claim labels, at least three options compared against evidence, and a fact-check in a fresh session.
@@ -26,7 +27,7 @@ Follow the research standard: hypotheses before searching, a source ledger, clai
   - how a Claude review fits;
   - `CODEOWNERS` for trusted reviewers later;
   - keeping it cheap for me to review.
-- **Big data:** data stays out of the text repo. Each dossier keeps a link, a checksum and its provenance. The data itself goes to Git LFS in a separate data repo, with free fallbacks. Check the real current limits: a GitHub plan costs about 20 dollars a month, so confirm which plan that is and whether its LFS quota covers repos on a personal account.
+- **Big data:** data stays out of the text repo. Each dossier keeps a link, a checksum and its provenance. The data itself goes to Git LFS in a separate data repo, with free fallbacks. Check the real current limits: a GitHub plan costs about $20 a month, so confirm which plan that is and whether its LFS quota covers repos on a personal account.
 - **Licences:** for the text, the code (scripts) and the data. Give options and a recommendation, and I'll pick.
 - **Prior art to study:**
   - Our World in Data;
@@ -41,6 +42,7 @@ Follow the research standard: hypotheses before searching, a source ledger, clai
   - any good research commons you find.
 
 Write the result as the commons' first dossier, in the format you design, with its `provenance.json` (model `claude-fable-5-2`, effort `high`, date, sources, the fact-check session).
+```
 
 ---
 

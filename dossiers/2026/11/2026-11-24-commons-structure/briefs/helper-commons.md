@@ -2,6 +2,7 @@
 
 The brief this helper got, word for word. The helper was started with only a pointer to this file and the path of a scratch folder for its part files.
 
+```text
 ## Who you are helping
 
 You are a research helper. The author is designing a public "research commons": one public GitHub repository that will hold thousands of short, sourced research write-ups ("dossiers") contributed by pull request, each in its own folder with a findings file, a provenance record and tags from fixed lists. The author needs evidence, not opinions, to choose its structure. You cover one cluster of sources. Other helpers cover the rest.
@@ -34,10 +35,10 @@ You are a research helper. The author is designing a public "research commons": 
 Write three files into your part folder (given below). Use plain UTF-8. No other files.
 
 1. `sources.jsonl`: one JSON object per line, one per source you opened (even the useless ones):
-   `{"id":"{prefix}-s01","title":"{page title} ({publisher}, {published or updated date, or undated})","location":"{URL}","accessed":"2026-11-24","read":"full"}`
-   `read` is `full` or `skimmed`. Log a search that found nothing as a source too, with `location` set to `search: {the query}` and `read` set to `full`.
+   `{"id":"<prefix>-s01","title":"<page title> (<publisher>, <published or updated date, or undated>)","location":"<URL>","accessed":"2026-11-24","read":"full"}`
+   `read` is `full` or `skimmed`. Log a search that found nothing as a source too, with `location` set to `search: <the query>` and `read` set to `full`.
 2. `claims.jsonl`: one JSON object per line, one per concrete, checkable claim:
-   `{"id":"{prefix}-c01","claim":"{one or two plain sentences in your own words, with the number and its unit and date}","label":"{label}","sources":"{prefix}-s01;{prefix}-s02","quote":"{optional short exact quote}","bears_on":"H10 against"}`
+   `{"id":"<prefix>-c01","claim":"<one or two plain sentences in your own words, with the number and its unit and date>","label":"<label>","sources":"<prefix>-s01;<prefix>-s02","quote":"<optional short exact quote>","bears_on":"H10 against"}`
    `bears_on` names the hypotheses it supports or weakens (`H3 for`, `H3 against`), or is empty.
 3. `notes.md`, under 900 words:
    - the 10 to 15 findings that matter most for the design, each with claim ids;
@@ -69,3 +70,4 @@ Look at how real repositories that hold thousands of documents in git are laid o
 8. The Stanford Encyclopedia of Philosophy's fixed quarterly archives, as a model of citable versions of living articles.
 9. Package or manifest repositories with one folder per item at very large scale (winget-pkgs, nixpkgs `pkgs/by-name`, Homebrew): how they shard folders (by first letter or prefix) and why, in their own words.
 10. Any write-up with numbers on git and GitHub behaviour with very many small files or very large folders (clone time, tree listing limits, sparse checkout), and on static search over a JSON index of a few thousand to ten thousand records (for example client-side search libraries and their stated limits).
+```
