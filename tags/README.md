@@ -17,9 +17,9 @@ List both. The first one is its main home, and the dossier shows up under each o
 
 ## Adding a value
 
-A new value needs its own small pull request. It changes one file in this folder and nothing else. CI turns down a pull request that adds a tag and a dossier together.
+A new value needs its own small pull request, which the maintainer makes: CI fails a change to this folder from anyone else, and turns down a pull request that adds a tag and a dossier together. To ask for one, open an issue.
 
-Before you open it, check:
+Before you ask, check:
 
 1. **No listed value fits.** Read the `means` line of the close ones. A near fit is a fit.
 2. **It will be used again.** Name three dossiers, written or planned, that would carry it. A value for one dossier is a title, not a tag.

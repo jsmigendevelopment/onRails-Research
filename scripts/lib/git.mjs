@@ -8,16 +8,27 @@ export function mergeBase(root, base) {
   catch { return null; }
 }
 
-/** Files that differ between a commit and the working tree, as [{ status: "A"|"M"|"D", path }]. Renames count as a delete and an add. */
+export const LINK_MODE = "120000";
+
+/**
+ * Files that differ between a commit and the working tree, as [{ status: "A"|"M"|"D", path, mode }].
+ * `mode` is the git mode after the change (120000 is a symbolic link). Renames count as a delete and an add.
+ */
 export function changedFiles(root, from) {
-  const tracked = git(["diff", "--name-status", "--no-renames", from], root);
+  const tracked = git(["diff", "--raw", "--no-renames", from], root);
   const untracked = git(["ls-files", "--others", "--exclude-standard"], root);
   const changes = tracked.split("\n").filter(Boolean).map((line) => {
-    const [status, ...rest] = line.split("\t");
-    return { status: status[0], path: rest.join("\t") };
+    const [meta, ...rest] = line.split("\t");
+    const [, mode, , , status] = meta.split(" ");
+    return { status: status[0], path: rest.join("\t"), mode };
   });
-  for (const path of untracked.split("\n").filter(Boolean)) changes.push({ status: "A", path });
+  for (const path of untracked.split("\n").filter(Boolean)) changes.push({ status: "A", path, mode: null });
   return changes;
+}
+
+/** Tracked files that git stores as symbolic links. */
+export function trackedLinks(root) {
+  return git(["ls-files", "--stage"], root).split("\n").filter((line) => line.startsWith(`${LINK_MODE} `)).map((line) => line.split("\t").slice(1).join("\t"));
 }
 
 /** A file's text at a commit, or null when it isn't there. */

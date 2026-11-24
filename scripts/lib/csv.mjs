@@ -1,5 +1,5 @@
 // A small RFC 4180 reader and writer. Adapted from onRails's check-research.mjs.
-import { readFileSync } from "node:fs";
+import { isFile, NOT_REGULAR, readText } from "./store.mjs";
 
 /** Rows of fields. Handles quoted fields, doubled quotes, and commas or newlines inside quotes. */
 export function parseCsv(text) {
@@ -29,7 +29,8 @@ export const csvLine = (values) => values.map((v) => csvField(String(v ?? ""))).
 
 /** Reads a CSV with an exact header. Returns the rows as objects with a line number, or null when the header is wrong. */
 export function readTable(path, columns, problems, label) {
-  const rows = parseCsv(readFileSync(path, "utf8"));
+  if (!isFile(path)) { problems.error(label, NOT_REGULAR); return null; }
+  const rows = parseCsv(readText(path));
   const header = rows[0] ?? [];
   if (header.join(",") !== columns.join(",")) {
     problems.error(label, `columns must be exactly: ${columns.join(",")}`);

@@ -60,8 +60,7 @@ The folder name is the dossier's **ID**. It is the date you start, plus a short 
 ## The rules CI enforces
 
 - **One dossier per pull request.** The only exception is marking an old dossier as superseded by your new one.
-- **A new tag value goes in its own pull request,** merged first. See [tags/README.md](tags/README.md) for when a new value is worth it.
-- **Scripts, schemas and workflows** change in their own pull request too.
+- **Only the maintainer changes `schemas/`, `scripts/`, `.github/`, `tags/` and `templates/`.** These are the checker, its rules and its inputs, so a change from anyone else fails. Need one, such as a new tag value? Open an issue that says what and why (see [tags/README.md](tags/README.md) for when a new value is worth it), and the maintainer makes it in its own pull request, merged before your dossier.
 - **Sizes:** a file up to 400 KB, a dossier up to 1 MB. Big data goes in a data repository, linked from `data.json` with a SHA-256 checksum.
 - **Allowed files:** `.md`, `.json`, `.csv`, `.tsv`, `.txt`, `.svg`, and small scripts (`.mjs`, `.js`, `.py`, `.sh`) for runs.
 - **Never:** secrets or keys, e-mail addresses, paths inside your home folder, hidden text (HTML comments, zero-width characters), or anyone's private details.

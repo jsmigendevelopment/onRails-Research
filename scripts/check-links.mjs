@@ -7,17 +7,17 @@
 //
 // A missing page (404, 410) or a host that does not exist fails. Sites that refuse robots (401, 403,
 // 429 and the like) and timeouts only warn: a person checks those by hand. Links inside the repo
-// must point at a file that exists.
+// must point at a file that exists inside the repo; one that climbs out of it fails without being looked up.
 //
 // Only sources that a claim cites are checked: sources.csv also logs failed attempts on purpose.
 // Skipped too: a source whose title marks a failed attempt (NOT FOUND:, BLOCKED:, HTTP 404), and a
 // source named by a later row whose location is "gone: <id>".
-import { existsSync, readFileSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
+import { existsSync, lstatSync } from "node:fs";
+import { dirname, join, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readTable } from "./lib/csv.mjs";
 import { changedFiles, mergeBase } from "./lib/git.mjs";
-import { collector, idOfPath, listDossiers, walk } from "./lib/store.mjs";
+import { collector, idOfPath, listDossiers, readText, walk } from "./lib/store.mjs";
 
 const TIMEOUT = 15000, WORKERS = 6;
 const AGENT = "onrails-research-link-check/1 (+https://github.com/jsmigendevelopment/onRails-Research)";
@@ -44,7 +44,7 @@ export function linksOf(dir, id, problems) {
     }
   }
   for (const file of walk(dir).filter((f) => f.endsWith(".md"))) {
-    readFileSync(join(dir, file), "utf8").split(/\r?\n/).forEach((line, n) => {
+    readText(join(dir, file)).split(/\r?\n/).forEach((line, n) => {
       for (const [, target] of line.matchAll(MD_LINK)) {
         const where = `${id}/${file}:${n + 1}`;
         if (/^https?:\/\//.test(target)) links.push({ url: target, where });
@@ -70,9 +70,15 @@ async function probe(url) {
   return { error: "no answer" };
 }
 
-/** Checks every link. Web links are de-duplicated and checked a few at a time. */
-export async function checkLinks(links, problems) {
-  for (const link of links.filter((l) => l.path)) if (!existsSync(link.path)) problems.error(link.where, `links ${link.target}, which is not in the repo`);
+/** True when a path, once `..` is resolved, is the repo root or inside it. */
+export const insideRoot = (root, path) => { const at = resolve(path), top = resolve(root); return at === top || at.startsWith(top + sep); };
+
+/** Checks every link. Repo links must stay under `root`; web links are de-duplicated and checked a few at a time. */
+export async function checkLinks(links, problems, root) {
+  for (const link of links.filter((l) => l.path)) {
+    if (!insideRoot(root, link.path)) problems.error(link.where, `links ${link.target}, which is outside the repo`);
+    else if (!lstatSync(link.path, { throwIfNoEntry: false })) problems.error(link.where, `links ${link.target}, which is not in the repo`);
+  }
   const byUrl = new Map();
   for (const link of links.filter((l) => l.url)) byUrl.set(link.url, [...(byUrl.get(link.url) ?? []), link.where]);
   const queue = [...byUrl.keys()];
@@ -104,7 +110,7 @@ async function main(argv) {
     picked = all.filter((d) => ids.has(d.id));
   } else picked = all.filter((d) => args.some((a) => resolve(a) === d.dir));
   const links = picked.flatMap((d) => linksOf(d.dir, d.id, problems));
-  const urls = await checkLinks(links, problems);
+  const urls = await checkLinks(links, problems, root);
   for (const e of problems.errors) console.error(`error: ${e}`);
   for (const w of problems.warnings) console.log(`warn:  ${w}`);
   console.log(`links: ${picked.length} dossiers, ${urls} web links, ${problems.errors.length} broken, ${problems.warnings.length} to check by hand`);

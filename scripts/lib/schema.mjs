@@ -2,7 +2,8 @@
 // type, const, enum, pattern, minLength, maxLength, minItems, maxItems, uniqueItems, required,
 // properties, additionalProperties: false, items and local $ref. No dependencies.
 import { readFileSync } from "node:fs";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const typeOf = (v) => (v === null ? "null" : Array.isArray(v) ? "array" : Number.isInteger(v) ? "integer" : typeof v);
 
@@ -51,9 +52,14 @@ export function validate(v, s, where, report, root = s) {
 
 const cache = new Map();
 
-/** Loads schemas/<name>.schema.json from the repo root. */
-export function loadSchema(root, name) {
-  const path = join(root, "schemas", `${name}.schema.json`);
+// The schemas next to this checker, never the ones in the folder being checked. The trusted check runs
+// main's checker on a pull request's files, so the pull request can't loosen the rules it is held to
+// (or hand `new RegExp` a pattern of its own).
+export const SCHEMAS = join(dirname(fileURLToPath(import.meta.url)), "../../schemas");
+
+/** Loads schemas/<name>.schema.json from the checker's own checkout. */
+export function loadSchema(name) {
+  const path = join(SCHEMAS, `${name}.schema.json`);
   if (!cache.has(path)) cache.set(path, JSON.parse(readFileSync(path, "utf8")));
   return cache.get(path);
 }

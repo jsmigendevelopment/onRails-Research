@@ -13,7 +13,7 @@ export function loadTags(root, problems) {
     if (!existsSync(join(root, label))) { problems.error(label, "missing: every facet has a fixed list"); continue; }
     const list = readJson(join(root, label), problems, label);
     if (!list) continue;
-    validate(list, loadSchema(root, "tags"), label, problems.error);
+    validate(list, loadSchema("tags"), label, problems.error);
     if (list.facet !== facet) problems.error(label, `facet must be "${facet}"`);
     for (const value of list.values ?? []) {
       if (lists[facet].has(value.id)) problems.error(label, `"${value.id}" is listed twice`);

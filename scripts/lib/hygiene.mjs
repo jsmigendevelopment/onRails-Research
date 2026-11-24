@@ -20,26 +20,30 @@ const SECRETS = [
   ["a JSON web token", /\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{6,}/],
 ];
 
+export const PRIVATE_TERM = "has a private term";
+
 /** The private terms to refuse, from the PRIVATE_TERMS variable: one per line or comma. Never printed. */
 export function privateTerms(env = process.env) {
   return (env.PRIVATE_TERMS ?? "").split(/[\n,]/).map((t) => t.trim().toLowerCase()).filter((t) => t.length >= 3);
 }
 
-function scanLine(line, terms) {
+function scanLine(line) {
   const found = [];
   for (const [name, pattern] of SECRETS) if (pattern.test(line)) found.push(`looks like ${name}: remove it, and revoke it if it is real`);
   if (line.includes("@") && line.length <= 20000)
     for (const match of line.match(EMAIL) ?? []) if (!SAFE_EMAIL.test(match)) found.push("has an e-mail address: remove it, or use an example.com address");
   for (const match of line.matchAll(HOME_PATH)) if (!SAFE_HOME.test(match[1])) found.push("has a path inside someone's home folder: write ~ or <home> instead");
-  const lower = line.toLowerCase();
-  terms.forEach((term, n) => { if (lower.includes(term)) found.push(`has private term #${n + 1} from the maintainer's list: remove it`); });
   return found;
 }
 
 /** Scans one text file. `hiddenText` also refuses invisible characters and HTML comments (for dossier files). */
 export function scanText(text, where, { terms = [], hiddenText = false } = {}, problems) {
+  // Once per file, with no line number and no term: the log of a fork's run is public, and a line or
+  // an index would tell a stranger which of their guesses is on the list.
+  const lower = text.toLowerCase();
+  if (terms.some((term) => lower.includes(term))) problems.error(where, PRIVATE_TERM);
   text.split(/\r?\n/).forEach((line, n) => {
-    for (const message of new Set(scanLine(line, terms))) problems.error(`${where}:${n + 1}`, message);
+    for (const message of new Set(scanLine(line))) problems.error(`${where}:${n + 1}`, message);
     if (!hiddenText) return;
     if (HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (zero-width or text-direction control): remove it");
     if (where.endsWith(".md") && line.includes("<!--")) problems.error(`${where}:${n + 1}`, "has an HTML comment: readers can't see it, so it isn't allowed in a dossier");

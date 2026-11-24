@@ -1,8 +1,8 @@
 // What one pull request may change, and what may never change once it is on main.
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { lstatSync } from "node:fs";
 import { join } from "node:path";
 import { fileAt } from "./git.mjs";
-import { CARD, idOfPath, walk } from "./store.mjs";
+import { CARD, idOfPath, isFile, NOT_REGULAR, readText, walk } from "./store.mjs";
 
 export const MAX_FILE = 400 * 1024;
 export const MAX_DOSSIER = 1024 * 1024;
@@ -12,6 +12,9 @@ const GROWS = /(^|\/)(sources|claims|fact-check)\.csv$/;
 const FROZEN = /(^|\/)(runs|briefs)\//;
 const CORE = ["README.md", CARD, "provenance.json", "sources.csv", "claims.csv"];
 const LIFECYCLE = ["status", "superseded_by", "recheck", "history"];
+// The checker, its rules and its inputs. The trusted check runs main's copy on a pull request's files,
+// so a change here from anyone but the maintainer could loosen the rules that judge it.
+export const PROTECTED = ["schemas/", "scripts/", ".github/", "tags/", "templates/"];
 const kb = (n) => `${Math.ceil(n / 1024)} KB`;
 
 /** Sorts changed paths into dossiers (by id), tag lists and everything else. */
@@ -41,8 +44,8 @@ function onlySuperseded(root, base, id, changes, byId) {
   const card = changes.find((c) => c.path.endsWith(`/${id}/${CARD}`));
   const readme = changes.find((c) => c.path.endsWith(`/${id}/README.md`));
   if (!card || card.status !== "M" || changes.some((c) => c !== card && c !== readme)) return false;
-  if (readme && (readme.status !== "M" || !onlyAdded(fileAt(root, base, readme.path) ?? "", readFileSync(join(root, readme.path), "utf8")))) return false;
-  const before = parse(fileAt(root, base, card.path) ?? ""), after = parse(readFileSync(join(root, card.path), "utf8"));
+  if (readme && (readme.status !== "M" || !onlyAdded(fileAt(root, base, readme.path) ?? "", readText(join(root, readme.path))))) return false;
+  const before = parse(fileAt(root, base, card.path) ?? ""), after = parse(readText(join(root, card.path)));
   if (!before || !after || after.superseded_by !== byId) return false;
   const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
   return [...keys].every((key) => LIFECYCLE.includes(key) || JSON.stringify(before[key]) === JSON.stringify(after[key]));
@@ -64,13 +67,20 @@ function checkMix(sorted, maintainer, problems) {
     problems.error("pull request", `changes ${sorted.other[0].path}${sorted.other.length > 1 ? ` and ${sorted.other.length - 1} more` : ""} next to a dossier or a tag list. Changes to scripts, workflows and docs go in their own pull request`);
 }
 
+function checkProtected(changes, maintainer, problems) {
+  if (maintainer) return;
+  for (const change of changes)
+    if (PROTECTED.some((dir) => change.path.startsWith(dir)))
+      problems.error(change.path, `only a maintainer may change ${PROTECTED.join(", ")}. Open an issue that says what should change, and a maintainer will make it`);
+}
+
 function checkFrozen(root, base, change, problems) {
   const existed = fileAt(root, base, change.path);
   if (existed === null) return;
   if (FROZEN.test(change.path)) return problems.error(change.path, "changed or deleted, but run folders and briefs never change once merged. Add a new run folder or a new brief file");
   if (!GROWS.test(change.path)) return;
   if (change.status === "D") return problems.error(change.path, "deleted, but it is append-only");
-  const before = existed.replace(/\r\n/g, "\n"), after = readFileSync(join(root, change.path), "utf8").replace(/\r\n/g, "\n");
+  const before = existed.replace(/\r\n/g, "\n"), after = readText(join(root, change.path)).replace(/\r\n/g, "\n");
   if (!after.startsWith(before)) problems.error(change.path, "changed, but it is append-only: add rows at the end. A wrong row gets a new row that corrects it");
 }
 
@@ -82,15 +92,18 @@ function checkExisting(root, base, id, changes, problems) {
     if (change.status === "D" && CORE.some((f) => change.path.endsWith(`/${id}/${f}`))) problems.error(change.path, "deleted, but a dossier is never removed. Retract it instead: status \"retracted\" with a reason");
     checkFrozen(root, base, change, problems);
   }
-  const after = existsSync(join(root, cardPath)) ? parse(readFileSync(join(root, cardPath), "utf8")) : null;
+  const after = isFile(join(root, cardPath)) ? parse(readText(join(root, cardPath))) : null;
   if (after && (after.history?.length ?? 0) <= (before.history?.length ?? 0)) problems.error(`${id}/${CARD}`, "this pull request changes a merged dossier, so add a history entry that says what changed and why");
 }
 
 /** Size and file-type limits for one dossier folder. */
 export function checkFiles(dir, id, problems) {
   let total = 0;
-  for (const rel of walk(dir)) {
-    const size = statSync(join(dir, rel)).size;
+  const others = [];
+  const files = walk(dir, others);
+  for (const rel of others) problems.error(`${id}/${rel}`, NOT_REGULAR);
+  for (const rel of files) {
+    const size = lstatSync(join(dir, rel)).size;
     total += size;
     if (!ALLOWED.some((ext) => rel.toLowerCase().endsWith(ext))) problems.error(`${id}/${rel}`, `this file type is not allowed in a dossier (allowed: ${ALLOWED.join(" ")}). Big or binary data goes in data.json as a link`);
     if (size > MAX_FILE) problems.error(`${id}/${rel}`, `is ${kb(size)}. One file may be ${kb(MAX_FILE)} at most. Move big data out and link it in data.json`);
@@ -104,6 +117,7 @@ export function checkScope(root, base, changes, { maintainer = false } = {}, pro
   const sorted = classify(changes);
   checkOneDossier(root, base, sorted.dossiers, problems);
   checkMix(sorted, maintainer, problems);
+  checkProtected(changes, maintainer, problems);
   for (const [id, list] of sorted.dossiers) checkExisting(root, base, id, list, problems);
   return [...sorted.dossiers.keys()];
 }

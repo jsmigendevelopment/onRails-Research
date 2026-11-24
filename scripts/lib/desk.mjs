@@ -1,11 +1,11 @@
 // A dossier's stores: sources, claims, measurement runs, data links and the write-up itself.
 // The desk and measurement checks are adapted from onRails's check-research.mjs.
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { readTable } from "./csv.mjs";
 import { validDate } from "./dates.mjs";
 import { loadSchema, validate } from "./schema.mjs";
-import { readJson, walk } from "./store.mjs";
+import { isDir, readJson, readText, walk } from "./store.mjs";
 
 export const LABELS = ["measured", "read-in-source", "vendor-claim", "anecdote", "summary-only"];
 export const SOURCE_COLUMNS = ["id", "title", "location", "accessed", "read"];
@@ -85,16 +85,16 @@ function checkRun(runsDir, run, where, problems) {
 
 function checkMeasurements(dir, id, problems) {
   const runsDir = join(dir, "runs");
-  const runs = existsSync(runsDir) ? readdirSync(runsDir).filter((n) => statSync(join(runsDir, n)).isDirectory()) : [];
+  const runs = isDir(runsDir) ? readdirSync(runsDir).filter((n) => isDir(join(runsDir, n))) : [];
   if (!runs.length) return problems.error(id, "the measurements store has no run folder in runs/");
   for (const run of runs) checkRun(runsDir, run, `${id}/runs/${run}`, problems);
 }
 
-function checkData(root, dir, id, problems) {
+function checkData(dir, id, problems) {
   const where = `${id}/data.json`;
   const data = readJson(join(dir, "data.json"), problems, where);
   if (!data) return;
-  validate(data, loadSchema(root, "data"), where, problems.error);
+  validate(data, loadSchema("data"), where, problems.error);
   const names = new Set();
   for (const resource of data.resources ?? []) {
     if (names.has(resource.name)) problems.error(where, `resource "${resource.name}" is listed twice`);
@@ -106,7 +106,7 @@ function checkData(root, dir, id, problems) {
 function checkWriteUp(dir, id, card, problems) {
   const where = `${id}/README.md`;
   if (!existsSync(join(dir, "README.md"))) return problems.error(where, "missing: the findings go in README.md");
-  const text = readFileSync(join(dir, "README.md"), "utf8");
+  const text = readText(join(dir, "README.md"));
   const lines = new Set(text.split(/\r?\n/).map((l) => l.trim()));
   if (!/^# \S/.test(text)) problems.error(where, "must start with a title: # <title>");
   for (const heading of [...HEADINGS, ...(KIND_RULES[card?.tags?.kind]?.headings ?? [])])
@@ -119,14 +119,14 @@ function checkWriteUp(dir, id, card, problems) {
 
 function checkBlanks(dir, id, problems) {
   for (const rel of walk(dir).filter((f) => /\.(md|json|csv)$/.test(f))) {
-    const lines = readFileSync(join(dir, rel), "utf8").split(/\r?\n/);
+    const lines = readText(join(dir, rel)).split(/\r?\n/);
     const n = lines.findIndex((line) => FILL.test(line));
     if (n >= 0) problems.error(`${id}/${rel}:${n + 1}`, "still has a [[fill: ...]] blank from the template");
   }
 }
 
 /** Checks everything in a dossier folder except the card and the provenance record. */
-export function checkStores(root, dir, id, card, record, problems) {
+export function checkStores(dir, id, card, record, problems) {
   const kind = KIND_RULES[card?.tags?.kind] ?? { files: [] };
   const needed = ["hypotheses.md", "sources.csv", "claims.csv", ...kind.files];
   const missing = needed.filter((f) => !existsSync(join(dir, f)));
@@ -135,7 +135,7 @@ export function checkStores(root, dir, id, card, record, problems) {
   const stores = record?.stores ?? [];
   for (const store of kind.stores ?? []) if (!stores.includes(store)) problems.error(`${id}/provenance.json`, `a ${card.tags.kind} dossier needs the "${store}" store`);
   if (stores.includes("measurements")) checkMeasurements(dir, id, problems);
-  if (existsSync(join(dir, "data.json"))) checkData(root, dir, id, problems);
+  if (existsSync(join(dir, "data.json"))) checkData(dir, id, problems);
   checkWriteUp(dir, id, card, problems);
   checkBlanks(dir, id, problems);
 }

@@ -1,5 +1,5 @@
 // Where things live in the commons, and how to read them.
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { closeSync, constants, fstatSync, lstatSync, openSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 export const STORE = "dossiers";
@@ -19,7 +19,24 @@ export function idOfPath(path) {
   return parts[0] === STORE && parts.length >= 5 && ID.test(parts[3]) ? parts[3] : null;
 }
 
-const folders = (dir) => (existsSync(dir) ? readdirSync(dir).filter((n) => statSync(join(dir, n)).isDirectory()).sort() : []);
+// Pull request files are untrusted, so a symbolic link is never followed: lstat, and open with O_NOFOLLOW.
+const entry = (path) => lstatSync(path, { throwIfNoEntry: false });
+/** True for a regular file (not a link, a folder, a device or a pipe). */
+export const isFile = (path) => entry(path)?.isFile() ?? false;
+/** True for a real folder (not a link to one). */
+export const isDir = (path) => entry(path)?.isDirectory() ?? false;
+export const NOT_REGULAR = "is a symbolic link or a special file, not a regular file. Commit the file itself";
+
+/** Reads a regular file as text. Throws, naming only the path, for a link or anything that isn't a regular file. */
+export function readText(path) {
+  const fd = openSync(path, constants.O_RDONLY | (constants.O_NOFOLLOW ?? 0) | (constants.O_NONBLOCK ?? 0));
+  try {
+    if (!fstatSync(fd).isFile()) throw new Error(`${path} ${NOT_REGULAR}`);
+    return readFileSync(fd, "utf8");
+  } finally { closeSync(fd); }
+}
+
+const folders = (dir) => (isDir(dir) ? readdirSync(dir).filter((n) => isDir(join(dir, n))).sort() : []);
 
 /** Every dossier folder under the root, as [{ id, rel, dir }], oldest first. */
 export function listDossiers(root) {
@@ -33,8 +50,10 @@ export function listDossiers(root) {
 
 /** Parses a JSON file. Reports and returns null when it can't. */
 export function readJson(path, problems, label) {
-  try { return JSON.parse(readFileSync(path, "utf8")); }
-  catch (err) { problems.error(label, `not valid JSON (${err.message})`); return null; }
+  if (!isFile(path)) { problems.error(label, NOT_REGULAR); return null; }
+  // The parser's message quotes the file's text, so it is left out.
+  try { return JSON.parse(readText(path)); }
+  catch { problems.error(label, "not valid JSON: check it with a JSON validator"); return null; }
 }
 
 /** A problem collector: { errors, warnings, error(where, msg), warn(where, msg) }. */
@@ -47,13 +66,15 @@ export function collector() {
   };
 }
 
-/** Every file under a folder, as paths relative to it. */
-export function walk(dir, prefix = "") {
+/** Every regular file under a folder, as paths relative to it. Links and special files go in `others`, never followed. */
+export function walk(dir, others = [], prefix = "") {
   const out = [];
   for (const name of readdirSync(dir).sort()) {
     const rel = prefix ? `${prefix}/${name}` : name;
-    if (statSync(join(dir, name)).isDirectory()) out.push(...walk(join(dir, name), rel));
-    else out.push(rel);
+    const stat = lstatSync(join(dir, name));
+    if (stat.isDirectory()) out.push(...walk(join(dir, name), others, rel));
+    else if (stat.isFile()) out.push(rel);
+    else others.push(rel);
   }
   return out;
 }

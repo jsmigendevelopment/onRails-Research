@@ -60,12 +60,12 @@ export function trustOf(record) {
 }
 
 /** Checks one dossier's provenance.json. Returns the record, or null. */
-export function checkProvenance(root, dir, id, problems) {
+export function checkProvenance(dir, id, problems) {
   const where = `${id}/provenance.json`;
   if (!existsSync(join(dir, "provenance.json"))) { problems.error(where, "missing: every dossier needs one"); return null; }
   const record = readJson(join(dir, "provenance.json"), problems, where);
   if (!record) return null;
-  validate(record, loadSchema(root, "provenance"), where, problems.error);
+  validate(record, loadSchema("provenance"), where, problems.error);
   const roles = Array.isArray(record.roles) ? record.roles : [];
   roles.forEach((entry, n) => checkRole(entry, n, dir, where, problems));
   const author = roles.find((r) => r.role === "author");

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, readFileSync, rmSync, writeFileSync, appendFileSync } from "node:fs";
+import { appendFileSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 import { check } from "../check.mjs";
@@ -163,7 +163,7 @@ test("the id is the folder name and starts with the created date", () => {
 
 test("secrets, e-mail addresses, home paths, hidden text and private terms are refused", () => {
   const root = makeCommons();
-  const { dir } = addDossier(root);
+  const { dir, rel } = addDossier(root);
   appendFileSync(join(dir, "README.md"), [
     "Key: ghp_" + "a".repeat(36),
     `Mail someone${"@"}realmail.org`,
@@ -174,9 +174,12 @@ test("secrets, e-mail addresses, home paths, hidden text and private terms are r
   ].join("\n") + "\n");
   const result = check({ root, all: true, today: TODAY });
   for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "HTML comment"]) assert.ok(has(result, text), text);
-  process.env.PRIVATE_TERMS = "project zebra";
-  try { assert.ok(has(check({ root, all: true, today: TODAY }), "private term #1")); }
-  finally { delete process.env.PRIVATE_TERMS; }
+  process.env.PRIVATE_TERMS = "other thing, project zebra";
+  try {
+    const terms = check({ root, all: true, today: TODAY }).errors.filter((e) => e.includes("private term"));
+    // Once per file, with no line number and no term index: a fork's public log must not say which guess matched.
+    assert.deepEqual(terms, [`${rel}/README.md: has a private term`]);
+  } finally { delete process.env.PRIVATE_TERMS; }
 });
 
 test("an image name like icon@2x.png is not an e-mail address", () => {
@@ -234,4 +237,82 @@ test("the link check skips uncited sources, logged failures and sources marked g
   writeFileSync(join(dir, "claims.csv"), "id,claim,label,sources,date\nc1,A claim.,read-in-source,s1;s3;s4,2026-11-24\n");
   const urls = linksOf(dir, id, collector()).filter((l) => l.url).map((l) => l.url);
   assert.deepEqual(urls, ["https://example.com/a"]);
+});
+
+test("the schemas come from the checker, not from the folder it checks", () => {
+  const root = makeCommons();
+  const { dir } = addDossier(root);
+  writeFileSync(join(root, "schemas/dossier.schema.json"), "{}\n");
+  editJson(join(dir, "dossier.json"), (c) => { delete c.title; });
+  assert.ok(has(all(root), 'is missing "title"'));
+});
+
+test("only the maintainer may change schemas, scripts, workflows, tag lists and templates", () => {
+  const root = makeCommons();
+  branch(root);
+  for (const path of ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md"]) {
+    mkdirSync(join(root, path, ".."), { recursive: true });
+    writeFileSync(join(root, path), "{}\n");
+  }
+  writeFileSync(join(root, "notes.md"), "A docs change.\n");
+  const result = pr(root);
+  for (const path of ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md"])
+    assert.ok(has(result, `${path}: only a maintainer may change`), path);
+  assert.ok(!has(result, "notes.md: only a maintainer"));
+  assert.ok(!has(pr(root, { maintainer: true }), "only a maintainer may change"));
+});
+
+test("a symbolic link in a pull request is refused before anything is read", () => {
+  const root = makeCommons();
+  const { dir, rel } = addDossier(root);
+  commit(root, "add");
+  branch(root);
+  symlinkSync("/etc/hostname", join(dir, "notes.md"));
+  rmSync(join(dir, "hypotheses.md"));
+  symlinkSync("/dev/zero", join(dir, "hypotheses.md"));
+  commit(root, "links");
+  const result = pr(root);
+  assert.deepEqual(result.errors.sort(), [`${rel}/hypotheses.md: is a symbolic link or a special file, not a regular file. Commit the file itself`, `${rel}/notes.md: is a symbolic link or a special file, not a regular file. Commit the file itself`]);
+  assert.equal(result.checked, 0);
+  assert.ok(has(all(root), "hypotheses.md: is a symbolic link"));
+});
+
+test("a link that is not committed yet, and a dossier.json that points elsewhere, are refused too", async () => {
+  const { checkFiles } = await import("../lib/scope.mjs");
+  const { collector, readJson } = await import("../lib/store.mjs");
+  const root = makeCommons();
+  const { dir, id } = addDossier(root);
+  symlinkSync("/etc/passwd", join(dir, "extra.md"));
+  assert.ok(has(all(root), "extra.md: is a symbolic link"));
+  const problems = collector();
+  checkFiles(dir, id, problems);
+  assert.ok(has(problems, `${id}/extra.md: is a symbolic link`));
+  rmSync(join(dir, "extra.md"));
+  rmSync(join(dir, "dossier.json"));
+  symlinkSync("/etc/hostname", join(dir, "dossier.json"));
+  const card = collector();
+  assert.equal(readJson(join(dir, "dossier.json"), card, "card"), null);
+  assert.deepEqual(card.errors, ["card: is a symbolic link or a special file, not a regular file. Commit the file itself"]);
+});
+
+test("a JSON error does not quote the file", () => {
+  const root = makeCommons();
+  const { dir, id } = addDossier(root);
+  writeFileSync(join(dir, "dossier.json"), '{"title": SECRET-TEXT-HERE');
+  const errors = all(root).errors.filter((e) => e.startsWith(`${id}/dossier.json`));
+  assert.deepEqual(errors, [`${id}/dossier.json: not valid JSON: check it with a JSON validator`]);
+});
+
+test("the link check never looks outside the repo", async () => {
+  const { checkLinks, linksOf } = await import("../check-links.mjs");
+  const { collector } = await import("../lib/store.mjs");
+  const root = makeCommons();
+  const { dir, id } = addDossier(root);
+  writeFileSync(join(dir, "sources.csv"), "id,title,location,accessed,read\n");
+  appendFileSync(join(dir, "README.md"), "See [the host](../../../../../../../../etc/hostname), [the card](dossier.json) and [a gap](missing.md).\n");
+  const problems = collector();
+  await checkLinks(linksOf(dir, id, problems), problems, root);
+  assert.ok(has(problems, "links ../../../../../../../../etc/hostname, which is outside the repo"), problems.errors.join("\n"));
+  assert.ok(has(problems, "links missing.md, which is not in the repo"));
+  assert.ok(!has(problems, "dossier.json"));
 });

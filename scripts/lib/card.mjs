@@ -49,8 +49,8 @@ function checkLifecycle(card, where, problems) {
 }
 
 /** Checks one card. `folder` is the folder name it sits in. */
-export function checkCard(card, { root, folder, where, lists, today }, problems) {
-  validate(card, loadSchema(root, "dossier"), where, problems.error);
+export function checkCard(card, { folder, where, lists, today }, problems) {
+  validate(card, loadSchema("dossier"), where, problems.error);
   if (card.id !== folder) problems.error(where, `id must be the folder name, "${folder}"`);
   if (typeof card.id === "string" && ID.test(card.id) && card.created !== card.id.slice(0, 10)) problems.error(where, `created must be ${card.id.slice(0, 10)}, the date in the id`);
   checkDates(card, where, today, problems);
