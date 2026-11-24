@@ -73,12 +73,7 @@ function tagPages(entries, lists, link, out) {
       const merged = [...lists[facet].values()].filter((t) => t.use_instead === value).map((t) => `\`${t.id}\``);
       const head = `# ${tag.label}\n\n${tag.means}\n\n${pick.length} dossier${pick.length === 1 ? "" : "s"} tagged \`${facet}: ${value}\`${merged.length ? ` (also ${merged.join(", ")}, now merged into it)` : ""}.${tag.retired ? ` This value was retired on ${tag.retired}.` : ""} [All tags](../README.md)\n\n`;
       const file = `${facet}/${value}.md`;
-      if (pick.length <= PAGE_ROWS) writePage(out, file, head + table(pick, (e) => link(e, 1)));
-      else {
-        const years = [...new Set(pick.map((e) => e.created.slice(0, 4)))];
-        writePage(out, file, head + years.map((y) => `- [${y}](${value}/${y}.md): ${pick.filter((e) => e.created.startsWith(y)).length} dossiers`).join("\n") + "\n");
-        for (const y of years) writePage(out, `${facet}/${value}/${y}.md`, `# ${tag.label}: ${y}\n\n[All years](../${value}.md)\n\n` + table(pick.filter((e) => e.created.startsWith(y)), (e) => link(e, 2)));
-      }
+      writeList(out, file, tag.label, head, pick, link);
       pages.push({ facet, value, label: tag.label, count: pick.length, file, retired: Boolean(tag.retired) });
     }
   }
@@ -102,6 +97,16 @@ function front(entries, pages, link, today) {
   ].join("\n");
 }
 
+/** A page with a table of entries; past PAGE_ROWS rows, a list of years, each year on its own page. */
+function writeList(out, file, label, head, entries, link) {
+  const depth = file.split("/").length - 1;
+  if (entries.length <= PAGE_ROWS) return writePage(out, file, head + table(entries, (e) => link(e, depth)));
+  const base = file.replace(/\.md$/, ""), name = base.split("/").pop();
+  const years = [...new Set(entries.map((e) => e.created.slice(0, 4)))];
+  writePage(out, file, head + years.map((y) => `- [${y}](${name}/${y}.md): ${entries.filter((e) => e.created.startsWith(y)).length} dossiers`).join("\n") + "\n");
+  for (const y of years) writePage(out, `${base}/${y}.md`, `# ${label}: ${y}\n\n[All years](../${name}.md)\n\n` + table(entries.filter((e) => e.created.startsWith(y)), (e) => link(e, depth + 1)));
+}
+
 function writePage(out, file, text) {
   mkdirSync(dirname(join(out, file)), { recursive: true });
   writeFileSync(join(out, file), text.endsWith("\n") ? text : `${text}\n`);
@@ -120,9 +125,10 @@ export function buildIndex({ root, out, repo, branch = "main", today = now() }) 
   const pages = tagPages(entries, lists, link, out);
   writePage(out, "README.md", front(entries, pages, link, today));
   const stale = entries.filter((e) => e.freshness === "stale" || e.freshness === "due-soon");
-  writePage(out, "stale.md", `# Stale and due soon\n\nDossiers whose re-check date has passed, or comes within ${SOON_DAYS} days. A stale dossier may still be right: it just hasn't been checked lately. To re-check one, follow CONTRIBUTING.md. [Back](README.md)\n\n${table(stale, (e) => link(e, 0))}`);
+  for (const dir of ["stale", "changes"]) rmSync(join(out, dir), { recursive: true, force: true });
+  writeList(out, "stale.md", "Stale and due soon", `# Stale and due soon\n\nDossiers whose re-check date has passed, or comes within ${SOON_DAYS} days. A stale dossier may still be right: it just hasn't been checked lately. To re-check one, follow CONTRIBUTING.md. [Back](README.md)\n\n`, stale, link);
   const changes = entries.filter((e) => e.status !== "current");
-  writePage(out, "changes.md", `# Superseded and retracted\n\nThese stay in the commons so old links keep working. Read the newer dossier instead. [Back](README.md)\n\n${table(changes, (e) => link(e, 0))}`);
+  writeList(out, "changes.md", "Superseded and retracted", "# Superseded and retracted\n\nThese stay in the commons so old links keep working. Read the newer dossier instead. [Back](README.md)\n\n", changes, link);
   writeFileSync(join(out, "index.json"), `${JSON.stringify({ schema: "research-index/1", built: today, repo: repo ?? null, branch, count: entries.length, dossiers: entries }, null, 1)}\n`);
   return { entries, pages };
 }

@@ -54,6 +54,8 @@ test(`a tag page past ${PAGE_ROWS} rows is split by year`, () => {
   buildIndex({ root, out: dest, today: TODAY });
   assert.match(readFileSync(join(dest, "topic/knowledge.md"), "utf8"), /\[2026\]\(knowledge\/2026\.md\)/);
   assert.ok(existsSync(join(dest, "topic/knowledge/2025.md")));
+  assert.match(readFileSync(join(dest, "stale.md"), "utf8"), /\[2025\]\(stale\/2025\.md\)/);
+  assert.match(readFileSync(join(dest, "stale/2025.md"), "utf8"), /\.\.\/\.\.\/dossiers\/2025\//);
 });
 
 test("slugs are short, lower case and stable", () => {
