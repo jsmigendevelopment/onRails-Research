@@ -2,8 +2,8 @@
 
 Options down the side, the questions from the brief across the top. Each cell names claim IDs from [claims.csv](claims.csv) that bear on it, for or against, or says `gap`. The dossier says which way each claim points.
 
-- **A. Topic folders:** the folder a dossier sits in is its category (`dossiers/apps/testing/<slug>/`), and the README lists the folders.
-- **B. ID-sharded store, card, fixed tags, generated index:** every dossier sits under its creation month (`dossiers/YYYY/MM/<id>/`), carries its tags in `dossier.json` from fixed lists, and an index built after merge groups it by every tag.
+- **A. Topic folders:** the folder a dossier sits in is its category (`dossiers/apps/testing/{slug}/`), and the README lists the folders.
+- **B. ID-sharded store, card, fixed tags, generated index:** every dossier sits under its creation month (`dossiers/YYYY/MM/{id}/`), carries its tags in `dossier.json` from fixed lists, and an index built after merge groups it by every tag.
 - **C. One shared catalogue:** one big list file (an awesome-list README or one YAML registry) that every pull request edits, with free-form tags.
 
 | Option | Grouping and two-domain fit | Identity and renames | Change, superseding, retraction | Freshness | Scale (index, folders, CI) | Contributions and review cost | Prior art that does it |

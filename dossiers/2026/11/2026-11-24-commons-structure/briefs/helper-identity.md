@@ -34,10 +34,10 @@ You are a research helper. The author is designing a public "research commons": 
 Write three files into your part folder (given below). Use plain UTF-8. No other files.
 
 1. `sources.jsonl`: one JSON object per line, one per source you opened (even the useless ones):
-   `{"id":"<prefix>-s01","title":"<page title> (<publisher>, <published or updated date, or undated>)","location":"<URL>","accessed":"2026-11-24","read":"full"}`
-   `read` is `full` or `skimmed`. Log a search that found nothing as a source too, with `location` set to `search: <the query>` and `read` set to `full`.
+   `{"id":"{prefix}-s01","title":"{page title} ({publisher}, {published or updated date, or undated})","location":"{URL}","accessed":"2026-11-24","read":"full"}`
+   `read` is `full` or `skimmed`. Log a search that found nothing as a source too, with `location` set to `search: {the query}` and `read` set to `full`.
 2. `claims.jsonl`: one JSON object per line, one per concrete, checkable claim:
-   `{"id":"<prefix>-c01","claim":"<one or two plain sentences in your own words, with the number and its unit and date>","label":"<label>","sources":"<prefix>-s01;<prefix>-s02","quote":"<optional short exact quote>","bears_on":"H10 against"}`
+   `{"id":"{prefix}-c01","claim":"{one or two plain sentences in your own words, with the number and its unit and date}","label":"{label}","sources":"{prefix}-s01;{prefix}-s02","quote":"{optional short exact quote}","bears_on":"H10 against"}`
    `bears_on` names the hypotheses it supports or weakens (`H3 for`, `H3 against`), or is empty.
 3. `notes.md`, under 900 words:
    - the 10 to 15 findings that matter most for the design, each with claim ids;

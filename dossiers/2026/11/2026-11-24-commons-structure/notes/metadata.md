@@ -7,7 +7,7 @@ The part folder was empty when I started, so there were no earlier lines to chec
 ## Findings that matter most
 
 1. **Frictionless v2 already has per-file fields for a link, checksum, size and licence:** `path` (a URL or a relative POSIX path), `hash`, `bytes` and `licenses`, all optional. A resource needs only `name` plus `path` or `data`. (c02, c03, c06, c07)
-2. **The Frictionless hash defaults to MD5.** SHA-256 must be written as `sha256:<hex>`, and any prefix passes the schema. MD5 was chosen in 2013 for S3 compatibility. MD5 is fine for catching errors but not where collisions matter. (c04, c05, c53, c52)
+2. **The Frictionless hash defaults to MD5.** SHA-256 must be written as `sha256:{hex}`, and any prefix passes the schema. MD5 was chosen in 2013 for S3 compatibility. MD5 is fine for catching errors but not where collisions matter. (c04, c05, c53, c52)
 3. **A Frictionless package descriptor must be named `datapackage.json`.** A source object has no field for the date it was accessed. OWID, by contrast, makes `date_accessed` and `date_published` required on every origin. (c09, c10, c41)
 4. **Hugging Face keeps card metadata in YAML front matter and checks `license`, `task_categories` and `language` against fixed lists; tags are free.** A bad licence was rejected at upload. A bad language showed an error on the page. Missing metadata only warns. (c13, c14, c15, c16, c17, c18)
 5. **Large docs repositories validate YAML front matter in CI, but with npm packages.** GitHub Docs uses a schema in its test suite. MDN uses Ajv with yaml and gray-matter. Microsoft Learn fails the build on missing keys. (c44, c45, c46, c47)
