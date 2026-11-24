@@ -17,7 +17,7 @@ Do this, in order:
 5. **Check the reasoning.** Does each row of the Recommendation table follow from its evidence? Is anything stated more strongly than the sources allow? Is any important counter-evidence in `claims.csv` left out of the text?
 6. **Check the hypotheses table** against the evidence it cites.
 
-Write your findings to `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/factcheck/findings.csv` with exactly these columns:
+Write your findings to `<scratchpad>/factcheck/findings.csv` with exactly these columns:
 
 ```
 finding,claim,severity,kind
@@ -28,6 +28,6 @@ finding,claim,severity,kind
 - `severity`: `blocking` (a wrong fact a decision rests on), `should-fix` (wrong, overstated or unsupported, but not decisive) or `minor`.
 - `kind`: `wrong`, `overstated`, `unsupported`, `mislabelled`, `miscounted` or `missing`.
 
-Also write `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/factcheck/report.md`, under 800 words: how many claims you checked against their text, how many sources you re-opened (list their IDs), what you confirmed, what you could not check and why, and your exact model ID and effort level as your own session shows them (write `unknown` for anything it does not show; never guess).
+Also write `<scratchpad>/factcheck/report.md`, under 800 words: how many claims you checked against their text, how many sources you re-opened (list their IDs), what you confirmed, what you could not check and why, and your exact model ID and effort level as your own session shows them (write `unknown` for anything it does not show; never guess).
 
 Do not edit any file under `/home/user`. Your final message: the number of findings by severity, and the two paths.
