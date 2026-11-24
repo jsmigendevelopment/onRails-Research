@@ -20,6 +20,9 @@ jobs:
   # Runs the repo's code with a read-only token. It hands the built files on as an artifact.
   build:
     runs-on: ubuntu-latest
+    env:
+      # Never run a Git LFS download (or any smudge filter) on checked-out files.
+      GIT_LFS_SKIP_SMUDGE: "1"
     timeout-minutes: 10
     permissions:
       contents: read

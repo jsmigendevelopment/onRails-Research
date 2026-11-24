@@ -25,8 +25,10 @@ on:
 
 permissions: {}
 
+# One group per pull request and head repository, so a newer run cancels only an older run of the same
+# pull request. A fork's run at the same commit lands in its own group and can't cancel the maintainer's.
 concurrency:
-  group: review-${{ github.event.workflow_run.head_sha || github.event.inputs.pr }}
+  group: review-${{ github.event.inputs.pr || github.event.workflow_run.pull_requests[0].number || 'fork' }}-${{ github.event.workflow_run.head_repository.full_name || 'dispatch' }}-${{ github.event.workflow_run.head_branch || '' }}
   cancel-in-progress: true
 
 jobs:
@@ -41,6 +43,7 @@ jobs:
       sha: ${{ steps.pr.outputs.sha }}
       base: ${{ steps.pr.outputs.base }}
       trusted_author: ${{ steps.pr.outputs.trusted_author }}
+      same_repo: ${{ steps.pr.outputs.same_repo }}
       maintainer: ${{ steps.pr.outputs.maintainer }}
       has_token: ${{ steps.token.outputs.has_token }}
     steps:
@@ -59,6 +62,7 @@ jobs:
           RUN_PRS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
           HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
           HEAD_BRANCH: ${{ github.event.workflow_run.head_branch }}
+          ACTOR: ${{ github.event.workflow_run.triggering_actor.login || github.event.workflow_run.actor.login }}
         run: |
           set -euo pipefail
           if [ -n "$INPUT_PR" ]; then
@@ -84,9 +88,16 @@ jobs:
               echo "Pull request #$number's head is not this run's head, so its author is not trusted here. A manual run can review it."
               trusted=false
             fi
+            # Whoever set off the run must be trusted too: the author or someone with write access.
+            author=$(jq -r .user.login <<<"$json")
+            if [ "$trusted" = "true" ] && [ "$ACTOR" != "$author" ]; then
+              perm=$(gh api "repos/$REPO/collaborators/$ACTOR/permission" --jq .permission 2>/dev/null || echo none)
+              case "$perm" in admin|maintain|write) ;; *) echo "The run was set off by $ACTOR, who has no write access, so its author is not trusted here."; trusted=false;; esac
+            fi
           fi
+          same_repo=$(jq -r --arg repo "$REPO" '.head.repo.full_name == $repo' <<<"$json")
           maintainer=$([ "$trusted" = "true" ] && [ "$assoc" = "OWNER" ] && echo "--maintainer" || echo "")
-          { echo "pr=$number"; echo "sha=$sha"; echo "base=$(jq -r .base.sha <<<"$json")"; echo "trusted_author=$trusted"; echo "maintainer=$maintainer"; } >> "$GITHUB_OUTPUT"
+          { echo "pr=$number"; echo "sha=$sha"; echo "base=$(jq -r .base.sha <<<"$json")"; echo "trusted_author=$trusted"; echo "same_repo=$same_repo"; echo "maintainer=$maintainer"; } >> "$GITHUB_OUTPUT"
       - name: Is the review token set?
         id: token
         env:
@@ -99,6 +110,9 @@ jobs:
     needs: find
     if: needs.find.outputs.sha != ''
     runs-on: ubuntu-latest
+    env:
+      # Never run a Git LFS download (or any smudge filter) on checked-out files.
+      GIT_LFS_SKIP_SMUDGE: "1"
     timeout-minutes: 10
     permissions:
       contents: read
@@ -117,13 +131,13 @@ jobs:
           SHA: ${{ needs.find.outputs.sha }}
         run: |
           git fetch --quiet "https://github.com/${GITHUB_REPOSITORY}.git" "+refs/pull/${PR}/head:refs/remotes/pr/head"
-          git worktree add --quiet --detach "$RUNNER_TEMP/pr-head" "$SHA"
+          git -c filter.lfs.smudge= -c filter.lfs.process= -c filter.lfs.required=false worktree add --quiet --detach "$RUNNER_TEMP/pr-head" "$SHA"
       - name: The checker from main, on the pull request's files
         id: run
         env:
-          # Only for an author with write access. A fork's log is public, so a stranger could otherwise
-          # learn the list by guessing. The push run on main still scans everything after the merge.
-          PRIVATE_TERMS: ${{ needs.find.outputs.trusted_author == 'true' && secrets.PRIVATE_TERMS || '' }}
+          # Only for a trusted author's branch in this repository. A fork's log is public, so a stranger could
+          # otherwise learn the list by guessing. The push run on main still scans everything after the merge.
+          PRIVATE_TERMS: ${{ needs.find.outputs.trusted_author == 'true' && needs.find.outputs.same_repo == 'true' && secrets.PRIVATE_TERMS || '' }}
           BASE: ${{ needs.find.outputs.base }}
           MAINTAINER: ${{ needs.find.outputs.maintainer }}
         run: |
@@ -150,6 +164,9 @@ jobs:
     needs: [find, trusted-check]
     if: needs.find.outputs.has_token == 'true' && (github.event_name == 'workflow_dispatch' || needs.find.outputs.trusted_author == 'true')
     runs-on: ubuntu-latest
+    env:
+      # Never run a Git LFS download (or any smudge filter) on checked-out files.
+      GIT_LFS_SKIP_SMUDGE: "1"
     timeout-minutes: 20
     permissions:
       contents: read
@@ -169,7 +186,11 @@ jobs:
           BASE: ${{ needs.find.outputs.base }}
         run: |
           git fetch --quiet "https://github.com/${GITHUB_REPOSITORY}.git" "+refs/pull/${PR}/head:refs/remotes/pr/head"
-          git worktree add --quiet --detach pr-head "$SHA"
+          git -c filter.lfs.smudge= -c filter.lfs.process= -c filter.lfs.required=false worktree add --quiet --detach pr-head "$SHA"
+          # Project instructions never come from the pull request: settings load from the user scope only
+          # (below), and the pull request's own CLAUDE.md and .claude/ are removed from its copy. The diff
+          # in review-input/ still shows them, as data.
+          find pr-head \( -name CLAUDE.md -o -name CLAUDE.local.md -o -name .claude \) -prune -exec rm -rf {} +
           mkdir -p review-input
           git diff "$(git merge-base "$BASE" "$SHA")" "$SHA" > review-input/pr.diff
           git diff --name-status "$(git merge-base "$BASE" "$SHA")" "$SHA" > review-input/files.txt
@@ -191,12 +212,16 @@ jobs:
           # allow rule, and Read rules cover Glob and Grep too. .git/ is denied because the action writes
           # the job's GitHub token into .git/config. The checkout sits under /home/runner/work, so the
           # home folder is denied by its parts: a deny on //home/** or ~/** would deny pr-head/ too.
+          # --setting-sources user: no CLAUDE.md or .claude/ settings load from the checkout at all. The
+          # prompt names main's instructions, and .github/claude-review.md has Claude read AGENTS.md and
+          # CONTRIBUTING.md from main.
           claude_args: >-
             --model ${{ vars.REVIEW_MODEL || 'claude-opus-5-5' }}
             --permission-mode default
             --max-turns 40
+            --setting-sources user
             --allowedTools "Read(./pr-head/**),Read(./review-input/**),Read(./.github/claude-review.md),Read(./CONTRIBUTING.md),Read(./AGENTS.md),Glob,Grep"
-            --disallowedTools "Bash,Write,Edit,MultiEdit,NotebookEdit,WebFetch,WebSearch,Read(./.git/**),Read(//proc/**),Read(//sys/**),Read(//etc/**),Read(//tmp/**),Read(//root/**),Read(//home/runner/work/_temp/**),Read(//home/runner/work/_actions/**),Read(//home/runner/runners/**),Read(~/.*/**),Read(~/.*)"
+            --disallowedTools "Bash,Write,Edit,MultiEdit,NotebookEdit,WebFetch,WebSearch,Read(./.git/**),Read(./pr-head/**/CLAUDE.md),Read(./pr-head/**/.claude/**),Read(//proc/**),Read(//sys/**),Read(//etc/**),Read(//tmp/**),Read(//root/**),Read(//home/runner/work/_temp/**),Read(//home/runner/work/_actions/**),Read(//home/runner/runners/**),Read(~/.*/**),Read(~/.*)"
             --json-schema '{"type":"object","required":["verdict","summary","findings","injection"],"properties":{"verdict":{"enum":["looks-good","needs-changes","do-not-merge"]},"summary":{"type":"string"},"findings":{"type":"array","items":{"type":"object","required":["severity","where","problem","fix"],"properties":{"severity":{"enum":["blocking","should-fix","minor"]},"where":{"type":"string"},"problem":{"type":"string"},"fix":{"type":"string"}}}},"injection":{"type":"object","required":["found","notes"],"properties":{"found":{"type":"boolean"},"notes":{"type":"string"}}}}}'
 
   post:
@@ -216,7 +241,8 @@ jobs:
           MODEL: ${{ vars.REVIEW_MODEL || 'claude-opus-5-5' }}
         # The verdict is model text shaped by a stranger's files. It is withheld if it looks like it holds a
         # token or a long encoded string. Otherwise mentions and #123 references are broken, links become
-        # plain text, images and raw HTML are removed, and the comment is capped at 6,000 characters.
+        # plain text and bare URLs code, images and raw HTML are removed, and the comment is capped at
+        # 6,000 characters.
         run: |
           set -euo pipefail
           if grep -Eq 'sk-ant-|oat01|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|[A-Za-z0-9+/=_-]{80,}' <<<"$VERDICT"; then
@@ -230,6 +256,7 @@ jobs:
             jq -r --arg sha "${SHA::7}" --arg model "$MODEL" '
               def clean: tostring | gsub("<[^>]*>"; "") | gsub("<"; "&lt;") | gsub("!+\\["; "[")
                 | gsub("\\[(?<t>[^\\]]*)\\]\\((?<u>[^)]*)\\)"; "\(.t) (`\(.u | gsub("`"; ""))`)")
+                | gsub("(?<![`])(?<u>(https?://|www\\.)[^\\s`()<>]*[^\\s`()<>.,;:!?])"; "`\(.u)`")
                 | gsub("@"; "@\u200d") | gsub("#(?=[0-9])"; "#\u200d");
               def cell: clean | gsub("\\|"; "/") | gsub("\n"; " ");
               [
