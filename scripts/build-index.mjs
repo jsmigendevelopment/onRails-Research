@@ -49,8 +49,15 @@ export function collect(root, today) {
 }
 
 const LABEL = { fresh: "fresh", "due-soon": "due soon", stale: "stale", superseded: "superseded", retracted: "retracted" };
-// A title is contributor text: every Markdown special character is backslash-escaped, so it stays plain text.
-export const esc = (s) => String(s ?? "").replace(/[\r\n]+/g, " ").replace(/[\\`*_[\]()!<>|~]/g, "\\$&");
+// A title is contributor text, so it goes in the index as a code span: nothing in it becomes a link, a
+// mention, an image, HTML or a character reference. The span's backtick run is longer than any inside
+// the title. Pipes are escaped for the table, with the backslashes before them doubled, because GFM
+// splits a row on any pipe not escaped by an odd number of backslashes, even inside code.
+export function esc(value) {
+  const text = String(value ?? "").replace(/[\r\n]+/g, " ").replace(/(\\*)\|/g, (_, slashes) => `${slashes}${slashes}\\|`);
+  const fence = "`".repeat(Math.max(0, ...(text.match(/`+/g) ?? []).map((run) => run.length)) + 1);
+  return `${fence} ${text} ${fence}`;
+}
 
 function state(e) {
   if (e.freshness === "stale") return `**stale**: re-check was due ${e.recheck}`;

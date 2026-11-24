@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { buildIndex, esc, freshnessOf, PAGE_ROWS } from "../build-index.mjs";
 import { slugify } from "../new-dossier.mjs";
-import { addDossier, editJson, loadCommonmark, makeCommons, TODAY } from "./helpers.mjs";
+import { addDossier, editJson, loadCommonmark, loadGfm, makeCommons, TODAY } from "./helpers.mjs";
 
 const out = () => mkdtempSync(join(tmpdir(), "index-"));
 
@@ -64,14 +64,19 @@ test("slugs are short, lower case and stable", () => {
   assert.ok(slugify("a".repeat(80)).length <= 40 || slugify("a".repeat(80)) === "a".repeat(80));
 });
 
-test("a title is escaped so it stays plain text in the index", async () => {
-  const title = "A [link](//x.example) ![img](//x.example/p.png) <span hidden>x</span> `code` *em* _em_ | pipe \\ back\nline";
-  const cell = esc(title);
-  assert.ok(!cell.includes("\n"));
-  for (const ch of ["[", "]", "(", ")", "!", "<", ">", "`", "*", "_", "|"]) assert.ok(!new RegExp(`(^|[^\\\\])(\\\\\\\\)*\\${ch}`).test(cell), ch);
-  const commonmark = await loadCommonmark();
-  if (!commonmark) return;
-  const html = commonmark.render(`[${cell}](https://example.com/d)`);
-  assert.equal((html.match(/<a /g) ?? []).length, 1, html);
-  assert.ok(!/<img|<span|<code|<em/.test(html), html);
+test("index escaping: a title is one code span, in one table cell", async () => {
+  const titles = ["A [link](//x.example) ![img](//x.example/p.png) <span hidden>x</span> &amp; &#x202E; @someone #12 https://x.example",
+    "`code` ``` and *em* _em_", "a | pipe", "a \\| escaped", "a \\\\| double", "two\nlines"];
+  const renderers = [await loadCommonmark(), await loadGfm()].filter(Boolean);
+  for (const title of titles) {
+    const cell = esc(title);
+    assert.ok(!cell.includes("\n"));
+    for (const renderer of renderers) {
+      const html = renderer.render(`| Title | Kind |\n|---|---|\n| [${cell}](https://example.com/d) | how-to |\n`);
+      const links = html.match(/<a [^>]*>/g) ?? [];
+      assert.deepEqual(links, ['<a href="https://example.com/d">'], `${title}\n${html}`);
+      assert.ok(!/<(img|span|em|strong)\b/.test(html), html);
+      if (html.includes("<table>")) assert.equal((html.match(/<td>/g) ?? []).length, 2, `${title}\n${html}`);
+    }
+  }
 });
