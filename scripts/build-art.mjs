@@ -167,8 +167,8 @@ function labels(t) {
       const out = `<rect x="${x}" y="${y - 22}" width="${w}" height="44" rx="22" fill="${fill}" stroke="${color}" stroke-opacity=".45"${mark === "dash" ? ' stroke-dasharray="5 4"' : ""}/>${marks[mark](x + 22, y, color)}<text x="${x + 36}" y="${y + 6}" font-family="${BODY}" font-size="16" font-weight="600" fill="${color}">${esc(text)}</text>`;
       x += w + 10;
       return out;
-    }).join("");
-    return `<text x="44" y="${y + 7}" font-family="${DISPLAY}" font-size="20" font-weight="700" fill="${t.fg}">${esc(title)}</text>${chips}`;
+    }).join("\n");
+    return `<text x="44" y="${y + 7}" font-family="${DISPLAY}" font-size="20" font-weight="700" fill="${t.fg}">${esc(title)}</text>\n${chips}`;
   }).join("\n");
   return svg(W, H, "The trust labels. How a claim is known: measured, read-in-source, vendor-claim, anecdote, summary-only. How fresh a dossier is: fresh, due soon, stale. Who checked it: cross-checked or fact-checked.",
     `<rect width="${W}" height="${H}" rx="24" fill="${t.card}" stroke="${t.border}"/><path d="M48 112H1152" stroke="${t.line}"/>

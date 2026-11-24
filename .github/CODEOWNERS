@@ -2,5 +2,5 @@
 # pull requests that touch their lines. While the maintainer is the only reviewer, nothing is set.
 #
 # Examples (on a personal account, name people, not teams):
-#   /tags/                        @maintainer-login
+#   /tags/ @maintainer-login
 #   /scripts/ /schemas/ /.github/ @maintainer-login
