@@ -19,10 +19,10 @@ import { checkCard, checkLinks } from "./lib/card.mjs";
 import { today as now } from "./lib/dates.mjs";
 import { checkStores } from "./lib/desk.mjs";
 import { changedFiles, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
-import { privateTerms, scanText } from "./lib/hygiene.mjs";
+import { HIDDEN, privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
 import { checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
-import { CARD, collector, idOfPath, isFile, listDossiers, NOT_REGULAR, readJson, readText } from "./lib/store.mjs";
+import { CARD, collector, isFile, listDossiers, NOT_REGULAR, readJson, readText, STORE, strayInStore } from "./lib/store.mjs";
 import { loadTags } from "./lib/tags.mjs";
 
 const TEXT = /\.(md|json|csv|tsv|txt|svg|mjs|js|py|sh|yml|yaml|toml)$|(^|\/)(CODEOWNERS|LICENSE[^/]*|\.gitattributes|\.gitignore)$/i;
@@ -54,14 +54,15 @@ function scanFiles(root, paths, { hideWhere }, problems) {
   let found = false;
   const onTerm = hideWhere ? () => { found = true; } : undefined;
   for (const path of paths) {
-    if (!TEXT.test(path) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
-    scanText(readText(join(root, path)), path, { terms, hiddenText: Boolean(idOfPath(path)), onTerm }, problems);
+    const inStore = path.startsWith(`${STORE}/`);
+    if (!(TEXT.test(path) || inStore) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
+    scanText(readText(join(root, path)), path, { terms, hiddenText: true, comments: inStore && path.endsWith(".md"), onTerm }, problems);
   }
   if (found) problems.errors.push(PRIVATE_FOUND);
   return terms.length;
 }
 
-const CONTROL = /[\u0000-\u001f\u007f-\u009f]/;
+const CONTROL = /[\u0000-\u001f\u007f-\u009f\uFEFF]/;
 
 /**
  * Every listed path must be a regular file on disk, with no control characters in its name: a link
@@ -71,20 +72,27 @@ const CONTROL = /[\u0000-\u001f\u007f-\u009f]/;
 function refusePaths(root, paths, links, problems) {
   const bad = new Map(links.map((path) => [path, NOT_REGULAR]));
   for (const path of paths) {
-    if (CONTROL.test(path)) bad.set(path, "has a control character in its name: rename it");
+    if (CONTROL.test(path) || HIDDEN.test(path)) bad.set(path, "has a control or invisible character in its name: rename it");
     else if (bad.has(path) || isFile(join(root, path))) continue;
     else bad.set(path, lstatSync(join(root, path), { throwIfNoEntry: false }) ? NOT_REGULAR : "is listed by git but is not a file on disk");
   }
-  for (const [path, message] of bad) problems.error(CONTROL.test(path) ? JSON.stringify(path) : path, message);
+  for (const [path, message] of bad) problems.error(CONTROL.test(path) || HIDDEN.test(path) ? JSON.stringify(path) : path, message);
   return bad.size > 0;
 }
 
+const STRAY = "is under dossiers/ but not inside a dossier folder, dossiers/<yyyy>/<mm>/<yyyy-mm-dd-slug>/. Make the folder with scripts/new-dossier.mjs";
+
 /** What to check: every file, or a pull request's changes against the merge base. Null when git can't tell. */
 function listPaths(root, base, all, problems) {
-  if (all || !base) return { paths: listedFiles(root), links: trackedLinks(root) };
+  if (all || !base) {
+    const paths = listedFiles(root);
+    for (const path of paths) if (strayInStore(path)) problems.error(path, STRAY);
+    return { paths, links: trackedLinks(root) };
+  }
   const from = mergeBase(root, base);
   if (!from) { problems.error("--base", `git could not find the merge base with ${base}`); return null; }
   const changes = changedFiles(root, from), kept = changes.filter((c) => c.status !== "D");
+  for (const { path } of changes) if (strayInStore(path)) problems.error(path, STRAY);
   return { from, changes, paths: kept.map((c) => c.path), links: kept.filter((c) => c.mode === LINK_MODE).map((c) => c.path) };
 }
 

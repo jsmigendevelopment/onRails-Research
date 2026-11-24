@@ -5,7 +5,7 @@ const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]*[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9
 const SAFE_EMAIL = /@(example\.(com|org|net)|users\.noreply\.github\.com)$|^git@|\.(png|jpe?g|gif|svg|webp|avif|ico|pdf)$/i;
 const HOME_PATH = /(?:[A-Za-z]:[\\/]+Users[\\/]+|\/Users\/|\/home\/)([A-Za-z0-9._-]+)/g;
 const SAFE_HOME = /^(user|username|you|me|name|runner|ubuntu|node|root|shared|public|default)$/i;
-const HIDDEN = /[​-‏‪-‮⁠-⁤⁦-⁩\u{E0000}-\u{E007F}]|(?!^)﻿/u;
+export const HIDDEN = /[\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\u{E0000}-\u{E007F}]|(?!^)\uFEFF/u;
 const SECRETS = [
   ["a private key", /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
   ["a GitHub token", /\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{22,})/],
@@ -36,16 +36,15 @@ function scanLine(line) {
   return found;
 }
 
-/** Scans one text file. `hiddenText` also refuses invisible characters and HTML comments (for dossier files). */
-export function scanText(text, where, { terms = [], hiddenText = false, onTerm } = {}, problems) {
+/** Scans one text file. `hiddenText` also refuses invisible characters; `comments` refuses HTML comments (dossier Markdown). */
+export function scanText(text, where, { terms = [], hiddenText = false, comments = false, onTerm } = {}, problems) {
   // Once per file, with no line number and no term: the log of a fork's run is public, and a line or
   // an index would tell a stranger which of their guesses is on the list.
   const lower = text.toLowerCase();
   if (terms.some((term) => lower.includes(term))) (onTerm ?? (() => problems.error(where, PRIVATE_TERM)))();
   text.split(/\r?\n/).forEach((line, n) => {
     for (const message of new Set(scanLine(line))) problems.error(`${where}:${n + 1}`, message);
-    if (!hiddenText) return;
-    if (HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (zero-width or text-direction control): remove it");
-    if (where.endsWith(".md") && line.includes("<!--")) problems.error(`${where}:${n + 1}`, "has an HTML comment: readers can't see it, so it isn't allowed in a dossier");
+    if (hiddenText && HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (zero-width or text-direction control): remove it");
+    if (comments && line.includes("<!--")) problems.error(`${where}:${n + 1}`, "has an HTML comment: readers can't see it, so it isn't allowed in a dossier");
   });
 }

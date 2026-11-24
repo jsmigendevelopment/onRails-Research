@@ -251,17 +251,18 @@ test("the schemas come from the checker, not from the folder it checks", () => {
   assert.ok(has(all(root), 'is missing "title"'));
 });
 
-test("only the maintainer may change schemas, scripts, workflows, tag lists and templates", () => {
+const PROTECTED_PATHS = ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md", "AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "README.md", ".gitattributes", ".gitmodules", "package.json", "docs/x.md", ".claude/settings.json", "LICENSE-OTHER", "Readme.md"];
+
+test("only the maintainer may change the checker, its inputs, the instructions, docs and licences", () => {
   const root = makeCommons();
   branch(root);
-  for (const path of ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md"]) {
+  for (const path of PROTECTED_PATHS) {
     mkdirSync(join(root, path, ".."), { recursive: true });
     writeFileSync(join(root, path), "{}\n");
   }
   writeFileSync(join(root, "notes.md"), "A docs change.\n");
   const result = pr(root);
-  for (const path of ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md"])
-    assert.ok(has(result, `${path}: only a maintainer may change`), path);
+  for (const path of PROTECTED_PATHS) assert.ok(has(result, `${path}: only a maintainer may change`), path);
   assert.ok(!has(result, "notes.md: only a maintainer"));
   assert.ok(!has(pr(root, { maintainer: true }), "only a maintainer may change"));
 });
@@ -343,7 +344,7 @@ test("a listed path with a control character, or one missing from disk, is refus
   branch(root);
   writeFileSync(join(root, "odd\tname.md"), "Text.\n");
   let result = pr(root);
-  assert.ok(has(result, '"odd\\tname.md": has a control character in its name'), result.errors.join("\n"));
+  assert.ok(has(result, '"odd\\tname.md": has a control or invisible character in its name'), result.errors.join("\n"));
   assert.equal(result.checked, 0);
   rmSync(join(root, "odd\tname.md"));
   writeFileSync(join(root, "gone.md"), "Text.\n");
@@ -351,4 +352,32 @@ test("a listed path with a control character, or one missing from disk, is refus
   rmSync(join(root, "gone.md"));
   result = all(root);
   assert.ok(has(result, "gone.md: is listed by git but is not a file on disk"), result.errors.join("\n"));
+});
+
+test("tighten dossier path rules", () => {
+  const root = makeCommons();
+  const { rel } = addDossier(root);
+  commit(root, "add");
+  branch(root);
+  const cased = rel.replace(/[^/]+$/, "2026-11-24-Which-Index");
+  mkdirSync(join(root, cased), { recursive: true });
+  writeFileSync(join(root, cased, "README.md"), "Text.\n");
+  writeFileSync(join(root, "dossiers/2026/11/stray.md"), "Text.\n");
+  writeFileSync(join(root, "dossiers/top.md"), "Text.\n");
+  mkdirSync(join(root, "dossiers/2026/12/2026-11-24-wrong-month"), { recursive: true });
+  writeFileSync(join(root, "dossiers/2026/12/2026-11-24-wrong-month/README.md"), "Text.\n");
+  for (const result of [pr(root), all(root)]) {
+    for (const path of [`${cased}/README.md`, "dossiers/2026/11/stray.md", "dossiers/top.md", "dossiers/2026/12/2026-11-24-wrong-month/README.md"])
+      assert.ok(has(result, `${path}: is under dossiers/ but not inside a dossier folder`), `${path}\n${result.errors.join("\n")}`);
+  }
+});
+
+test("hidden text is refused in any changed text file, and in file names", () => {
+  const root = makeCommons();
+  branch(root);
+  writeFileSync(join(root, "notes.md"), "Hidden\u200Btext\n");
+  const result = pr(root);
+  assert.ok(has(result, "notes.md:1: has an invisible character"), result.errors.join("\n"));
+  writeFileSync(join(root, "dossiers-note\u202E.md"), "Text.\n");
+  assert.ok(has(pr(root), '"dossiers-note\u202E.md": has a control or invisible character in its name'));
 });

@@ -13,11 +13,14 @@ export function dossierPath(id) {
   return m ? `${STORE}/${m[1]}/${m[2]}/${id}` : null;
 }
 
-/** The dossier id a repo path belongs to, or null. */
+/** The dossier id a repo path belongs to, or null. The folder must be dossiers/<yyyy>/<mm>/<id>, matching the id. */
 export function idOfPath(path) {
   const parts = path.split("/");
-  return parts[0] === STORE && parts.length >= 5 && ID.test(parts[3]) ? parts[3] : null;
+  return parts[0] === STORE && parts.length >= 5 && dossierPath(parts[3]) === parts.slice(0, 4).join("/") ? parts[3] : null;
 }
+
+/** True for a path under dossiers/ that is not inside a well-formed dossier folder. */
+export const strayInStore = (path) => path.startsWith(`${STORE}/`) && !idOfPath(path);
 
 // Pull request files are untrusted, so a symbolic link is never followed: lstat, and open with O_NOFOLLOW.
 const entry = (path) => lstatSync(path, { throwIfNoEntry: false });

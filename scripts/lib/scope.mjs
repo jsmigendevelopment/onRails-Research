@@ -12,9 +12,18 @@ const GROWS = /(^|\/)(sources|claims|fact-check)\.csv$/;
 const FROZEN = /(^|\/)(runs|briefs)\//;
 const CORE = ["README.md", CARD, "provenance.json", "sources.csv", "claims.csv"];
 const LIFECYCLE = ["status", "superseded_by", "recheck", "history"];
-// The checker, its rules and its inputs. The trusted check runs main's copy on a pull request's files,
-// so a change here from anyone but the maintainer could loosen the rules that judge it.
-export const PROTECTED = ["schemas/", "scripts/", ".github/", "tags/", "templates/"];
+// The checker, its rules and its inputs, and the files that instruct agents and readers. The trusted
+// check runs main's copy on a pull request's files, so a change here from anyone but the maintainer
+// could loosen the rules that judge it, or steer the agents that review it.
+export const PROTECTED = ["schemas/", "scripts/", ".github/", "tags/", "templates/", "docs/", ".claude/"];
+export const PROTECTED_FILES = ["AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "README.md", ".gitattributes", ".gitmodules", "package.json"];
+const LICENCE = /^LICEN[CS]E[^/]*$/i;
+
+/** True for a path only the maintainer may change. Case-insensitive, as some file systems and GitHub's rendering are. */
+export function isProtected(path) {
+  const lower = path.toLowerCase();
+  return PROTECTED.some((dir) => lower.startsWith(dir)) || PROTECTED_FILES.some((file) => lower === file.toLowerCase()) || LICENCE.test(path);
+}
 const kb = (n) => `${Math.ceil(n / 1024)} KB`;
 
 /** Sorts changed paths into dossiers (by id), tag lists and everything else. */
@@ -70,8 +79,8 @@ function checkMix(sorted, maintainer, problems) {
 function checkProtected(changes, maintainer, problems) {
   if (maintainer) return;
   for (const change of changes)
-    if (PROTECTED.some((dir) => change.path.startsWith(dir)))
-      problems.error(change.path, `only a maintainer may change ${PROTECTED.join(", ")}. Open an issue that says what should change, and a maintainer will make it`);
+    if (isProtected(change.path))
+      problems.error(change.path, "only a maintainer may change the checker, its rules, the project's instructions, docs and licences. Open an issue that says what should change, and a maintainer will make it");
 }
 
 function checkFrozen(root, base, change, problems) {
