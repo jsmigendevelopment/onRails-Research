@@ -237,6 +237,22 @@
       "finished": "2026-11-24",
       "brief": "briefs/helper-commons.md",
       "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/commons.md."
+    },
+    {
+      "role": "fact-check",
+      "requested": {
+        "model": "claude-sonnet-5-5",
+        "effort": "high"
+      },
+      "model": "claude-sonnet-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "fact-check subagent (fresh context; no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/fact-check.md",
+      "disposition": "fact-check.csv",
+      "notes": "A fresh subagent that never saw the author's session, started with only a pointer to its brief, on a different model from both author passes. It reported its own model ID as claude-sonnet-5-5; its session showed only a numeric reasoning effort of 10 and no named level, so the effort is unknown. It checked all 174 claim IDs cited in the dossier against their sentences, re-opened 61 source pages (60 readable) and recomputed the counts and the scale table: 34 findings (0 blocking, 17 should-fix, 17 minor). The author applied them; the corrected text was not re-checked by a second pass."
     }
   ]
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Draws the README's images into assets/, each in a light and a dark version, from one set of
-// colour tokens: the "golden hour" Work palette of the onRails Build Log. No dependencies.
+// colour tokens: the "golden hour" palette, light and dark. No dependencies.
 //
 //   node scripts/build-art.mjs
 //

@@ -6,6 +6,7 @@ import { CARD, idOfPath, walk } from "./store.mjs";
 
 export const MAX_FILE = 400 * 1024;
 export const MAX_DOSSIER = 1024 * 1024;
+export const WARN_DOSSIER = 250 * 1024;
 export const ALLOWED = [".md", ".json", ".csv", ".tsv", ".txt", ".svg", ".mjs", ".js", ".py", ".sh"];
 const GROWS = /(^|\/)(sources|claims|fact-check)\.csv$/;
 const FROZEN = /(^|\/)(runs|briefs)\//;
@@ -95,6 +96,7 @@ export function checkFiles(dir, id, problems) {
     if (size > MAX_FILE) problems.error(`${id}/${rel}`, `is ${kb(size)}. One file may be ${kb(MAX_FILE)} at most. Move big data out and link it in data.json`);
   }
   if (total > MAX_DOSSIER) problems.error(id, `is ${kb(total)} in all. A dossier may be ${kb(MAX_DOSSIER)} at most. Move data out and link it in data.json`);
+  else if (total > WARN_DOSSIER) problems.warn(id, `is ${kb(total)} in all. Above ${kb(WARN_DOSSIER)}, consider moving big tables or run data out to data.json: 10,000 dossiers this size would pass GitHub's size guidance`);
 }
 
 /** Checks a pull request's changes against the merge base. Returns the ids of the dossiers it touches. */

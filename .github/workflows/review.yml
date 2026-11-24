@@ -41,6 +41,7 @@ jobs:
       sha: ${{ steps.pr.outputs.sha }}
       base: ${{ steps.pr.outputs.base }}
       trusted_author: ${{ steps.pr.outputs.trusted_author }}
+      maintainer: ${{ steps.pr.outputs.maintainer }}
       has_token: ${{ steps.token.outputs.has_token }}
     steps:
       - name: Which pull request, at which commit
@@ -62,8 +63,10 @@ jobs:
           json=$(gh api "repos/$REPO/pulls/$number")
           sha=$(jq -r .head.sha <<<"$json")
           if [ -n "$RUN_SHA" ] && [ "$sha" != "$RUN_SHA" ]; then echo "The pull request has moved on since this run; the next run reviews it."; exit 0; fi
-          case "$(jq -r .author_association <<<"$json")" in OWNER|MEMBER|COLLABORATOR) trusted=true;; *) trusted=false;; esac
-          { echo "pr=$number"; echo "sha=$sha"; echo "base=$(jq -r .base.sha <<<"$json")"; echo "trusted_author=$trusted"; } >> "$GITHUB_OUTPUT"
+          assoc=$(jq -r .author_association <<<"$json")
+          case "$assoc" in OWNER|MEMBER|COLLABORATOR) trusted=true;; *) trusted=false;; esac
+          maintainer=$([ "$assoc" = "OWNER" ] && echo "--maintainer" || echo "")
+          { echo "pr=$number"; echo "sha=$sha"; echo "base=$(jq -r .base.sha <<<"$json")"; echo "trusted_author=$trusted"; echo "maintainer=$maintainer"; } >> "$GITHUB_OUTPUT"
       - name: Is the review token set?
         id: token
         env:
@@ -100,9 +103,10 @@ jobs:
         env:
           PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
           BASE: ${{ needs.find.outputs.base }}
+          MAINTAINER: ${{ needs.find.outputs.maintainer }}
         run: |
           set +e
-          node scripts/check.mjs --root "$RUNNER_TEMP/pr-head" --base "$BASE" > "$RUNNER_TEMP/check.txt" 2>&1
+          node scripts/check.mjs --root "$RUNNER_TEMP/pr-head" --base "$BASE" $MAINTAINER > "$RUNNER_TEMP/check.txt" 2>&1
           code=$?
           cat "$RUNNER_TEMP/check.txt"
           echo "code=$code" >> "$GITHUB_OUTPUT"

@@ -742,3 +742,6 @@ a-s06,"Public research commons: a standard, tags, review and storage (onRails is
 a-s07,"Split onRails into core + domain packs (onRails issue #86, 2026-11-24)",https://github.com/jsmigendevelopment/onRails/issues/86,2026-11-24,full
 a-s08,"GitHub REST API GET /user, as this session's token sees it (2026-11-24)","api: GET https://api.github.com/user, field plan",2026-11-24,full
 a-s09,"Securely using pull_request_target, re-read by the author (GitHub Docs, undated, notice dated 2026-12-02)",https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target,2026-11-24,full
+a-s10,"About rulesets, availability note, re-read by the author during the fact-check disposition (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets,2026-11-24,skimmed
+a-s11,"About protected branches, availability note, re-read by the author (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches,2026-11-24,skimmed
+a-s12,"About code owners, availability note, re-read by the author (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners,2026-11-24,skimmed
