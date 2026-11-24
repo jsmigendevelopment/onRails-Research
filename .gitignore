@@ -1,0 +1,4 @@
+# A local build of the index (scripts/build-index.mjs). The real one is published to the index branch.
+/index/
+node_modules/
+.DS_Store

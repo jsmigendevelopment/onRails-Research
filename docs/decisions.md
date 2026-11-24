@@ -1,0 +1,16 @@
+# Decisions
+
+Every decision about how the commons works, newest last. The reasons and evidence are in the first dossier, [How to organise a public research commons so it lasts](../dossiers/2026/11/2026-11-24-commons-structure/README.md). A new session should be able to pick up from this file and that dossier alone.
+
+| # | Date | Decision | Rejected | Why | Status | By |
+|---|---|---|---|---|---|---|
+| 1 | 2026-11-24 | One dossier is one folder: findings, a card, provenance, sources, claims, the fact-check, briefs | One file per dossier | Every claim can be traced; the owner's plan (onRails #89) | chosen | owner |
+| 2 | 2026-11-24 | Store by ID under the creation month: `dossiers/YYYY/MM/<YYYY-MM-DD-slug>/`. The ID never changes | Topic folders; running numbers; one flat folder | Shard by ID, never topic; running numbers collide; GitHub lists 1,000 entries per folder | chosen | agent, from the research |
+| 3 | 2026-11-24 | Tags in `dossier.json` from four fixed lists: domain, topic, kind, stack. Freshness and trust are worked out | Free tags; YAML front matter; Diátaxis kinds | Fixed lists slow sprawl; Node reads JSON with no dependency; Diátaxis has no place for benchmarks or datasets | chosen | owner (fixed lists), agent (format) |
+| 4 | 2026-11-24 | A new tag value needs a `means` line, three planned dossiers, and its own pull request. Values are retired with `use_instead`, never deleted | Anyone adds tags with a dossier | The awesome-selfhosted-data model | chosen | owner (own pull request), agent (rules) |
+| 5 | 2026-11-24 | The index is built after each merge and daily, and published to the `index` branch. Never committed by a pull request | Index committed in each pull request; index on main | Shared generated files conflict; the Actions token can't push to a protected main | chosen | agent, from the research |
+| 6 | 2026-11-24 | Changes are logged in the card's history; sources, claims, fact-check rows, runs and briefs are append-only; a new answer supersedes; a retraction keeps the dossier | Free edits; deletion | Every system studied keeps and marks the old record | chosen | agent, from the research |
+| 7 | 2026-11-24 | Each dossier shows "Last checked" and "Re-check by" at its top; re-check at most 12 months out; the index flags stale daily | A fixed review cycle; a date in the footer | Dates in footers go unnoticed; fixed cycles were dropped by Cochrane | chosen | agent, from the research |
+| 8 | 2026-11-24 | Review: CI on the pull request, a trusted re-check from `main`, a Claude review that posts one verdict (automatic for write access, started by the owner for others), the owner merges | `pull_request_target` | GitHub blocks it by default in public repositories from 2026-12-02; the Claude action refuses authors without write access | chosen | owner (Claude reviews, owner merges), agent (workflow) |
+| 9 | 2026-11-24 | Licences for text, code and data | | Options in the first dossier, section 6 | waiting on the owner | |
+| 10 | 2026-11-24 | Big data home | | Recommendation in the first dossier, section 5: release files in a public data repository plus Zenodo snapshots; LFS only if needed | waiting on the owner | |

@@ -82,7 +82,11 @@ function tagPages(entries, lists, link, out) {
 
 function front(entries, pages, link, today) {
   const count = (f) => entries.filter((e) => e.freshness === f).length;
-  const facetList = (facet) => pages.filter((p) => p.facet === facet && (p.count || !p.retired)).map((p) => `[${p.label}](${p.file}) (${p.count})`).join(" · ");
+  const facetList = (facet) => {
+    const used = pages.filter((p) => p.facet === facet && p.count).map((p) => `[${p.label}](${p.file}) (${p.count})`);
+    const empty = pages.filter((p) => p.facet === facet && !p.count && !p.retired).length;
+    return [used.join(" · ") || "_None yet._", empty ? `${empty} more value${empty === 1 ? "" : "s"} with no dossiers yet.` : ""].filter(Boolean).join(" ");
+  };
   return [
     "# The index",
     "",

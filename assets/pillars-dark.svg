@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 236" width="1200" height="236" role="img" aria-label="Why it is trustworthy: every claim names its source and how it is known; every run logs its model, effort and brief; a fresh session fact-checks each dossier, and each one shows when to re-check it.">
+<title>Why it is trustworthy: every claim names its source and how it is known; every run logs its model, effort and brief; a fresh session fact-checks each dossier, and each one shows when to re-check it.</title>
+<defs><style>@media (prefers-reduced-motion: reduce){.m{animation:none!important}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 40s linear infinite}
+.swirl{transform-box:fill-box;transform-origin:center;animation:spin 20s linear infinite reverse}
+.pulse{animation:flow 9s linear infinite}
+.breathe{animation:breathe 6s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flow{from{stroke-dashoffset:1600}to{stroke-dashoffset:0}}
+@keyframes breathe{50%{opacity:.75}}</style></defs>
+<rect x="24" y="24" width="368" height="188" rx="22" fill="#23142b" stroke="#40263f"/>
+<circle cx="80" cy="78" r="26" fill="#2e1b36" stroke="#472944"/><g transform="translate(80 78)"><path d="M-9-12h12l7 7v17h-19z" fill="none" stroke="#ffb454" stroke-width="2.4" stroke-linejoin="round"/><path d="M3-12v7h7M-4 2l3 3 6-7" fill="none" stroke="#ffb454" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="122" y="89" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="800" letter-spacing="-.5" fill="#fff3e6">Sourced</text>
+<text x="56" y="148" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">Every claim names its source</text>
+<text x="56" y="176" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">and how it is known.</text>
+<rect x="416" y="24" width="368" height="188" rx="22" fill="#23142b" stroke="#40263f"/>
+<circle cx="472" cy="78" r="26" fill="#2e1b36" stroke="#472944"/><g transform="translate(472 78)"><rect x="-10" y="-10" width="20" height="20" rx="4" fill="none" stroke="#ffb454" stroke-width="2.4"/><path d="M-5-14v4M0-14v4M5-14v4M-5 10v4M0 10v4M5 10v4M-14-5h4M-14 0h4M-14 5h4M10-5h4M10 0h4M10 5h4" stroke="#ffb454" stroke-width="2.2" stroke-linecap="round"/><circle r="3.5" fill="#ffb454"/></g>
+<text x="514" y="89" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="800" letter-spacing="-.5" fill="#fff3e6">Recorded</text>
+<text x="448" y="148" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">Every run logs its model,</text>
+<text x="448" y="176" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">its effort and its brief.</text>
+<rect x="808" y="24" width="368" height="188" rx="22" fill="#23142b" stroke="#40263f"/>
+<circle cx="864" cy="78" r="26" fill="#2e1b36" stroke="#472944"/><g transform="translate(864 78)"><rect x="-12" y="-10" width="24" height="22" rx="4" fill="none" stroke="#ffb454" stroke-width="2.4"/><path d="M-12-3h24M-6-14v6M6-14v6M-5 5l3 3 7-7" fill="none" stroke="#ffb454" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="906" y="89" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="30" font-weight="800" letter-spacing="-.5" fill="#fff3e6">Checked</text>
+<text x="840" y="148" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">A fresh session fact-checks it.</text>
+<text x="840" y="176" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="18" fill="#cfb6c2">It shows when to re-check.</text><path d="M392 78h24" stroke="#9a5a3c" stroke-width="2"/><circle class="m breathe" cx="404" cy="78" r="4" fill="#ff6fb0"/><path d="M784 78h24" stroke="#9a5a3c" stroke-width="2"/><circle class="m breathe" cx="796" cy="78" r="4" fill="#ff6fb0"/>
+</svg>
