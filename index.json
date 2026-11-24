@@ -1,0 +1,46 @@
+{
+ "schema": "research-index/1",
+ "built": "2026-11-24",
+ "repo": "jsmigendevelopment/onRails-Research",
+ "branch": "main",
+ "count": 1,
+ "dossiers": [
+  {
+   "id": "2026-11-24-commons-structure",
+   "path": "dossiers/2026/11/2026-11-24-commons-structure",
+   "title": "How to organise a public research commons so it lasts",
+   "question": "How should a public, pull-request-driven research commons store, tag, identify, check and license its dossiers so that it still works at 10,000 dossiers?",
+   "summary": "Store each dossier in a folder named by its creation date and slug, under its month, and never move it. Tag it from four fixed lists in a small card file, and browse through an index built after merge on its own branch, with staleness worked out daily. Log every change, supersede instead of rewriting, and keep retracted dossiers with a notice. Measured on synthetic data, this stays well inside GitHub's limits at 10,000 dossiers.",
+   "tags": {
+    "domain": [
+     "research",
+     "core"
+    ],
+    "topic": [
+     "knowledge",
+     "storage",
+     "licensing"
+    ],
+    "kind": "comparison",
+    "stack": [
+     "github",
+     "github-actions",
+     "git"
+    ]
+   },
+   "status": "current",
+   "freshness": "fresh",
+   "trust": "cross-checked",
+   "created": "2026-11-24",
+   "checked": "2026-11-24",
+   "recheck": "2027-02-24",
+   "version": 1,
+   "superseded_by": null,
+   "retraction": null,
+   "author": {
+    "model": "claude-fable-5-2",
+    "effort": "high"
+   }
+  }
+ ]
+}
