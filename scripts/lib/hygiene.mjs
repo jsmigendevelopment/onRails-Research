@@ -1,7 +1,8 @@
 // What must never be in the commons: secrets, e-mail addresses, private paths and names, hidden text.
 // Dossier text is untrusted input for every agent that later reads it, so hidden text is refused.
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]*[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}\b/g;
-const SAFE_EMAIL = /@(example\.(com|org|net)|users\.noreply\.github\.com)$|^git@/i;
+// Example addresses, GitHub noreply addresses, git remotes, and image names such as icon@2x.png.
+const SAFE_EMAIL = /@(example\.(com|org|net)|users\.noreply\.github\.com)$|^git@|\.(png|jpe?g|gif|svg|webp|avif|ico|pdf)$/i;
 const HOME_PATH = /(?:[A-Za-z]:[\\/]+Users[\\/]+|\/Users\/|\/home\/)([A-Za-z0-9._-]+)/g;
 const SAFE_HOME = /^(user|username|you|me|name|runner|ubuntu|node|root|shared|public|default)$/i;
 const HIDDEN = /[​-‏‪-‮⁠-⁤⁦-⁩\u{E0000}-\u{E007F}]|(?!^)﻿/u;

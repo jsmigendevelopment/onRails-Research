@@ -129,6 +129,7 @@ test("version and checked must follow the history", () => {
   const { dir } = addDossier(root, { date: "2026-10-01" });
   editJson(join(dir, "dossier.json"), (c) => { c.history.push({ version: 2, date: TODAY, change: "rechecked", note: "Every source re-opened." }); });
   const result = all(root);
+  assert.ok(has(result, `says "**Re-check by:**`) === false);
   assert.ok(has(result, "version must be 2"));
   assert.ok(has(result, `checked must be ${TODAY}`));
 });
@@ -144,6 +145,13 @@ test("a retracted dossier keeps its folder, gives a reason and shows a notice", 
   const readme = readFileSync(join(dir, "README.md"), "utf8").replace(/^# .*\n/, (h) => `${h}\n> **Retracted on ${TODAY}.** The main source was withdrawn.\n`);
   writeFileSync(join(dir, "README.md"), readme);
   assert.deepEqual(all(root).errors, []);
+});
+
+test("the dates at the top of the dossier match the card", () => {
+  const root = makeCommons();
+  const { dir } = addDossier(root);
+  editJson(join(dir, "dossier.json"), (c) => { c.recheck = "2027-01-15"; });
+  assert.ok(has(all(root), 'says "**Re-check by:** 2027-01-15"'));
 });
 
 test("the id is the folder name and starts with the created date", () => {
@@ -169,6 +177,13 @@ test("secrets, e-mail addresses, home paths, hidden text and private terms are r
   process.env.PRIVATE_TERMS = "project zebra";
   try { assert.ok(has(check({ root, all: true, today: TODAY }), "private term #1")); }
   finally { delete process.env.PRIVATE_TERMS; }
+});
+
+test("an image name like icon@2x.png is not an e-mail address", () => {
+  const root = makeCommons();
+  const { dir } = addDossier(root);
+  appendFileSync(join(dir, "README.md"), "See https://example.com/assets/icon@2x.png for the icon.\n");
+  assert.ok(!has(all(root), "e-mail address"));
 });
 
 test("size and file-type limits", () => {

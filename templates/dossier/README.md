@@ -2,7 +2,7 @@
 
 **Question:** {{question}}
 
-**Kind:** {{kind}} · **First written:** {{created}} · **Status, freshness and who checked it:** see [dossier.json](dossier.json) and [provenance.json](provenance.json).
+**Kind:** {{kind}} · **Last checked:** {{created}} · **Re-check by:** {{recheck}} · **Status, version and who checked it:** [dossier.json](dossier.json), [provenance.json](provenance.json)
 
 <!-- The generator removes every comment like this one. A dossier may not keep HTML comments: readers can't see them. -->
 

@@ -111,6 +111,8 @@ function checkWriteUp(dir, id, card, problems) {
   if (!/^# \S/.test(text)) problems.error(where, "must start with a title: # <title>");
   for (const heading of [...HEADINGS, ...(KIND_RULES[card?.tags?.kind]?.headings ?? [])])
     if (!lines.has(heading)) problems.error(where, `missing the section "${heading}"`);
+  if (card && !text.includes(`**Last checked:** ${card.checked}`)) problems.error(where, `the top of the dossier says "**Last checked:** ${card.checked}", as in dossier.json`);
+  if (card?.status === "current" && !text.includes(`**Re-check by:** ${card.recheck}`)) problems.error(where, `the top of the dossier says "**Re-check by:** ${card.recheck}", as in dossier.json`);
   if (card?.status === "superseded" && !text.includes(card.superseded_by ?? "\0")) problems.error(where, `a superseded dossier says so at the top and links ${card.superseded_by}`);
   if (card?.status === "retracted" && !/^> \*\*Retracted/m.test(text)) problems.error(where, 'a retracted dossier starts with a notice: "> **Retracted on <date>.** <why>"');
 }

@@ -1,0 +1,744 @@
+id,title,location,accessed,read
+lim-s01,"GitHub's plans (GitHub Docs, undated)",https://docs.github.com/en/get-started/learning-about-github/githubs-plans,2026-11-24,full
+lim-s02,"Pricing: Plans for every developer (GitHub, undated)",https://github.com/pricing,2026-11-24,full
+lim-s03,"Git LFS billing (GitHub Docs, undated)",https://docs.github.com/en/billing/concepts/product-billing/git-lfs,2026-11-24,full
+lim-s04,"Repository limits (GitHub Docs, undated)",https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits,2026-11-24,full
+lim-s05,"About large files on GitHub (GitHub Docs, undated)",https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github,2026-11-24,full
+lim-s06,"About Git Large File Storage (GitHub Docs, undated)",https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-git-large-file-storage,2026-11-24,full
+lim-s07,"About GitHub Code Search (GitHub Docs, undated)",https://docs.github.com/en/search-github/github-code-search/about-github-code-search,2026-11-24,full
+lim-s08,"REST API endpoints for repository contents (GitHub Docs, undated)",https://docs.github.com/en/rest/repos/contents,2026-11-24,skimmed
+lim-s09,"REST API endpoints for Git trees (GitHub Docs, undated)",https://docs.github.com/en/rest/git/trees,2026-11-24,skimmed
+lim-s10,"Search, no official page found on the web folder-listing cut-off (web search, 2026-11-24)","search: GitHub repository web interface ""directory"" listing ""truncated"" 1,000 files ""has been truncated"" official docs",2026-11-24,full
+lim-s11,"About releases (GitHub Docs, undated)",https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases,2026-11-24,full
+lim-s12,"Folder listing of a public repository folder with more than 8,000 entries, as served on 2026-11-24 (GitHub web interface, undated)",https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types,2026-11-24,skimmed
+lim-s13,"Search, exact wording of the folder cut-off notice (web search, 2026-11-24)","search: ""we had to truncate this directory to 1,000 files"" GitHub",2026-11-24,full
+lim-s14,"Working with non-code files (GitHub Docs, undated)",https://docs.github.com/en/repositories/working-with-files/using-files/working-with-non-code-files,2026-11-24,full
+lim-s15,"About the repository README file (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes,2026-11-24,full
+lim-s16,"Actions limits (GitHub Docs, undated)",https://docs.github.com/en/actions/reference/limits,2026-11-24,full
+lim-s17,"Events that trigger workflows, schedule section (GitHub Docs, undated)",https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows,2026-11-24,skimmed
+lim-s18,"GitHub Actions billing (GitHub Docs, undated)",https://docs.github.com/en/billing/concepts/product-billing/github-actions,2026-11-24,full
+lim-s19,"GitHub Pages limits (GitHub Docs, undated)",https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits,2026-11-24,full
+lim-s20,"What is GitHub Pages? (GitHub Docs, undated)",https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages,2026-11-24,full
+lim-s21,"Reusable text 'gated-features/pages' in the public source of GitHub Docs, main branch on 2026-11-24 (GitHub, undated)",https://raw.githubusercontent.com/github/docs/main/data/reusables/gated-features/pages.md,2026-11-24,full
+lim-s22,"Basic writing and formatting syntax, rendered page and its public source file, main branch on 2026-11-24 (GitHub Docs, undated)",https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax,2026-11-24,full
+lim-s23,"Specify theme context for images in Markdown (Beta) (GitHub Changelog, 2022-05-19)",https://github.blog/changelog/2022-05-19-specify-theme-context-for-images-in-markdown-beta/,2026-11-24,full
+lim-s24,"github/markup README (GitHub, undated)",https://github.com/github/markup,2026-11-24,skimmed
+lim-s25,"Specify theme context for images in Markdown (GitHub Changelog, 2021-11-24)",https://github.blog/changelog/2021-11-24-specify-theme-context-for-images-in-markdown/,2026-11-24,full
+lim-s26,"html-pipeline sanitization_filter.rb, tag v2.14.3 (open-source library, undated)",https://raw.githubusercontent.com/gjtorikian/html-pipeline/v2.14.3/lib/html/pipeline/sanitization_filter.rb,2026-11-24,full
+lim-s27,"Specify theme context for images in Markdown GA (GitHub Changelog, 2022-08-15)",https://github.blog/changelog/2022-08-15-specify-theme-context-for-images-in-markdown-ga,2026-11-24,full
+lim-s28,"How to make your images in Markdown on GitHub adjust for dark mode and light mode (GitHub Blog, 2025-04-18)",https://github.blog/developer-skills/github/how-to-make-your-images-in-markdown-on-github-adjust-for-dark-mode-and-light-mode/,2026-11-24,full
+lim-s29,"Search, how SVG files in a README are served; snippets only, no current GitHub statement found (web search, 2026-11-24)","search: GitHub README SVG img tag scripts blocked camo ""Content-Security-Policy"" SVG animation external fonts not loaded raw.githubusercontent.com",2026-11-24,full
+lim-s30,"About anonymized URLs (GitHub Docs, undated)",https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-anonymized-urls,2026-11-24,full
+lim-s31,"Response headers of one public SVG file on GitHub's raw host, read on 2026-11-24 (GitHub, undated)",https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/github.svg,2026-11-24,full
+lim-s32,"Search, direct download URL of a Git LFS file; nothing official found (web search, 2026-11-24)","search: Git LFS file public repository direct download URL ""media.githubusercontent.com/media"" commit SHA raw link",2026-11-24,full
+lim-s33,"About storage and bandwidth usage (GitHub Docs, undated)",https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-storage-and-bandwidth-usage,2026-11-24,full
+lim-s34,"Product usage included with each plan (GitHub Docs, undated)",https://docs.github.com/en/billing/reference/product-usage-included,2026-11-24,full
+lim-s35,"Actions runner pricing (GitHub Docs, undated)",https://docs.github.com/en/billing/reference/actions-runner-pricing,2026-11-24,skimmed
+lim-s36,"Types of GitHub accounts (GitHub Docs, undated)",https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts,2026-11-24,full
+lim-s37,"Pricing calculator (GitHub, undated)",https://github.com/pricing/calculator,2026-11-24,skimmed
+lim-s38,"Search, Git LFS price per GiB (web search, 2026-11-24)","search: GitHub Git LFS metered billing price per GiB storage ""$0.07"" bandwidth ""$0.0875"" docs",2026-11-24,full
+lim-s39,"Budgets and alerts (GitHub Docs, undated)",https://docs.github.com/en/billing/concepts/budgets-and-alerts,2026-11-24,full
+lim-s40,"Git LFS billing, Enterprise Cloud version (GitHub Docs, undated)",https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/git-lfs,2026-11-24,full
+lim-s41,"New Enterprise accounts have metered billing for Git LFS (GitHub Changelog, 2024-06-03)",https://github.blog/changelog/2024-06-03-new-enterprise-accounts-have-metered-billing-for-git-lfs/,2026-11-24,full
+lim-s42,"Search, changelog for Git LFS metered billing on all accounts; no single announcement found (web search, 2026-11-24)",search: GitHub changelog Git LFS metered billing all accounts personal organization data packs removed 10 GiB free 2025,2026-11-24,full
+lim-s43,"Roles in an enterprise (GitHub Docs, Enterprise Cloud, undated)",https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-users-in-your-enterprise/roles-in-an-enterprise,2026-11-24,skimmed
+lim-s44,"Storage limits (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/storage-limits,2026-11-24,full
+lim-s45,"Manage files (Zenodo help, undated)",https://help.zenodo.org/docs/deposit/manage-files/,2026-11-24,full
+lim-s46,"General Policies v1.0 (Zenodo, undated)",https://about.zenodo.org/policies/,2026-11-24,full
+lim-s47,"R2 pricing (Cloudflare Docs, modified 2026-10-30)",https://developers.cloudflare.com/r2/pricing/,2026-11-24,full
+lim-s48,"Hub Rate limits (Hugging Face Hub docs, table dated September 2025)",https://huggingface.co/docs/hub/rate-limits,2026-11-24,full
+lim-s49,"Download files from the Hub, huggingface_hub v2.4.0 (Hugging Face docs, undated)",https://huggingface.co/docs/huggingface_hub/guides/download,2026-11-24,full
+lim-s50,"FAQ index, no answers on the page (Zenodo help, undated)",https://help.zenodo.org/faq/,2026-11-24,skimmed
+lim-s51,"OSF help article 594, turned out to be about search, not storage (OSF Support, updated 2026-08-03)",https://help.osf.io/article/594-storage-caps-on-osf,2026-11-24,skimmed
+lim-s52,"Search, OSF storage caps; snippets only (web search, 2026-11-24)",search: OSF storage caps public projects 50 GB private 5 GB per file limit help.osf.io,2026-11-24,full
+lim-s53,"Manage storage quota (Zenodo help, undated)",https://help.zenodo.org/docs/deposit/manage-quota/,2026-11-24,full
+lim-s54,"Manage versions (Zenodo help, undated)",https://help.zenodo.org/docs/deposit/manage-versions/,2026-11-24,full
+lim-s55,"Get your archive.org credentials (Internet Archive developer docs, undated)",https://archive.org/developers/tutorial-get-ia-credentials.html,2026-11-24,skimmed
+lim-s56,"OSF Storage Caps, only the first part of the page was read (OSF Support, undated)",https://help.osf.io/article/137-osf-storage-caps,2026-11-24,skimmed
+lim-s57,"DOI versioning help (Zenodo, undated)",https://zenodo.org/help/versioning,2026-11-24,full
+lim-s58,"Frequently Asked Questions (Codeberg Documentation, undated)",https://docs.codeberg.org/getting-started/faq/,2026-11-24,full
+lim-s59,"Storage usage quotas (GitLab Docs, undated)",https://docs.gitlab.com/user/storage_usage_quotas/,2026-11-24,full
+lim-s60,"Uploading tips (Internet Archive Help Center, undated)",https://help.archive.org/help/uploading-tips/,2026-11-24,full
+lim-s61,"Items, a developer's guide (Internet Archive developer docs, undated)",https://archive.org/developers/items.html,2026-11-24,full
+lim-s62,"FAQ, blocked: HTTP 503 (Software Heritage, undated)",https://www.softwareheritage.org/faq/,2026-11-24,skimmed
+lim-s63,"User FAQ, blocked: access-denied screen (Software Heritage docs, undated)",https://docs.softwareheritage.org/user/faq/index.html,2026-11-24,skimmed
+lim-s64,"Downloading datasets (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/datasets-downloading,2026-11-24,full
+lim-s65,"One Git LFS file in a public repository, fetched from the raw host and the media host at a branch and at two commits on 2026-11-24 (GitHub, undated)",https://media.githubusercontent.com/media/Unity-Technologies/Graphics/1f3c6db33b4b6b3f228f494934d8978faf3e2b6f/Packages/com.unity.render-pipelines.core/Editor/Icons/RenderGraphViewer/Buffer@2x.png,2026-11-24,full
+lim-s66,"Search, GitHub docs on the media host; nothing found (web search, 2026-11-24)","search: GitHub docs Git LFS ""media.githubusercontent.com"" download large file raw view public repository",2026-11-24,full
+lim-s67,"Commit history and folder listings of that public repository, used only to find an LFS file and its commit IDs (GitHub web interface, undated)",https://github.com/Unity-Technologies/Graphics/commits/master/Packages/com.unity.render-pipelines.core/Editor/Icons/RenderGraphViewer/Buffer@2x.png,2026-11-24,skimmed
+lim-s68,"Search, whether README theme images follow the GitHub theme or the system; no official answer found (web search, 2026-11-24)","search: GitHub markdown picture ""prefers-color-scheme"" follows GitHub theme setting not operating system rewritten ""data-color-mode"" source media",2026-11-24,full
+lim-s69,"GitHub Acceptable Use Policies (GitHub Docs, undated)",https://docs.github.com/en/site-policy/acceptable-use-policies/github-acceptable-use-policies,2026-11-24,skimmed
+lim-s70,"Search, which plans have GitHub Pages; older doc versions only (web search, 2026-11-24)","search: GitHub Pages availability ""public repositories with GitHub Free"" ""GitHub Pro, GitHub Team"" docs",2026-11-24,full
+lim-s71,"Search, GitHub Pro price; secondary pages only (web search, 2026-11-24)",search: GitHub Pro plan price per month personal account 2026 official pricing,2026-11-24,full
+lim-s72,"Search, does an enterprise's Git LFS quota cover repositories owned by a personal account; nothing explicit found (web search, 2026-11-24)",search: GitHub Enterprise Cloud Git LFS quota repositories owned by personal account user namespace billed to enterprise managed user repositories LFS usage,2026-11-24,full
+lim-s73,"Search, long README cut-off reports; snippets of a GitHub community thread (web search, 2026-11-24)","search: GitHub README too long truncated 500 KiB large awesome list index file not rendered ""truncated"" markdown file size limit blob view",2026-11-24,full
+lim-s74,"Public buckets (Cloudflare R2 Docs, modified 2026-11-12)",https://developers.cloudflare.com/r2/buckets/public-buckets/,2026-11-24,full
+lim-s75,"GitHub section overview (Zenodo help, undated)",https://help.zenodo.org/docs/github/,2026-11-24,skimmed
+lim-s76,"Search, Hugging Face public storage policy changes; no dated announcement found (web search, 2026-11-24)","search: Hugging Face Hub public storage limits change free accounts ""best-effort"" public repositories storage quota announcement 2025 2026",2026-11-24,full
+lim-s77,"Search, what Software Heritage archives; snippets only (web search, 2026-11-24)","search: Software Heritage archive what is archived source code only ""Save Code Now"" SWHID no account required datasets not accepted",2026-11-24,full
+lim-s78,"REST API reference (Zenodo developers, undated)",https://developers.zenodo.org/,2026-11-24,skimmed
+lim-s79,"Item metadata read API (Internet Archive developer docs, undated)",https://archive.org/developers/md-read.html,2026-11-24,skimmed
+lim-s80,"Search, does Cloudflare R2's free tier need a payment method; sources conflict (web search, 2026-11-24)","search: Cloudflare R2 free tier requires payment method credit card to enable R2 subscription docs ""get started""",2026-11-24,full
+lim-s81,"Search, evidence that many small files break a Git repository; none at this scale (web search, 2026-11-24)",search: git repository tens of thousands of small markdown files performance problem GitHub limit number of files repository slow clone evidence,2026-11-24,full
+lim-s82,"About Zenodo (Zenodo, undated)",https://about.zenodo.org/,2026-11-24,full
+lim-s83,"git-sizer README (GitHub, undated)",https://github.com/github/git-sizer,2026-11-24,skimmed
+lim-s84,"GitHub Copilot plans (GitHub Docs, undated)",https://docs.github.com/en/copilot/get-started/plans,2026-11-24,skimmed
+lim-s85,"Search, Copilot plan prices per user (web search, 2026-11-24)",search: GitHub Copilot plans pricing per user per month Business Enterprise Pro,2026-11-24,full
+lim-s86,"Search, whether Git LFS in repositories owned by managed or personal accounts is billed to an enterprise; nothing explicit found (web search, 2026-11-24)",search: GitHub enterprise billing usage in repositories owned by managed user accounts Git LFS billed to enterprise,2026-11-24,full
+lim-s87,"Billing for enterprises (GitHub Docs, Enterprise Cloud, undated)",https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/enterprise-billing/billing-for-enterprises,2026-11-24,full
+lim-s88,"Search, enterprise billing of user-owned repositories of managed users; nothing explicit found (web search, 2026-11-24)","search: ""Enterprise Managed Users"" ""user-owned repositories"" usage billed to the enterprise Actions storage",2026-11-24,full
+lim-s89,"Abilities and restrictions of managed user accounts (GitHub Docs, Enterprise Cloud, undated)",https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/understanding-iam-for-enterprises/abilities-and-restrictions-of-managed-user-accounts,2026-11-24,full
+lim-s90,"Search, exact wording and threshold of GitHub's 'file too big to show' notice; no current official page found (web search, 2026-11-24)","search: GitHub ""we can't show files that are this big right now"" markdown file size limit view",2026-11-24,full
+lim-s91,"Does README.md have max characters? #23920 (GitHub Community discussion, posts 2020-08-19 to 2023-05-14)",https://github.com/orgs/community/discussions/23920,2026-11-24,full
+lim-s92,"Limits for viewing content and diffs in a repository, Enterprise 2.11 version, an old release (GitHub Docs, undated)",https://docs.github.com/enterprise/2.11/user/articles/limits-for-viewing-content-and-diffs-in-a-repository,2026-11-24,full
+lim-s93,"Search, dated announcements of Hugging Face public storage changes (web search, 2026-11-24)",search: Hugging Face Hub storage limits change 2025 public storage free accounts announcement,2026-11-24,full
+lim-s94,"Post on public storage limits by a Hugging Face staff member (Hugging Face posts, 2024-12-10)",https://huggingface.co/posts/julien-c/388331843225875,2026-11-24,full
+lim-s95,"Pull request #2007 'update the 300GB limit' in the Hugging Face Hub docs repository (GitHub, merged 2025-10-21)",https://github.com/huggingface/hub-docs/pull/2007/files,2026-11-24,full
+lim-s96,"Search, current status of the '#gh-dark-mode-only' URL ending; no GitHub statement found (web search, 2026-11-24)","search: ""gh-dark-mode-only"" deprecated OR ""no longer"" OR ""still works"" GitHub picture element",2026-11-24,full
+lim-s97,"How to define dark/light mode images in GitHub Markdown (personal blog, published 2021-11-30, updated 2022-08-16)",https://stefanjudis.com/notes/how-to-define-dark-light-mode-images-in-github-markdown,2026-11-24,full
+lim-s98,"Same blog post at its older address, HTTP 404 (personal blog, undated)",https://www.stefanjudis.com/blog/how-to-define-dark-light-mode-images-in-github-markdown,2026-11-24,skimmed
+lim-s99,"Search, current GitHub Pro price on an official page (web search, 2026-11-24)","search: GitHub Pro ""$4 USD per month"" OR ""$4 per month"" docs.github.com billing plans personal account",2026-11-24,full
+lim-s100,"FAQ about changes to GitHub's plans (GitHub Docs, undated; describes the 2020-04-14 change)",https://docs.github.com/en/get-started/learning-about-github/faq-about-changes-to-githubs-plans,2026-11-24,full
+lim-s101,"Get started with R2 (Cloudflare Docs, modified 2026-11-12)",https://developers.cloudflare.com/r2/get-started/,2026-11-24,full
+cls-s01,"Moderation (arXiv help, undated)",https://info.arxiv.org/help/moderation/index.html,2026-11-24,full
+cls-s02,"Category Taxonomy (arXiv, undated)",https://arxiv.org/category_taxonomy,2026-11-24,skimmed
+cls-s03,"Crosslisting articles (arXiv help, undated)",https://info.arxiv.org/help/cross.html,2026-11-24,full
+cls-s04,search: arXiv new category proposal process how categories are added,search: arXiv new category proposal process how categories are added,2026-11-24,full
+cls-s05,"New User-Driven Classification Tool Released (arXiv blog, 2020-05-20)",https://blog.arxiv.org/2020/05/20/new-user-driven-classification-tool-released,2026-11-24,full
+cls-s06,"What's new at arXiv (arXiv, undated news archive)",https://info.arxiv.org/new/,2026-11-24,skimmed
+cls-s07,"paperswithcode.com root (HTTP 302 to huggingface.co/papers/trending, checked 2026-11-24)",https://paperswithcode.com/,2026-11-24,full
+cls-s08,"Trending Papers (Hugging Face, undated)",https://huggingface.co/papers/trending,2026-11-24,skimmed
+cls-s09,search: Papers with Code sunset 2025 Hugging Face redirect announcement,search: Papers with Code sunset 2025 Hugging Face redirect announcement,2026-11-24,full
+cls-s10,"paperswithcode-data README (Papers with Code on GitHub, undated)",https://github.com/paperswithcode/paperswithcode-data,2026-11-24,full
+cls-s11,"Papers (Hugging Face, undated)",https://huggingface.co/papers,2026-11-24,skimmed
+cls-s12,"Relaunching PapersWithCode with new features (Hugging Face blog, 2026-05-24)",https://huggingface.co/blog/nielsr/paperswithcode-launch,2026-11-24,full
+cls-s13,"paperswithcode.com/about (archived copy, blocked: web.archive.org refused by fetch tool)",https://web.archive.org/web/2024/https://paperswithcode.com/about,2026-11-24,full
+cls-s14,"paperswithcode.com/about (HTTP 302 to huggingface.co/papers/trending, checked 2026-11-24)",https://paperswithcode.com/about,2026-11-24,full
+cls-s15,"paperswithcode.co home (revival site, undated)",https://paperswithcode.co/,2026-11-24,skimmed
+cls-s16,search: Papers with Code free and open resource tasks areas edit contribute leaderboards community,"search: Papers with Code ""free and open resource"" tasks areas ""edit"" contribute leaderboards community",2026-11-24,full
+cls-s17,"A Home For Results in ML (Papers with Code on Medium, blocked: HTTP 403)",https://medium.com/paperswithcode/a-home-for-results-in-ml-e25681c598dc,2026-11-24,full
+cls-s18,"Diátaxis home (diataxis.fr, undated)",https://diataxis.fr/,2026-11-24,full
+cls-s19,"The compass (Diátaxis, undated)",https://diataxis.fr/compass/,2026-11-24,full
+cls-s20,"Diátaxis in complex hierarchies (Diátaxis, HTTP 404 on fetch)",https://diataxis.fr/complex-hierarchies/,2026-11-24,full
+cls-s21,"Foundations (Diátaxis, undated)",https://diataxis.fr/foundations/,2026-11-24,full
+cls-s22,"How to use Diátaxis (Diátaxis, undated)",https://diataxis.fr/how-to-use-diataxis/,2026-11-24,full
+cls-s23,"The map (Diátaxis, undated)",https://diataxis.fr/map/,2026-11-24,full
+cls-s24,search: Diátaxis limitations criticism doesn't fit research notes reference data four quadrants,search: Diátaxis limitations criticism doesn't fit research notes reference data four quadrants,2026-11-24,full
+cls-s25,"Problems with the 4doc model (Hillel Wayne, 2023-07-05)",https://hillelwayne.com/post/problems-with-the-4doc-model/,2026-11-24,full
+cls-s26,"Wikipedia:Overcategorization (English Wikipedia guideline, undated)",https://en.wikipedia.org/wiki/Wikipedia:Overcategorization,2026-11-24,full
+cls-s27,"Wikipedia:Categorization (English Wikipedia guideline, undated)",https://en.wikipedia.org/wiki/Wikipedia:Categorization,2026-11-24,full
+cls-s28,search: Wikipedia category graph study cycles inconsistencies taxonomy not a tree measured,search: Wikipedia category graph study cycles inconsistencies taxonomy not a tree measured,2026-11-24,full
+cls-s29,"Wikipedia:Categories for discussion (English Wikipedia process page, live state)",https://en.wikipedia.org/wiki/Wikipedia:Categories_for_discussion,2026-11-24,skimmed
+cls-s30,"Wikipedia Arborification and Stratified Explicit Semantic Analysis (arXiv 1201.6224, 2012-01-30)",https://arxiv.org/abs/1201.6224,2026-11-24,skimmed
+cls-s31,Stack Overflow help: create tags privilege (blocked: fetch tool refuses stackoverflow.com),https://stackoverflow.com/help/privileges/create-tags,2026-11-24,full
+cls-s32,Stack Overflow help: tagging (blocked: fetch tool refuses stackoverflow.com),https://stackoverflow.com/help/tagging,2026-11-24,full
+cls-s33,Meta Stack Exchange help: create tags (blocked: fetch tool refuses meta.stackexchange.com),https://meta.stackexchange.com/help/privileges/create-tags,2026-11-24,full
+cls-s34,Stack Exchange API site info (blocked: fetch tool refuses api.stackexchange.com),https://api.stackexchange.com/2.3/info?site=stackoverflow,2026-11-24,full
+cls-s35,search: Stack Overflow create tags privilege reputation 1500 tag synonyms maximum five tags per question,search: Stack Overflow create tags privilege reputation 1500 tag synonyms maximum five tags per question,2026-11-24,full
+cls-s36,search: folksonomy tag sprawl measured study controlled vocabulary versus free tagging synonyms proportion,search: folksonomy tag sprawl measured study controlled vocabulary versus free tagging synonyms proportion,2026-11-24,full
+cls-s37,"Tag folksonomy and tag synonyms (Stack Overflow blog, Jeff Atwood, 2010-08-01)",https://stackoverflow.blog/2010/08/tag-folksonomy-and-tag-synonyms,2026-11-24,full
+cls-s38,"Synonym Suggestion for Tags on Stack Overflow (Beyer and Pinzger, University of Klagenfurt preprint, 2015)",https://steffiii.github.io/preprints/2015_tsst.pdf,2026-11-24,skimmed
+cls-s39,"Classifying your repository with topics (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics,2026-11-24,full
+cls-s40,"github/explore repository README (GitHub, undated)",https://github.com/github/explore,2026-11-24,skimmed
+cls-s41,"Model Cards (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/model-cards,2026-11-24,full
+cls-s42,"Awesome pull request template (sindresorhus/awesome on GitHub, undated)",https://github.com/sindresorhus/awesome/blob/main/pull_request_template.md,2026-11-24,full
+cls-s43,"Awesome manifesto, awesome.md (sindresorhus/awesome on GitHub, undated)",https://github.com/sindresorhus/awesome/blob/main/awesome.md,2026-11-24,full
+cls-s44,"package.json, keywords field (npm Docs, CLI v10, undated)",https://docs.npmjs.com/cli/v10/configuring-npm/package-json,2026-11-24,skimmed
+cls-s45,"awesome-selfhosted-data repository README (GitHub, undated)",https://github.com/awesome-selfhosted/awesome-selfhosted-data,2026-11-24,skimmed
+cls-s46,"awesome-selfhosted-data CONTRIBUTING.md (GitHub, undated)",https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted-data/master/CONTRIBUTING.md,2026-11-24,full
+cls-s47,"Our World in Data home page (OWID, live counts on 2026-11-24)",https://ourworldindata.org/,2026-11-24,skimmed
+cls-s48,"About (Our World in Data, undated)",https://ourworldindata.org/about,2026-11-24,full
+cls-s49,"MeSH Tree Structures introduction (NLM, last reviewed 2025-07-10)",https://www.nlm.nih.gov/mesh/intro_trees.html,2026-11-24,full
+cls-s50,search: MeSH new descriptors added annually 2026 MeSH what's new counts descriptors added deleted,search: MeSH new descriptors added annually 2026 MeSH what's new counts descriptors added deleted,2026-11-24,full
+cls-s51,"What's New in MeSH (NLM, last reviewed 2025-07-10)",https://www.nlm.nih.gov/mesh/whatsnew.html,2026-11-24,skimmed
+cls-s52,"Medical Subject Headings home (NLM, last reviewed 2026-09-24)",https://www.nlm.nih.gov/mesh/meshhome.html,2026-11-24,skimmed
+cls-s53,"NLM Classification 2026 Winter Edition (NLM Technical Bulletin, 2026-01-21)",https://www.nlm.nih.gov/pubs/techbull/jf26/jf26_NLM_Classification_2026_WinterEd.html,2026-11-24,skimmed
+cls-s54,"Suggestions for MeSH (NLM, last reviewed 2025-07-10)",https://www.nlm.nih.gov/mesh/meshsugg.html,2026-11-24,full
+cls-s55,search: Nielsen Norman Group faceted search filters how many facets guidelines,search: Nielsen Norman Group faceted search filters how many facets guidelines,2026-11-24,full
+cls-s56,search: Ranganathan PMEST five fundamental categories faceted classification versus enumerative hierarchy,search: Ranganathan PMEST five fundamental categories faceted classification versus enumerative hierarchy,2026-11-24,full
+cls-s57,"Defining Helpful Filter Categories and Values for Better UX (Nielsen Norman Group, Kate Moran, 2018-07-15)",https://www.nngroup.com/articles/filter-categories-values/,2026-11-24,full
+cls-s58,"Facet analysis (ISKO Encyclopedia of Knowledge Organization, Birger Hjørland, published 2018-10-25, updated 2020-12-15)",https://isko.org/cyclo/facet_analysis,2026-11-24,skimmed
+cls-s59,"search: ""Better to organize personal information by folders or by tags"" study findings","search: ""Better to organize personal information by folders or by tags"" study findings",2026-11-24,full
+cls-s60,search: study users prefer folders over tags hierarchy navigation retrieval file organization evidence,search: study users prefer folders over tags hierarchy navigation retrieval file organization evidence,2026-11-24,full
+cls-s61,"Folder versus tag preference in personal information management, abstract (Bergman, Gradovitch, Bar-Ilan, Beyth-Marom; JASIST 64(10), 2013; via IDEAS/RePEc)",https://ideas.repec.org/a/bla/jamist/v64y2013i10p1995-2012.html,2026-11-24,full
+cls-s62,"Tagging, Folksonomy & Co - Renaissance of Manual Indexing? (Jakob Voß, arXiv cs/0701072, 2007-01)",https://ar5iv.labs.arxiv.org/html/cs/0701072,2026-11-24,skimmed
+cls-s63,"The Structure of Collaborative Tagging Systems, abstract (Golder and Huberman, arXiv cs/0508082, 2005-08-18)",https://arxiv.org/abs/cs/0508082,2026-11-24,full
+cls-s64,search: GitHub topics analysis study number of distinct topics long tail synonyms repositories measured,search: GitHub topics analysis study number of distinct topics long tail synonyms repositories measured,2026-11-24,full
+cls-s65,"Topic Recommendation for Software Repositories using Multi-label Classification Algorithms, abstract (Izadi, Heydarnoori, Gousios; arXiv 2010.09116, v4 2021-06-13)",https://arxiv.org/abs/2010.09116,2026-11-24,full
+cls-s66,"github/explore CONTRIBUTING.md (GitHub, undated)",https://raw.githubusercontent.com/github/explore/main/CONTRIBUTING.md,2026-11-24,full
+cls-s67,"Topic Recommendation for Software Repositories using Multi-label Classification Algorithms, full text (ar5iv rendering of arXiv 2010.09116)",https://ar5iv.labs.arxiv.org/html/2010.09116,2026-11-24,skimmed
+cls-s68,"github/explore docs/styleguide.md (GitHub, undated)",https://raw.githubusercontent.com/github/explore/main/docs/styleguide.md,2026-11-24,skimmed
+cls-s69,search: arXiv cross-listing criticism category taxonomy outdated problems computer science categories cs.LG overload,search: arXiv cross-listing criticism category taxonomy outdated problems computer science categories cs.LG overload,2026-11-24,full
+cls-s70,"Dataset Cards (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/datasets-cards,2026-11-24,full
+cls-s71,"arXiv Machine Learning Classification Guide (arXiv blog, 2019-12-05)",https://blog.arxiv.org/2019/12/05/arxiv-machine-learning-classification-guide,2026-11-24,full
+cls-s72,search: Wikipedia category system problems essay statistics number of categories per article average category clutter,search: Wikipedia category system problems essay statistics number of categories per article average category clutter,2026-11-24,full
+cls-s73,"Wikipedia:Categories, lists, and navigation templates (English Wikipedia guideline, undated)","https://en.wikipedia.org/wiki/Wikipedia:Categories,_lists,_and_navigation_templates",2026-11-24,full
+cls-s74,"Beyond categories (Wikimedia Meta-Wiki, last edited 2017-01-11, historical)",https://meta.wikimedia.org/wiki/Beyond_categories,2026-11-24,full
+cls-s75,"Applying Diátaxis (Diátaxis, undated)",https://diataxis.fr/application/,2026-11-24,skimmed
+cls-s76,"Reference (Diátaxis, undated)",https://diataxis.fr/reference/,2026-11-24,full
+cls-s77,"Explanation (Diátaxis, undated)",https://diataxis.fr/explanation/,2026-11-24,full
+cls-s78,search: awesome list too large split into sub-lists generated README from YAML data stale links unmaintained entries,search: awesome list too large split into sub-lists generated README from YAML data stale links unmaintained entries,2026-11-24,full
+cls-s79,"best-of-generator README (best-of-lists on GitHub, undated)",https://github.com/best-of-lists/best-of-generator,2026-11-24,full
+cls-s80,"awesome-selfhosted repository page (GitHub, counts on 2026-11-24)",https://github.com/awesome-selfhosted/awesome-selfhosted,2026-11-24,skimmed
+cls-s81,"awesome-selfhosted README.md raw (GitHub, undated)",https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted/master/README.md,2026-11-24,skimmed
+cls-s82,search: arXiv cross-lists analysis interdisciplinary papers primary category share of papers cross-listed measured,search: arXiv cross-lists analysis interdisciplinary papers primary category share of papers cross-listed measured,2026-11-24,full
+idv-s01,"Documenting Architecture Decisions (Cognitect blog, published 2011-11-15)",https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions,2026-11-24,full
+idv-s02,"adr-tools README (GitHub repository npryce/adr-tools, undated)",https://github.com/npryce/adr-tools,2026-11-24,full
+idv-s03,"About MADR, Markdown Architectural Decision Records (adr.github.io, latest release listed 4.0.0 of 2024-09-17)",https://adr.github.io/madr/,2026-11-24,full
+idv-s04,"PEP 1 - PEP Purpose and Guidelines (Python, last modified 2026-11-08)",https://peps.python.org/pep-0001/,2026-11-24,full
+idv-s05,"Rust RFCs README (GitHub repository rust-lang/rfcs, undated)",https://github.com/rust-lang/rfcs,2026-11-24,full
+idv-s06,"Kubernetes Enhancement Proposals README (GitHub kubernetes/enhancements, undated)",https://github.com/kubernetes/enhancements/blob/master/keps/README.md,2026-11-24,full
+idv-s07,"KEP template kep.yaml (GitHub kubernetes/enhancements, undated)",https://raw.githubusercontent.com/kubernetes/enhancements/master/keps/NNNN-kep-template/kep.yaml,2026-11-24,full
+idv-s08,"RFC 9280: RFC Editor Model (Version 3) (IAB / RFC Editor, published June 2022)",https://www.rfc-editor.org/rfc/rfc9280.html,2026-11-24,full
+idv-s09,"RFC 7322: RFC Style Guide (RFC Editor, published September 2014)",https://www.rfc-editor.org/rfc/rfc7322.html,2026-11-24,full
+idv-s10,"RFC Errata search form (RFC Editor, undated; reached by redirect from rfc-editor.org/errata.php; no explanatory text)",https://errata.rfc-editor.org/,2026-11-24,skimmed
+idv-s11,"RFC Editor FAQ (RFC Editor, last updated 2026-11-10)",https://www.rfc-editor.org/faq/,2026-11-24,full
+idv-s12,"Understanding the arXiv identifier (arXiv help, undated)",https://info.arxiv.org/help/arxiv_identifier.html,2026-11-24,full
+idv-s13,"Versions and replacing an article (arXiv help, undated)",https://info.arxiv.org/help/versions.html,2026-11-24,full
+idv-s14,"To withdraw an article (arXiv help, undated)",https://info.arxiv.org/help/withdraw.html,2026-11-24,full
+idv-s15,"PEP 12 - Sample reStructuredText PEP Template (Python, last modified 2026-03-04)",https://peps.python.org/pep-0012/,2026-11-24,full
+idv-s16,"DataCite Metadata Schema 4.6, Appendix 1: relationType (DataCite, undated; version taken from the URL)",https://datacite-metadata-schema.readthedocs.io/en/4.6/appendices/appendix-1/relationType/,2026-11-24,full
+idv-s17,"Tombstone pages (DataCite Support, updated 2026-08-07)",https://support.datacite.org/docs/tombstone-pages,2026-11-24,full
+idv-s18,"Versioning (DataCite Support, updated 2026-09-22)",https://support.datacite.org/docs/versioning,2026-11-24,full
+idv-s19,"Manage versions (Zenodo help, undated)",https://help.zenodo.org/docs/deposit/manage-versions/,2026-11-24,full
+idv-s20,"BLOCKED, HTTP 403: Retraction guidelines (COPE)",https://publicationethics.org/retraction-guidelines,2026-11-24,skimmed
+idv-s21,"BLOCKED, HTTP 403: Retraction guidelines PDF, second route (COPE)",https://publicationethics.org/files/retraction-guidelines-cope.pdf,2026-11-24,skimmed
+idv-s22,"Crossmark service page (Crossref, last updated 2020-04-08)",https://www.crossref.org/services/crossmark/,2026-11-24,full
+idv-s23,"DOI versioning help (Zenodo, undated)",https://zenodo.org/help/versioning,2026-11-24,full
+idv-s24,"Cool URIs don't change (W3C, 1998)",https://www.w3.org/Provider/Style/URI,2026-11-24,full
+idv-s25,"About ARKs (ARK Alliance, undated)",https://arks.org/about/,2026-11-24,full
+idv-s26,"Manage existing GOV.UK content (GOV.UK content and publishing guidance, undated; reached by redirect from gov.uk/guidance/content-design/content-maintenance)",https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/manage-existing-govuk-content/,2026-11-24,full
+idv-s27,"Cochrane Handbook, Chapter 22: Prospective approaches to meta-analysis (Cochrane, version 6.5.1; not on topic, first 100,000 characters only)",https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-22,2026-11-24,skimmed
+idv-s28,Search results (snippets only),search: architecture decision records numbering conflict concurrent branches merge same number,2026-11-24,full
+idv-s29,Search results (snippets only),"search: Cochrane living systematic reviews guidance update status ""up to date"" classification",2026-11-24,full
+idv-s30,"Issue 28: Numbering sequence can break when different PRs create ADRs at the same time (GitHub adr/madr, opened 2020-10-12, still open, last activity August 2026)",https://github.com/adr/madr/issues/28,2026-11-24,full
+idv-s31,"ADR Process (Thunderbird source docs, undated)",https://source-docs.thunderbird.net/en/latest/adr/README.html,2026-11-24,full
+idv-s32,"How to write ADRs (Cloud Posse docs, undated)",https://docs.cloudposse.com/learn/maintenance/tutorials/how-to-write-adrs/,2026-11-24,full
+idv-s33,"Cochrane Handbook, Chapter IV: Updating a review (Cochrane, last updated August 2023)",https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-iv,2026-11-24,full
+idv-s34,"Cochrane Handbook, Chapter 21: Living systematic reviews (Cochrane, version 6.5.1, 2026)",https://www.cochrane.org/authors/handbooks-and-manuals/handbook/current/chapter-21,2026-11-24,full
+idv-s35,"Metadata for Microsoft Learn documentation, contributor guide (Microsoft, ms.date 2025-05-01)",https://learn.microsoft.com/en-us/contribute/content/metadata,2026-11-24,full
+idv-s36,Search results (snippets only),"search: Stack Overflow outdated answers project ""Trending sort"" obsolete answers results",2026-11-24,full
+idv-s37,"An Empirical Study of Obsolete Answers on Stack Overflow, abstract page (arXiv 1903.12282, v1 of 2019-03-28)",https://arxiv.org/abs/1903.12282,2026-11-24,skimmed
+idv-s38,"BLOCKED, fetch tool cannot reach this host: Introducing Outdated Answers project (Meta Stack Overflow)",https://meta.stackoverflow.com/questions/405302/introducing-outdated-answers-project,2026-11-24,skimmed
+idv-s39,"NOT FOUND, HTTP 404: guessed address for GOV.UK guidance on retiring outdated content",https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/retire-outdated-content/,2026-11-24,skimmed
+idv-s40,"BLOCKED, HTTP 403: Developing NICE guidelines: the manual, chapter on keeping published guidelines current (NICE)",https://www.nice.org.uk/process/pmg20/chapter/ensuring-that-published-guidelines-are-current-and-accurate,2026-11-24,skimmed
+idv-s41,"Corrections and Version Control (ICMJE Recommendations, undated, footer 2026)",https://www.icmje.org/recommendations/browse/publishing-and-editorial-issues/corrections-and-version-control.html,2026-11-24,full
+idv-s42,"RP-45-2024, Communication of Retractions, Removals, and Expressions of Concern (NISO, published 2024-06-27; abstract and front matter only)",https://www.niso.org/publications/rp-45-2024-crec,2026-11-24,skimmed
+idv-s43,"Template:Update (English Wikipedia, undated)",https://en.wikipedia.org/wiki/Template:Update,2026-11-24,full
+idv-s44,"Wikipedia:As of (English Wikipedia, undated; first 100,000 characters only)",https://en.wikipedia.org/wiki/Wikipedia:As_of,2026-11-24,skimmed
+idv-s45,"Scientific Misconduct, Expressions of Concern, and Retraction (ICMJE Recommendations, undated)",https://www.icmje.org/recommendations/browse/publishing-and-editorial-issues/scientific-misconduct-expressions-of-concern-and-retraction.html,2026-11-24,full
+idv-s46,"Article withdrawal policy (Elsevier, undated)",https://www.elsevier.com/about/policies-and-standards/article-withdrawal,2026-11-24,full
+idv-s47,"Active Record Migrations (Ruby on Rails Guides, undated)",https://guides.rubyonrails.org/active_record_migrations.html,2026-11-24,full
+idv-s48,"Posts (Jekyll docs, undated)",https://jekyllrb.com/docs/posts/,2026-11-24,full
+idv-s49,"URL management (Hugo docs, undated)",https://gohugo.io/content-management/urls/,2026-11-24,full
+idv-s50,"Tutorial (towncrier docs, stable, undated)",https://towncrier.readthedocs.io/en/stable/tutorial.html,2026-11-24,full
+idv-s51,"Usage (reno docs, OpenStack, undated)",https://docs.openstack.org/reno/latest/user/usage.html,2026-11-24,full
+idv-s52,"NOT FOUND, HTTP 404: guessed address for the changesets detailed explanation",https://github.com/changesets/changesets/blob/main/docs/detailed-explanation.md,2026-11-24,skimmed
+idv-s53,"Design Constraints (reno docs, OpenStack, undated)",https://docs.openstack.org/reno/latest/user/design.html,2026-11-24,full
+idv-s54,"NOT FOUND: Rails 2.1 release notes (redirected to edgeguides.rubyonrails.org, which returned HTTP 404)",https://guides.rubyonrails.org/2_1_release_notes.html,2026-11-24,skimmed
+idv-s55,"towncrier documentation index (towncrier docs, stable, undated)",https://towncrier.readthedocs.io/en/stable/index.html,2026-11-24,full
+idv-s56,"You Only Find What You Have Identified (zettelkasten.de, published 2014-02-27)",https://zettelkasten.de/posts/add-identity/,2026-11-24,full
+idv-s57,"ADR process (AWS Prescriptive Guidance, undated)",https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html,2026-11-24,full
+idv-s58,"KEP-0000: Kubernetes Enhancement Proposal Process (GitHub kubernetes/enhancements, undated)",https://github.com/kubernetes/enhancements/blob/master/keps/sig-architecture/0000-kep-process/README.md,2026-11-24,full
+idv-s59,"Adding a journal reference, DOI or report number (arXiv help, undated)",https://info.arxiv.org/help/jref.html,2026-11-24,full
+idv-s60,Search results (snippets only),"search: GOV.UK publishing guidance withdraw content ""withdrawn"" notice page stays published review date reminder",2026-11-24,full
+idv-s61,"Withdraw or unpublish standard content (GOV.UK content and publishing guidance, undated)",https://guidance.publishing.service.gov.uk/publish-update-retire-content/standard-content-types/withdraw-unpublish-standard,2026-11-24,full
+idv-s62,"Retire content (GOV.UK content and publishing guidance, undated)",https://guidance.publishing.service.gov.uk/writing-to-gov-uk-standards/plan-manage-content/retire-content,2026-11-24,full
+idv-s63,Search that found nothing on the question (vendor help pages only),"search: documentation ""review date"" OR ""review-by date"" overdue pages study percentage content past review date not reviewed",2026-11-24,full
+idv-s64,Search results (snippets only),search: clinical guidelines past their review date proportion out of date study NHS trust guidelines expired review dates audit,2026-11-24,full
+idv-s65,Search results (snippets only),search: Stack Overflow blog outdated answers accepted answer no longer pinned top 2021,2026-11-24,full
+idv-s66,"Errata in RFCs: how to report (RFC Editor, last updated 2026-06-11)",https://www.rfc-editor.org/how-to-report/,2026-11-24,full
+idv-s67,"NOT FOUND, HTTP 404: guessed address for the DOI Handbook section on DOI name syntax",https://www.doi.org/doi-handbook/HTML/doi-name-syntax.html,2026-11-24,skimmed
+idv-s68,"Australian clinical practice guidelines: a national study (Medical Journal of Australia 192(9), published 2010-05-03)",https://www.mja.com.au/journal/2010/192/9/australian-clinical-practice-guidelines-national-study,2026-11-24,full
+idv-s69,"The validity of recommendations from clinical guidelines: a survival analysis (CMAJ 186(16), published 2014-11-04, PMC copy)",https://pmc.ncbi.nlm.nih.gov/articles/PMC4216254,2026-11-24,full
+idv-s70,"BLOCKED, HTTP 403: When and how to update systematic reviews: consensus and checklist (BMJ site)",https://www.bmj.com/content/354/bmj.i3507,2026-11-24,skimmed
+idv-s71,"Review date component page, now a notice that the component was withdrawn (NHS digital service manual, updated November 2021)",https://service-manual.nhs.uk/design-system/components/review-date,2026-11-24,full
+idv-s72,"General Policies v1.0 (Zenodo, undated)",https://about.zenodo.org/policies/,2026-11-24,full
+idv-s73,Crossmark documentation address that redirected; no page text returned on this route,https://www.crossref.org/documentation/crossmark/version-control-corrections-and-retractions/,2026-11-24,skimmed
+idv-s74,"Versioning: version control, corrections, and retractions (Crossref documentation, last updated 2025-08-13)",https://www.crossref.org/documentation/principles-practices/best-practices/versioning/,2026-11-24,full
+idv-s75,"RFC Publication process (IETF author resources; reached by redirect from rfc-editor.org/pubprocess; only the title came back, no body text)",https://authors.ietf.org/rfc-publication-process,2026-11-24,skimmed
+idv-s76,"log4brains README (GitHub repository thomvaill/log4brains, undated)",https://github.com/thomvaill/log4brains,2026-11-24,full
+idv-s77,"Pattern: Reassure users that a page is up to date (NHS digital service manual, updated November 2025)",https://service-manual.nhs.uk/design-system/patterns/reassure-users-that-a-page-is-up-to-date,2026-11-24,full
+idv-s78,"When and how to update systematic reviews: consensus and checklist (BMJ 354:i3507, published 2016-07-20, PMC copy; first 100,000 characters only)",https://pmc.ncbi.nlm.nih.gov/articles/PMC4955793/,2026-11-24,skimmed
+idv-s79,"BLOCKED, cookie wall: PubMed record 17638714 (study of how quickly systematic reviews go out of date)",https://pubmed.ncbi.nlm.nih.gov/17638714/,2026-11-24,skimmed
+idv-s80,"NOT FOUND, HTTP 404: second guessed address for the DOI Handbook numbering chapter",https://www.doi.org/the-identifier/resources/handbook/2_numbering,2026-11-24,skimmed
+idv-s81,Search results (snippets only),search: Rails 2.1 timestamped migrations instead of sequential numbers reason two developers same migration number,2026-11-24,full
+idv-s82,Search results (snippets only),"search: problems with date-prefixed filenames as identifiers notes ADR ""date"" prefix drawbacks which date same-day collision rename breaks links",2026-11-24,full
+idv-s83,"ADR: Use the ADR slug as its unique ID (log4brains project docs, dated 2020-10-16)",https://thomvaill.github.io/log4brains/adr/adr/20201016-use-the-adr-slug-as-its-unique-id/,2026-11-24,full
+idv-s84,"Timestamped migrations, rubyonrails-core discussion thread, page 1 (discuss.rubyonrails.org, started 2008-07-11)",https://discuss.rubyonrails.org/t/timestamped-migrations/31715,2026-11-24,skimmed
+idv-s85,Search results (snippets only),search: should architecture decision records be immutable or living documents edit accepted ADR argument against immutability,2026-11-24,full
+idv-s86,Search results (snippets only),"search: retracted article removed entirely ""removal"" legal reasons privacy scholarly record exceptions COPE guidance retracted articles should not be removed",2026-11-24,full
+idv-s87,Search limited to stackoverflow.blog; found no announcement of the outcome,"search: Stack Overflow ""outdated answers"" accepted answer unpinned Trending sort announcement",2026-11-24,full
+idv-s88,"PURL help (Internet Archive PURL service, undated, service version 1.2.3)",https://purl.archive.org/help,2026-11-24,full
+idv-s89,"Template:Historical (English Wikipedia, undated)",https://en.wikipedia.org/wiki/Template:Historical,2026-11-24,full
+idv-s90,"Banners and notices (MDN writing guidelines, last modified 2026-09-02)",https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Page_structures/Banners_and_notices,2026-11-24,full
+idv-s91,"The Loop: Our Community & Public Platform Roadmap for Q3 2021 (Stack Overflow blog, published 2021-07-30)",https://stackoverflow.blog/2021/07/30/the-loop-our-community-public-platform-roadmap-for-q3-2021/,2026-11-24,full
+idv-s92,"Architecture Decision Record (martinfowler.com bliki, page dated 2026-03-24)",https://www.martinfowler.com/bliki/ArchitectureDecisionRecord.html,2026-11-24,full
+idv-s93,"Lullabot's Architecture Decisions (architecture.lullabot.com, undated)",https://architecture.lullabot.com/,2026-11-24,full
+idv-s94,"DataCite Metadata Schema, latest, Appendix 1: relationType (DataCite, undated; version not shown on the page)",https://datacite-metadata-schema.readthedocs.io/en/latest/appendices/appendix-1/relationType/,2026-11-24,full
+idv-s95,"Maintain an architecture decision record (Microsoft Azure Well-Architected Framework, ms.date 2026-04-10)",https://learn.microsoft.com/en-us/azure/well-architected/architect-role/architecture-decision-record,2026-11-24,full
+idv-s96,"BLOCKED, HTTP 403: Developing NICE guidelines: the manual, introduction, second route (NICE)",https://www.nice.org.uk/process/pmg20/chapter/introduction,2026-11-24,skimmed
+idv-s97,Search that found nothing on the question (CMS and university tool pages only),"search: ""next review due"" date passed pages overdue content audit findings website health information percentage overdue review",2026-11-24,full
+idv-s98,"Review date component (HSE digital service manual, Ireland, updated August 2023)",https://service-manual.hse.ie/design-system/components/review-date,2026-11-24,full
+idv-s99,Search results (snippets only; no official definition found),"search: Microsoft Learn ""ms.update-cycle"" metadata freshness days",2026-11-24,full
+idv-s100,"Software Engineering at Google, Chapter 10: Documentation (abseil.io online edition, undated on the page)",https://abseil.io/resources/swe-book/html/ch10.html,2026-11-24,full
+idv-s101,"Template:Disputed (English Wikipedia, undated)",https://en.wikipedia.org/wiki/Template:Disputed,2026-11-24,full
+idv-s102,Search results (snippets only),"search: changesets markdown file random name generated ""human-id"" changeset file naming",2026-11-24,full
+idv-s103,"NOT FOUND, HTTP 404: changesets common questions page in the project repository",https://github.com/changesets/changesets/blob/main/docs/common-questions.md,2026-11-24,skimmed
+idv-s104,"NOT FOUND, HTTP 404: second route, raw file for the changesets common questions page",https://raw.githubusercontent.com/changesets/changesets/main/docs/common-questions.md,2026-11-24,skimmed
+idv-s105,Search results (snippets only),"search: DOI Handbook persistence DOI name never deleted reassigned ""DOI names"" persistence policy",2026-11-24,full
+idv-s106,"DOI Persistence (DataCite Support, updated 2026-08-24)",https://support.datacite.org/docs/doi-persistence,2026-11-24,full
+idv-s107,"Search results (snippets only; practitioner and vendor pages, no studies)","search: documentation freshness ""review date"" ignored rubber-stamp ""last reviewed"" bumped without changes stale docs problem",2026-11-24,full
+idv-s108,"Reviewing content (Angular docs, reached by redirect to angular.dev, undated; page had no text on review dates)",https://angular.dev/guide/reviewing-content,2026-11-24,full
+idv-s109,"Last Updated, component attributes (Cloudflare docs style guide, dateModified 2026-08-20)",https://developers.cloudflare.com/style-guide/documentation-content-strategy/component-attributes/last-updated/,2026-11-24,full
+idv-s110,"Documentation maintenance (Microsoft hve-core contributor docs, last updated 2026-11-06)",https://microsoft.github.io/hve-core/docs/contributing/documentation-maintenance,2026-11-24,full
+idv-s111,"Curation policy (Optimism docs, undated)",https://docs.optimism.io/op-stack/contribute/curation-policy,2026-11-24,full
+idv-s112,Search results (snippets only; no arXiv removal policy found),"search: arXiv removed article entirely legal reasons copyright infringement plagiarism ""removed"" not withdrawn policy",2026-11-24,full
+idv-s113,"Copyright infringement reporting (arXiv help, undated)",https://info.arxiv.org/help/copyright.html,2026-11-24,full
+idv-s114,Search results (snippets only; forum threads and vendor docs),"search: slug based permanent ID renamed title broke links ""slug"" changed old links 404 lesson immutable id vs slug",2026-11-24,full
+idv-s115,"Cool URIs Don't Change, But Humans Do (blog.jim-nielsen.com, published 2024-06-27)",https://blog.jim-nielsen.com/2024/cool-uris-and-humans/,2026-11-24,full
+met-s01,"Data Resource, Data Package Standard v2 (datapackage.org, last updated 2026-08-25)",https://datapackage.org/standard/data-resource/,2026-11-24,full
+met-s02,"Data Package, Data Package Standard v2 (datapackage.org, last updated 2026-08-25)",https://datapackage.org/standard/data-package/,2026-11-24,full
+met-s03,"Changelog (datapackage.org, last updated 2026-08-25)",https://datapackage.org/overview/changelog/,2026-11-24,full
+met-s04,"Governance (datapackage.org, last updated 2026-08-25)",https://datapackage.org/overview/governance/,2026-11-24,full
+met-s05,"Data Resource JSON Schema profile 2.0 (datapackage.org, undated)",https://datapackage.org/profiles/2.0/dataresource.json,2026-11-24,skimmed
+met-s06,search: Frictionless data package hash sha256 default md5 criticism proposal change default algorithm (no current Frictionless proposal found),search: Frictionless data package hash sha256 default md5 criticism proposal change default algorithm,2026-11-24,full
+met-s07,"DP - field 'hash' in resource information is unclear, issue #41 (frictionlessdata/datapackage on GitHub, 2013-04-24 to 2013-05-06)",https://github.com/frictionlessdata/datapackage/pull/41,2026-11-24,full
+met-s08,"Dataset Cards (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/datasets-cards,2026-11-24,full
+met-s09,"Model Cards (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/model-cards,2026-11-24,full
+met-s10,"datasetcard.md metadata specification (huggingface/hub-docs on GitHub, undated)",https://raw.githubusercontent.com/huggingface/hub-docs/main/datasetcard.md,2026-11-24,full
+met-s11,search: Hugging Face Hub README.md YAML metadata invalid push rejected metadata validation error,"search: Hugging Face Hub README.md YAML metadata invalid push rejected ""metadata"" validation error",2026-11-24,full
+met-s12,"Repository Cards reference, huggingface_hub v2.4.0 (Hugging Face docs, undated)",https://huggingface.co/docs/huggingface_hub/package_reference/cards,2026-11-24,full
+met-s13,"A model page with no card metadata, showing the Hub's metadata warning (Hugging Face, undated)",https://huggingface.co/acd23/Test,2026-11-24,skimmed
+met-s14,"search: ""YAML Metadata Error"" ""must be one of"" huggingface license","search: ""YAML Metadata Error"" ""must be one of"" huggingface license",2026-11-24,full
+met-s15,"Licenses (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/repositories-licenses,2026-11-24,full
+met-s16,"Llama 3.1 licence not allowed in hub upload? (Hugging Face forum, 2024-09-10)",https://discuss.huggingface.co/t/llama-3-1-licence-not-allowed-in-hub-upload/106191,2026-11-24,full
+met-s17,"datasetcard_template.md (huggingface/huggingface_hub on GitHub, undated)",https://raw.githubusercontent.com/huggingface/huggingface_hub/main/src/huggingface_hub/templates/datasetcard_template.md,2026-11-24,full
+met-s18,"Dataset structured data (Google Search Central, undated in fetched text)",https://developers.google.com/search/docs/appearance/structured-data/dataset,2026-11-24,full
+met-s19,"Dataset (schema.org, V30.1 2026-09-16)",https://schema.org/Dataset,2026-11-24,full
+met-s20,"supersededBy (schema.org, V30.1 2026-09-16)",https://schema.org/supersededBy,2026-11-24,full
+met-s21,"DataDownload (schema.org, V30.1 2026-09-16)",https://schema.org/DataDownload,2026-11-24,full
+met-s22,"Report (schema.org, V30.1 2026-09-16)",https://schema.org/Report,2026-11-24,full
+met-s23,"TechArticle (schema.org, V30.1 2026-09-16)",https://schema.org/TechArticle,2026-11-24,full
+met-s24,"ScholarlyArticle (schema.org, V30.1 2026-09-16)",https://schema.org/ScholarlyArticle,2026-11-24,full
+met-s25,"correction (schema.org, V30.1 2026-09-16)",https://schema.org/correction,2026-11-24,full
+met-s26,"DataCite Metadata Schema home (DataCite, 4.7 released 2026-03-03)",https://schema.datacite.org/,2026-11-24,full
+met-s27,"DataCite Metadata Schema 4.7 properties overview (DataCite, 2026-03-03)",https://datacite-metadata-schema.readthedocs.io/en/4.7/properties/overview/,2026-11-24,full
+met-s28,"Metadata Schema 4.7 kernel page (DataCite, 2026-03-03)",https://schema.datacite.org/meta/kernel-4.7/,2026-11-24,full
+met-s29,"Appendix 1, resourceTypeGeneral, schema 4.7 (DataCite, 2026-03-03)",https://datacite-metadata-schema.readthedocs.io/en/4.7/appendices/appendix-1/resourceTypeGeneral/,2026-11-24,full
+met-s30,"Appendix 1, relationType, schema 4.7 (DataCite, 2026-03-03)",https://datacite-metadata-schema.readthedocs.io/en/4.7/appendices/appendix-1/relationType/,2026-11-24,full
+met-s31,"Rights property, schema 4.7 (DataCite, 2026-03-03)",https://datacite-metadata-schema.readthedocs.io/en/4.7/properties/rights/,2026-11-24,full
+met-s32,"About CITATION files (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-citation-files,2026-11-24,full
+met-s33,"Citation File Format home (citation-file-format.github.io, undated)",https://citation-file-format.github.io/,2026-11-24,skimmed
+met-s34,"Citation File Format README (citation-file-format on GitHub, undated)",https://github.com/citation-file-format/citation-file-format/blob/main/README.md,2026-11-24,skimmed
+met-s35,"RO-Crate 1.2 Introduction (researchobject.org, undated, footer 2021-2024)",https://www.researchobject.org/ro-crate/specification/1.2/introduction,2026-11-24,full
+met-s36,"RO-Crate specification index (researchobject.org, undated)",https://www.researchobject.org/ro-crate/specification,2026-11-24,full
+met-s37,"FAIR Principles (GO FAIR, blocked: HTTP 503)",https://www.go-fair.org/fair-principles/,2026-11-24,skimmed
+met-s38,"The FAIR Guiding Principles, Scientific Data publisher page (Nature, blocked: redirect to login)",https://www.nature.com/articles/sdata201618,2026-11-24,skimmed
+met-s39,"The FAIR Guiding Principles for scientific data management and stewardship, Wilkinson et al. (Scientific Data via PubMed Central, 2016-03-15)",https://pmc.ncbi.nlm.nih.gov/articles/PMC4792175/,2026-11-24,full
+met-s40,"RO-Crate 1.2 Root Data Entity (researchobject.org, undated)",https://www.researchobject.org/ro-crate/specification/1.2/root-data-entity,2026-11-24,full
+met-s41,"CodeMeta home (codemeta.github.io, undated)",https://codemeta.github.io/,2026-11-24,skimmed
+met-s42,"PROV-Overview, W3C Working Group Note (W3C, 2013-04-30)",https://www.w3.org/TR/prov-overview/,2026-11-24,full
+met-s43,"PROV Model Primer, W3C Working Group Note (W3C, 2013-04-30)",https://www.w3.org/TR/prov-primer/,2026-11-24,skimmed
+met-s44,"codemeta repository README (codemeta on GitHub, undated)",https://github.com/codemeta/codemeta,2026-11-24,skimmed
+met-s45,"codemeta releases (codemeta on GitHub, release list shows day and month only)",https://github.com/codemeta/codemeta/releases,2026-11-24,skimmed
+met-s46,"DCMI Metadata Terms (Dublin Core Metadata Initiative, 2020-01-20)",https://www.dublincore.org/specifications/dublin-core/dcmi-terms/,2026-11-24,skimmed
+met-s47,"Datasheets for Datasets, arXiv abstract page (arXiv, v1 2018-03-23, v8 2021-12-01)",https://arxiv.org/abs/1803.09010,2026-11-24,full
+met-s48,"ETL metadata architecture (Our World in Data docs, undated)",https://docs.owid.io/projects/etl/architecture/metadata/,2026-11-24,full
+met-s49,"ETL metadata reference (Our World in Data docs, undated)",https://docs.owid.io/projects/etl/architecture/metadata/reference/,2026-11-24,full
+met-s50,"ETL workflow (Our World in Data docs, undated)",https://docs.owid.io/projects/etl/architecture/workflow/,2026-11-24,full
+met-s51,search: owid etl snapshots stored R2 bucket dvc md5 snapshots Our World in Data ETL storage,"search: owid etl snapshots stored R2 bucket dvc md5 ""snapshots"" Our World in Data ETL storage",2026-11-24,full
+met-s52,"Private import guide (Our World in Data ETL docs, undated)",https://docs.owid.io/projects/etl/guides/private-import/,2026-11-24,full
+met-s53,"Access archived data guide (Our World in Data ETL docs, undated)",https://docs.owid.io/projects/etl/guides/data-work/access-archived-data/,2026-11-24,full
+met-s54,search: GitHub renders YAML front matter Markdown file as table docs.github.com,search: GitHub renders YAML front matter Markdown file as table docs.github.com,2026-11-24,full
+met-s55,"Viewing YAML Metadata in your Documents (GitHub Blog, 2013-09-27, updated 2019-01-04)",https://github.blog/news-insights/product-news/viewing-yaml-metadata-in-your-documents/,2026-11-24,full
+met-s56,"Using YAML frontmatter (GitHub Docs contributing guide, undated)",https://docs.github.com/en/contributing/writing-for-github-docs/using-yaml-frontmatter,2026-11-24,full
+met-s57,search: Node.js built-in YAML parser node:yaml proposal core module (only userland packages found),search: Node.js built-in YAML parser node:yaml proposal core module,2026-11-24,full
+met-s58,search: nodejs/node issue yaml built-in support add YAML parsing to core (nothing found),"search: github.com/nodejs/node issue ""yaml"" built-in support add YAML parsing to core",2026-11-24,full
+met-s59,"Modules: CommonJS modules, Node.js v26.13.1 docs (Node.js, undated)",https://nodejs.org/api/modules.html,2026-11-24,skimmed
+met-s60,"Front matter (Hugo docs, undated)",https://gohugo.io/content-management/front-matter/,2026-11-24,full
+met-s61,"gray-matter README (jonschlinkert/gray-matter on GitHub, undated)",https://github.com/jonschlinkert/gray-matter,2026-11-24,skimmed
+met-s62,search: mdn content front-matter linter schema ajv front-matter-config.json,search: mdn content front-matter linter schema ajv front-matter-config.json,2026-11-24,full
+met-s63,"package.json of the MDN content repository (mdn/content on GitHub, main branch, undated)",https://raw.githubusercontent.com/mdn/content/main/package.json,2026-11-24,full
+met-s64,"scripts folder of the MDN content repository (mdn/content on GitHub, undated)",https://github.com/mdn/content/tree/main/scripts,2026-11-24,skimmed
+met-s65,"front-matter_linter.js (mdn/content on GitHub, main branch, undated)",https://raw.githubusercontent.com/mdn/content/main/scripts/front-matter_linter.js,2026-11-24,full
+met-s66,search: sidecar metadata file drift out of sync with content markdown separate json file vs front matter (no drift report found),search: sidecar metadata file drift out of sync with content markdown separate json file vs front matter,2026-11-24,full
+met-s67,"sidematter-format 0.0.4 (PyPI, 2025-08-07)",https://pypi.org/project/sidematter-format/0.0.4/,2026-11-24,full
+met-s68,"search: ""metadata.json"" alongside markdown documentation got out of sync lessons learned docs-as-code (no drift report found)","search: ""metadata.json"" alongside markdown documentation got out of sync lessons learned docs-as-code",2026-11-24,full
+met-s69,"Metadata, GitLab documentation development guide (GitLab Docs, undated)",https://docs.gitlab.com/development/documentation/metadata/,2026-11-24,full
+met-s70,"Metadata for Microsoft Learn documentation, contributor guide (Microsoft Learn, ms.date 2025-05-01)",https://learn.microsoft.com/en-us/contribute/content/metadata,2026-11-24,full
+met-s71,"NIST Retires SHA-1 Cryptographic Algorithm (NIST, 2022-12-15)",https://www.nist.gov/news-events/news/2022/12/nist-retires-sha-1-cryptographic-algorithm,2026-11-24,full
+met-s72,"RFC 6151, Updated Security Considerations for MD5 and HMAC-MD5 (IETF RFC Editor, 2011-03)",https://www.rfc-editor.org/rfc/rfc6151,2026-11-24,full
+met-s73,"SPDX License List 3.29.0 (SPDX, 2026-09-16)",https://spdx.org/licenses/,2026-11-24,skimmed
+met-s74,"Open Definition conformant licenses (Open Knowledge Foundation, undated)",https://opendefinition.org/licenses/,2026-11-24,skimmed
+met-s75,search: Data Package v2 adoption Camtrap DP datapackage.json projects using Frictionless standard,search: Data Package v2 adoption Camtrap DP datapackage.json projects using Frictionless standard,2026-11-24,full
+met-s76,"Adoption (datapackage.org, last updated 2026-08-25)",https://datapackage.org/overview/adoption/,2026-11-24,full
+met-s77,"Datasheets for Datasets, v8 PDF pages 3-5 (arXiv, 2021-12-01)",https://arxiv.org/pdf/1803.09010v8,2026-11-24,skimmed
+met-s78,search: W3C PROV adoption in practice survey usage limited small projects provenance ontology uptake,search: W3C PROV adoption in practice survey usage limited small projects provenance ontology uptake,2026-11-24,full
+met-s79,"Thanks, PROV Implementers (W3C Blog, 2013-02-05)",https://www.w3.org/blog/2013/thanks-prov-implementers,2026-11-24,full
+met-s80,"github/markup README (GitHub, undated)",https://github.com/github/markup,2026-11-24,skimmed
+met-s81,"Model page: YAML error (Hugging Face forum, 2022-07-16)",https://discuss.huggingface.co/t/model-page-yaml-error/20453,2026-11-24,full
+met-s82,"Fix license metadata, pull request on a Hub dataset by HF staff (Hugging Face, 2022-07-01)",https://huggingface.co/datasets/dlb/plue/discussions/1,2026-11-24,full
+con-s01,"action.yml on the main branch, named ""Claude Code Action v1.0"" (anthropics/claude-code-action repository, undated)",https://raw.githubusercontent.com/anthropics/claude-code-action/main/action.yml,2026-11-24,full
+con-s02,"Secure use reference (GitHub Docs, undated)",https://docs.github.com/en/actions/reference/security/secure-use,2026-11-24,full
+con-s03,"Events that trigger workflows (GitHub Docs, undated)",https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows,2026-11-24,full
+con-s04,"Using secrets in GitHub Actions (GitHub Docs, undated)",https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets,2026-11-24,full
+con-s05,"docs/security.md on the main branch (anthropics/claude-code-action repository, undated)",https://github.com/anthropics/claude-code-action/blob/main/docs/security.md,2026-11-24,full
+con-s06,"Claude Code GitHub Actions (Claude Code Docs, undated)",https://code.claude.com/docs/en/github-actions,2026-11-24,full
+con-s07,"Managing GitHub Actions settings for a repository (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/enabling-features-for-your-repository/managing-github-actions-settings-for-a-repository,2026-11-24,full
+con-s08,"Keeping your GitHub Actions and workflows secure Part 1: Preventing pwn requests (GitHub Security Lab, published 2021-08-03, example updated 2026-06-17)",https://securitylab.github.com/resources/github-actions-preventing-pwn-requests/,2026-11-24,full
+con-s09,"About code owners (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners,2026-11-24,full
+con-s10,"About rulesets (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets,2026-11-24,full
+con-s11,"About protected branches (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches,2026-11-24,full
+con-s12,"About secret scanning (GitHub Docs, undated)",https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning,2026-11-24,full
+con-s13,"GitHub's plans (GitHub Docs, undated)",https://docs.github.com/en/get-started/learning-about-github/githubs-plans,2026-11-24,skimmed
+con-s14,"About push protection (GitHub Docs, undated)",https://docs.github.com/en/code-security/secret-scanning/introduction/about-push-protection,2026-11-24,full
+con-s15,"Creating rulesets for a repository (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository,2026-11-24,full
+con-s16,"Search with no official answer: union merge attribute on the pull request merge button (web search, 2026-11-24)",search: GitHub pull request merge button .gitattributes merge=union honored custom merge driver not supported,2026-11-24,full
+con-s17,"README.md on the master branch (DefinitelyTyped repository, undated)",https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/README.md,2026-11-24,full
+con-s18,"packages/mergebot/README.md (microsoft/DefinitelyTyped-tools repository, undated)",https://github.com/microsoft/DefinitelyTyped-tools/blob/main/packages/mergebot/README.md,2026-11-24,full
+con-s19,"Pull request conflicts: Support merge=union, discussion 9288 (GitHub Community, opened 2021-12-24, latest reply 2026-10-02)",https://github.com/orgs/community/discussions/9288,2026-11-24,full
+con-s20,"Search with no official answer: merge=union ignored by the web merge (web search, 2026-11-24)","search: GitHub ""merge=union"" pull request ""web interface"" OR ""merge button"" ignores gitattributes changelog conflicts",2026-11-24,full
+con-s21,"Changes to How We Manage DefinitelyTyped (TypeScript blog, Microsoft, 2020-05-29)",https://devblogs.microsoft.com/typescript/changes-to-how-we-manage-definitelytyped/,2026-11-24,full
+con-s22,"Formula Cookbook (Homebrew Documentation, undated)",https://docs.brew.sh/Formula-Cookbook,2026-11-24,skimmed
+con-s23,"How to Open a Homebrew Pull Request (Homebrew Documentation, undated)",https://docs.brew.sh/How-To-Open-a-Homebrew-Pull-Request,2026-11-24,full
+con-s24,"Guessed address for a Homebrew merge checklist, returned HTTP 404 (Homebrew Documentation, undated)",https://docs.brew.sh/Homebrew-homebrew-core-Merge-Checklist,2026-11-24,skimmed
+con-s25,"README.md on the master branch (microsoft/winget-pkgs repository, undated)",https://github.com/microsoft/winget-pkgs/blob/master/README.md,2026-11-24,full
+con-s26,"CONTRIBUTING.md on the main branch (tldr-pages/tldr repository, undated)",https://github.com/tldr-pages/tldr/blob/main/CONTRIBUTING.md,2026-11-24,full
+con-s27,"doc/README.md on the master branch (microsoft/winget-pkgs repository, undated)",https://github.com/microsoft/winget-pkgs/blob/master/doc/README.md,2026-11-24,full
+con-s28,"CONTRIBUTING.md on the master branch (microsoft/winget-pkgs repository, undated)",https://github.com/microsoft/winget-pkgs/blob/master/CONTRIBUTING.md,2026-11-24,full
+con-s29,"Submit your manifest to the repository (Microsoft Learn, ms.date 2024-11-21, updated_at 2026-07-14)",https://learn.microsoft.com/en-us/windows/package-manager/package/repository,2026-11-24,full
+con-s30,"contributing-guides/maintainers-guide.md (tldr-pages/tldr repository, undated)",https://github.com/tldr-pages/tldr/blob/main/contributing-guides/maintainers-guide.md,2026-11-24,full
+con-s31,"CONTRIBUTING.md on the master branch (NixOS/nixpkgs repository, undated)",https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md,2026-11-24,full
+con-s32,"pkgs/by-name/README.md (NixOS/nixpkgs repository, undated)",https://github.com/NixOS/nixpkgs/blob/master/pkgs/by-name/README.md,2026-11-24,full
+con-s33,"README.md on the master branch (cdnjs/packages repository, undated)",https://github.com/cdnjs/packages/blob/master/README.md,2026-11-24,full
+con-s34,"pull_request_template.md on the main branch (sindresorhus/awesome repository, undated)",https://github.com/sindresorhus/awesome/blob/main/pull_request_template.md,2026-11-24,full
+con-s35,"Towncrier 26.9.0 documentation, front page (towncrier on Read the Docs, undated)",https://towncrier.readthedocs.io/en/stable/,2026-11-24,skimmed
+con-s36,"Changelog entries (GitLab Docs, undated)",https://docs.gitlab.com/development/changelog/,2026-11-24,full
+con-s37,"How we solved GitLab's CHANGELOG conflict crisis (GitLab blog, 2018-07-03)",https://about.gitlab.com/blog/solving-gitlabs-changelog-conflict-crisis/,2026-11-24,full
+con-s38,"docs/intro-to-using-changesets.md, returned HTTP 404 on the web page and on the raw file (changesets/changesets repository, undated)",https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md,2026-11-24,skimmed
+con-s39,"CONTRIBUTING.md on the master branch (cdnjs/packages repository, undated)",https://github.com/cdnjs/packages/blob/master/CONTRIBUTING.md,2026-11-24,full
+con-s40,"contributing.md on the main branch (sindresorhus/awesome repository, undated)",https://github.com/sindresorhus/awesome/blob/main/contributing.md,2026-11-24,full
+con-s41,"README.md on the main branch, development branch for Changesets v3 (changesets/changesets repository, undated)",https://github.com/changesets/changesets/blob/main/README.md,2026-11-24,full
+con-s42,"Design Constraints (reno documentation, OpenStack, undated)",https://docs.openstack.org/reno/latest/user/design.html,2026-11-24,full
+con-s43,"Search with nothing direct: a generated file in every pull request and building it after merge (web search, 2026-11-24)","search: generated file committed in every pull request causes merge conflicts ""generate"" after merge instead CI bot commits index README contributors ""do not edit"" auto-generated",2026-11-24,full
+con-s44,"CONTRIBUTING.md on the master branch (awesome-selfhosted/awesome-selfhosted-data repository, undated)",https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/CONTRIBUTING.md,2026-11-24,full
+con-s45,"README.md on the master branch (awesome-selfhosted/awesome-selfhosted-data repository, undated)",https://github.com/awesome-selfhosted/awesome-selfhosted-data/blob/master/README.md,2026-11-24,full
+con-s46,"docs/detailed-explanation.md, returned HTTP 404 (changesets/changesets repository, undated)",https://github.com/changesets/changesets/blob/main/docs/detailed-explanation.md,2026-11-24,skimmed
+con-s47,"Rate Limits, troubleshooting guide (lychee documentation, undated)",https://lychee.cli.rs/troubleshooting/rate-limits/,2026-11-24,full
+con-s48,"README.md on the master branch (lycheeverse/lychee repository, undated)",https://github.com/lycheeverse/lychee/blob/master/README.md,2026-11-24,full
+con-s49,"README.md on the master branch (lycheeverse/lychee-action repository, undated)",https://github.com/lycheeverse/lychee-action/blob/master/README.md,2026-11-24,full
+con-s50,".github/workflows/build.yml on the master branch (awesome-selfhosted/awesome-selfhosted-data repository, undated)",https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted-data/master/.github/workflows/build.yml,2026-11-24,full
+con-s51,".github/workflows/pull-request.yml on the master branch (awesome-selfhosted/awesome-selfhosted-data repository, undated)",https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted-data/master/.github/workflows/pull-request.yml,2026-11-24,full
+con-s52,"README.md of the rendered list (awesome-selfhosted/awesome-selfhosted repository, undated)",https://raw.githubusercontent.com/awesome-selfhosted/awesome-selfhosted/master/README.md,2026-11-24,skimmed
+con-s53,"Network Errors, troubleshooting guide (lychee documentation, undated)",https://lychee.cli.rs/troubleshooting/network-errors/,2026-11-24,full
+con-s54,"Search: prompt injection into AI code review on pull requests, 2026 (web search, 2026-11-24)",search: prompt injection AI code review GitHub Actions pull request title secrets exfiltration advisory 2026,2026-11-24,full
+con-s55,"Search: prompt injection into AI agents in GitHub Actions (web search, 2026-11-24)","search: ""PromptPwnd"" OR ""prompt injection"" GitHub Actions AI agents issue body pull request Gemini CLI Claude Code action vulnerability disclosure",2026-11-24,full
+con-s56,"Securing CI/CD in an agentic world: Claude Code GitHub Action case (Microsoft Security Blog, 2026-06-05)",https://microsoft.com/en-us/security/blog/2026/06/05/securing-ci-cd-in-agentic-world-claude-code-github-action-case,2026-11-24,full
+con-s57,"GitInject: Real-World Prompt Injection Attacks in AI-Powered CI/CD Pipelines, abstract page (arXiv 2606.09935, v1 2026-06-07, v2 2026-11-02)",https://arxiv.org/abs/2606.09935,2026-11-24,skimmed
+con-s58,"PromptPwnd: prompt injection vulnerabilities in GitHub Actions using AI agents (Aikido Security blog, 2025-12-04)",https://aikido.dev/blog/promptpwnd-github-actions-ai-agents,2026-11-24,full
+con-s59,"Research note: Comment and Control, GitHub AI agents as credential exfiltrators (Cloud Security Alliance labs, 2026-04-17)",https://labs.cloudsecurityalliance.org/research/csa-research-note-comment-control-github-prompt-injection-20/,2026-11-24,full
+con-s60,"README.md, Security Considerations section (anthropics/claude-code-security-review repository, undated)",https://github.com/anthropics/claude-code-security-review/blob/main/README.md,2026-11-24,skimmed
+con-s61,"docs/usage.md on the main branch (anthropics/claude-code-action repository, undated)",https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md,2026-11-24,full
+con-s62,"Releases, first page; newest v1.0.289 dated 23 Nov with no year shown (anthropics/claude-code-action repository)",https://github.com/anthropics/claude-code-action/releases,2026-11-24,skimmed
+con-s63,"Search with no official answer: can the Actions token push to a protected branch (web search, 2026-11-24)","search: GITHUB_TOKEN push to protected branch ""github-actions[bot]"" ruleset bypass list not available official docs workaround GitHub App deploy key",2026-11-24,full
+con-s64,"Search: measured studies of pull request size and review time (web search, 2026-11-24)","search: study pull request size review time acceptance empirical ""lines changed"" time to merge measured dataset",2026-11-24,full
+con-s65,"homebrew/core Maintainer Guide (Homebrew Documentation, undated)",https://docs.brew.sh/Homebrew-homebrew-core-Maintainer-Guide,2026-11-24,full
+con-s66,"BrewTestBot (Homebrew Documentation, undated)",https://docs.brew.sh/BrewTestBot,2026-11-24,full
+con-s67,"Do Small Code Changes Merge Faster? A Multi-Language Empirical Investigation, abstract page (arXiv 2203.05045, 2022-03-09, for MSR 2022)",https://arxiv.org/abs/2203.05045,2026-11-24,skimmed
+con-s68,"Modern Code Review: A Case Study at Google, publication page (Google Research, 2018)",https://research.google/pubs/modern-code-review-a-case-study-at-google/,2026-11-24,skimmed
+con-s69,"Modern Code Review: A Case Study at Google, paper PDF, results section read (ICSE-SEIP 2018, author's copy)",https://sback.it/publications/icse2018seip.pdf,2026-11-24,skimmed
+con-s70,"Search with no official answer: a workflow committing a generated file to a protected main (web search, 2026-11-24)","search: GitHub Actions workflow commits generated file to main after merge ""protected branch"" GITHUB_TOKEN ""cannot push"" docs ""Allow specified actors to bypass required pull requests""",2026-11-24,full
+con-s71,"Feature request: allow GitHub Actions to bypass branch protection rules, discussion 13836 (GitHub Community, opened 2022-03-30, latest reply 2026-10-13)",https://github.com/orgs/community/discussions/13836,2026-11-24,full
+con-s72,"Securely using pull_request_target (GitHub Docs, undated; carries a notice dated to 2026-12-02)",https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target,2026-11-24,full
+con-s73,"README.md on the main branch (tldr-pages/tldr-lint repository, undated)",https://github.com/tldr-pages/tldr-lint/blob/main/README.md,2026-11-24,full
+con-s74,"Quality Gatekeepers: Investigating the Effects of Code Review Bots on Pull Request Activities, abstract page (arXiv 2103.13547, 2021-03-25, revised 2022-03-30)",https://arxiv.org/abs/2103.13547,2026-11-24,skimmed
+con-s75,"Search: effects of adopting code review bots, ICSME 2020 (web search, 2026-11-24)","search: Wessel ""Effects of adopting code review bots on pull requests to OSS projects"" ICSME 2020 abstract merged pull requests communication decrease",2026-11-24,full
+con-s76,"Search: OIDC tokens and secrets on pull requests from forks (web search, 2026-11-24)","search: GitHub Actions OIDC ""id-token"" fork pull request not available secrets workaround AI review bot fork PR without secrets",2026-11-24,full
+con-s77,"Search with no official answer: server-side merge drivers on GitHub (web search, 2026-11-24)","search: does GitHub honor .gitattributes merge driver when merging pull requests server-side ""merge-ort"" OR ""libgit2"" union driver documentation",2026-11-24,full
+con-s78,"Approving workflow runs from forks (GitHub Docs, undated)",https://docs.github.com/en/actions/how-tos/manage-workflow-runs/approve-runs-from-forks,2026-11-24,full
+con-s79,"Use GITHUB_TOKEN for authentication in workflows (GitHub Docs, undated)",https://docs.github.com/en/actions/tutorials/authenticate-with-github_token,2026-11-24,skimmed
+con-s80,"RFC 0140: Simple Package Paths (NixOS/rfcs repository, undated)",https://raw.githubusercontent.com/NixOS/rfcs/master/rfcs/0140-simple-package-paths.md,2026-11-24,skimmed
+con-s81,".github/workflows/ci.yml on the main branch (tldr-pages/tldr repository, undated)",https://raw.githubusercontent.com/tldr-pages/tldr/main/.github/workflows/ci.yml,2026-11-24,full
+con-s82,"action.yml on the master branch (lycheeverse/lychee-action repository, undated)",https://raw.githubusercontent.com/lycheeverse/lychee-action/master/action.yml,2026-11-24,skimmed
+con-s83,"packages/cli/README.md, nothing useful (changesets/changesets repository, undated)",https://raw.githubusercontent.com/changesets/changesets/main/packages/cli/README.md,2026-11-24,skimmed
+con-s84,"Changesets landing page, nothing on design reasons (changesets.dev, undated)",https://changesets.dev,2026-11-24,skimmed
+con-s85,"Search with no clear counterexample: projects that prefer many items in one pull request (web search, 2026-11-24)","search: ""one pull request per"" OR ""single change per pull request"" contribution guidelines counterexample batch multiple entries allowed large community repository maintainers prefer bulk PRs",2026-11-24,full
+con-s86,"Search: committing generated files in the pull request with a freshness check (web search, 2026-11-24)","search: commit generated files in pull request required CI check ""generated files are up to date"" projects advantage vs regenerate after merge conflicts",2026-11-24,full
+con-s87,"Git attributes (GitLab Docs, undated)",https://docs.gitlab.com/user/project/repository/files/git_attributes/,2026-11-24,full
+con-s88,"Permission levels for a personal account repository (GitHub Docs, undated)",https://docs.github.com/en/account-and-profile/reference/permission-levels-for-a-personal-account-repository,2026-11-24,skimmed
+con-s89,"Search with no usable number: monthly pull request volume of the Windows package manifest repository (web search, 2026-11-24)",search: winget-pkgs repository statistics number of pull requests per month validation pipeline automated merge volume,2026-11-24,full
+con-s90,"Available rules for rulesets (GitHub Docs, undated)",https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets,2026-11-24,skimmed
+con-s91,"Customizing how changed files appear on GitHub (GitHub Docs, undated)",https://docs.github.com/en/repositories/working-with-files/managing-files/customizing-how-changed-files-appear-on-github,2026-11-24,full
+con-s92,"Search: AI code review on pull requests from forks without secrets, no direct answer (web search, 2026-11-24)",search: GitHub Copilot code review pull requests from forks secrets not required public repository,2026-11-24,full
+con-s93,"Fork Support reference (GitHub Agentic Workflows documentation, GitHub Next, undated)",https://github.github.com/gh-aw/reference/fork-support/,2026-11-24,full
+con-s94,"About Copilot code review (GitHub Docs, undated)",https://docs.github.com/en/copilot/concepts/agents/code-review,2026-11-24,skimmed
+con-s95,"Search: a merge queue that regenerates a shared generated file, no primary source (web search, 2026-11-24)","search: merge queue regenerate generated file conflicts ""merge queue"" lockfile or index file every pull request avoids conflicts",2026-11-24,full
+con-s96,"Working with Git (pnpm documentation, undated)",https://pnpm.io/git,2026-11-24,full
+con-s97,"Search: guidelines that prefer batching many small additions into one pull request, none found (web search, 2026-11-24)","search: maintainers prefer batching many small additions into one pull request to reduce review overhead contribution guidelines ""group"" related changes",2026-11-24,full
+con-s98,"Approving a pull request with required reviews (GitHub Docs, undated)",https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/approving-a-pull-request-with-required-reviews,2026-11-24,full
+con-s99,"Search: an official GitHub page on merge=union, none found (web search, 2026-11-24)","search: docs.github.com gitattributes merge driver pull request merge ""merge=union""",2026-11-24,full
+con-s100,"gitattributes manual, union merge driver (Git documentation, last updated in Git 2.56.0, 2026-09-28)",https://git-scm.com/docs/gitattributes,2026-11-24,skimmed
+lic-s01,"Frequently Asked Questions (Our World in Data, undated)",https://ourworldindata.org/faqs,2026-11-24,skimmed
+lic-s02,"owid-grapher LICENSE.md (Global Change Data Lab on GitHub, undated)",https://github.com/owid/owid-grapher/blob/master/LICENSE.md,2026-11-24,full
+lic-s03,"owid/etl repository front page (Our World in Data on GitHub, undated)",https://github.com/owid/etl,2026-11-24,skimmed
+lic-s04,"owid/etl LICENSE (Global Change Data Lab on GitHub, copyright line 2022)",https://raw.githubusercontent.com/owid/etl/master/LICENSE,2026-11-24,full
+lic-s05,"ETL metadata reference (Our World in Data technical docs, undated)",https://docs.owid.io/projects/etl/architecture/metadata/reference/,2026-11-24,skimmed
+lic-s06,"Wikimedia Foundation Terms of Use (Wikimedia Foundation, effective 2023-06-07, page last edited 2026-10-25)",https://foundation.wikimedia.org/wiki/Policy:Terms_of_Use,2026-11-24,skimmed
+lic-s07,"Wikidata:Licensing (Wikidata, last edited 2026-09-24)",https://www.wikidata.org/wiki/Wikidata:Licensing,2026-11-24,full
+lic-s08,"Wikidata:Copyright (Wikidata, undated)",https://www.wikidata.org/wiki/Wikidata:Copyright,2026-11-24,full
+lic-s09,"arXiv License Information (arXiv, undated)",https://info.arxiv.org/help/license/index.html,2026-11-24,full
+lic-s10,"Attribution and copyright licensing (MDN Web Docs, last modified 2026-10-22)",https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license,2026-11-24,full
+lic-s11,"mdn/content LICENSE.md (Mozilla on GitHub, undated)",https://raw.githubusercontent.com/mdn/content/main/LICENSE.md,2026-11-24,full
+lic-s12,"github/docs LICENSE (GitHub, undated)",https://raw.githubusercontent.com/github/docs/main/LICENSE,2026-11-24,skimmed
+lic-s13,"github/docs README.md, License section (GitHub, undated)",https://github.com/github/docs/blob/main/README.md,2026-11-24,skimmed
+lic-s14,"github/docs LICENSE-CODE (GitHub, copyright line 2026)",https://raw.githubusercontent.com/github/docs/main/LICENSE-CODE,2026-11-24,full
+lic-s15,"rust-lang/rfcs README.md, License and Contributions sections (Rust project on GitHub, undated)",https://github.com/rust-lang/rfcs/blob/master/README.md,2026-11-24,skimmed
+lic-s16,"PEP 12 - Sample reStructuredText PEP Template (Python, last modified 2026-03-04)",https://peps.python.org/pep-0012/,2026-11-24,skimmed
+lic-s17,"PEP 1 - PEP Purpose and Guidelines (Python, last modified 2026-11-08)",https://peps.python.org/pep-0001/,2026-11-24,skimmed
+lic-s18,"Colophon (Diataxis, undated)",https://diataxis.fr/colophon/,2026-11-24,full
+lic-s19,"diataxis-documentation-framework repository front page and README (GitHub, undated)",https://github.com/evildmp/diataxis-documentation-framework,2026-11-24,skimmed
+lic-s20,"diataxis-documentation-framework LICENSE.rst (GitHub, undated)",https://raw.githubusercontent.com/evildmp/diataxis-documentation-framework/main/LICENSE.rst,2026-11-24,skimmed
+lic-s21,"the-turing-way LICENSE.md (The Turing Way on GitHub, undated)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/LICENSE.md,2026-11-24,full
+lic-s22,"The Turing Way book, welcome page and footer (The Turing Way, undated)",https://book.the-turing-way.org/,2026-11-24,skimmed
+lic-s23,BLOCKED: What is the license for the content I post? (Stack Overflow help centre) - fetch refused,https://stackoverflow.com/help/licensing,2026-11-24,skimmed
+lic-s24,"BLOCKED: help/licensing (Meta Stack Exchange) - fetch refused, second route",https://meta.stackexchange.com/help/licensing,2026-11-24,skimmed
+lic-s25,"Search results only: Stack Overflow licence by date range (search snippets, 2026-11-24)",search: Stack Overflow help center licensing user contributions CC BY-SA 4.0 2.5 3.0 date ranges attribution required,2026-11-24,full
+lic-s26,"Licenses (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/repositories-licenses,2026-11-24,full
+lic-s27,"Dataset Cards (Hugging Face Hub docs, undated)",https://huggingface.co/docs/hub/datasets-cards,2026-11-24,full
+lic-s28,"datasetcard.md, dataset card metadata specification (Hugging Face hub-docs on GitHub, undated)",https://raw.githubusercontent.com/huggingface/hub-docs/main/datasetcard.md,2026-11-24,skimmed
+lic-s29,"Licenses and rights (Zenodo help, undated)",https://help.zenodo.org/docs/deposit/describe-records/licenses/,2026-11-24,full
+lic-s30,"Copyright and License (OpenStreetMap, undated)",https://www.openstreetmap.org/copyright,2026-11-24,full
+lic-s31,"Licence/Historic/We Are Changing The License (OpenStreetMap Foundation wiki, undated)",https://osmfoundation.org/wiki/License/We_Are_Changing_The_License,2026-11-24,skimmed
+lic-s32,"paperswithcode-data repository README (Papers with Code on GitHub, undated)",https://github.com/paperswithcode/paperswithcode-data,2026-11-24,skimmed
+lic-s33,"paperswithcode.com/about - answered with a 302 redirect to huggingface.co/papers/trending, not followed (2026-11-24)",https://paperswithcode.com/about,2026-11-24,skimmed
+lic-s34,"sindresorhus/awesome repository front page (GitHub, undated)",https://github.com/sindresorhus/awesome,2026-11-24,skimmed
+lic-s35,"awesome pull_request_template.md (sindresorhus/awesome on GitHub, undated)",https://raw.githubusercontent.com/sindresorhus/awesome/main/pull_request_template.md,2026-11-24,skimmed
+lic-s36,"Frequently Asked Questions (Creative Commons, page header 2025-05-13)",https://creativecommons.org/faq/,2026-11-24,skimmed
+lic-s37,"Compatible Licenses (Creative Commons, undated)",https://creativecommons.org/share-your-work/licensing-considerations/compatible-licenses/,2026-11-24,full
+lic-s38,"CC BY 4.0 deed (Creative Commons, undated)",https://creativecommons.org/licenses/by/4.0/deed.en,2026-11-24,full
+lic-s39,"CC0 1.0 deed (Creative Commons, undated)",https://creativecommons.org/publicdomain/zero/1.0/deed.en,2026-11-24,full
+lic-s40,"CC BY-SA 4.0 deed (Creative Commons, undated)",https://creativecommons.org/licenses/by-sa/4.0/deed.en,2026-11-24,full
+lic-s41,"CC BY-NC 4.0 deed (Creative Commons, undated)",https://creativecommons.org/licenses/by-nc/4.0/deed.en,2026-11-24,full
+lic-s42,"CC BY 4.0 legal code (Creative Commons, undated)",https://creativecommons.org/licenses/by/4.0/legalcode.en,2026-11-24,skimmed
+lic-s43,"Data (Creative Commons wiki, last edited 2019-10-23)",https://wiki.creativecommons.org/Data,2026-11-24,skimmed
+lic-s44,"CC0 use for data (Creative Commons wiki, last edited 2014-12-03)",https://wiki.creativecommons.org/CC0_use_for_data,2026-11-24,skimmed
+lic-s45,"Understanding CC Licenses and Generative AI (Creative Commons, 2023-08-18)",https://creativecommons.org/2023/08/18/understanding-cc-licenses-and-generative-ai/,2026-11-24,full
+lic-s46,"This Is Not a Bicycle: Human Creativity and Generative AI (Creative Commons, 2023-02-21)",https://creativecommons.org/2023/02/21/this-is-not-a-bicycle-human-creativity-and-generative-ai/,2026-11-24,skimmed
+lic-s47,"Licensing Best Practices for the Sharing of Scientific Data (Creative Commons, 2026-04-20)",https://creativecommons.org/2026/04/20/licensing-best-practices-for-the-sharing-of-scientific-data/,2026-11-24,full
+lic-s48,"Licensing Best Practices for Sharing Scientific Data, record landing page only (Creative Commons on Zenodo, 2026-03-04)",https://zenodo.org/records/18867142,2026-11-24,skimmed
+lic-s49,"Open Preprints (Creative Commons, undated; figure given as of mid-2024)",https://creativecommons.org/about/open-science/open-preprints/,2026-11-24,skimmed
+lic-s50,"A Principled Approach as the Sands Shift (Creative Commons, 2026-09-21)",https://creativecommons.org/2026/09/21/a-principled-approach-as-the-sands-shift/,2026-11-24,skimmed
+lic-s51,"Licenses (Open Data Commons, undated)",https://opendatacommons.org/licenses/,2026-11-24,full
+lic-s52,"ODbL 1.0 human-readable summary (Open Data Commons, undated)",https://opendatacommons.org/licenses/odbl/summary/,2026-11-24,full
+lic-s53,"PDDL 1.0 human-readable summary (Open Data Commons, undated)",https://opendatacommons.org/licenses/pddl/summary/,2026-11-24,full
+lic-s54,"Community Data License Agreements (Linux Foundation, cdla.dev, undated)",https://cdla.dev/,2026-11-24,full
+lic-s55,"Enabling Easier Collaboration on Open Data for AI and ML with CDLA-Permissive-2.0 (Linux Foundation, 2021-06-22)",https://www.linuxfoundation.org/press/press-release/enabling-easier-collaboration-on-open-data-for-ai-and-ml-with-cdla-permissive-2-0,2026-11-24,full
+lic-s56,"Community Data License Agreement - Permissive - Version 2.0 (Linux Foundation, cdla.dev, undated)",https://cdla.dev/permissive-2-0/,2026-11-24,full
+lic-s57,"Licenses (choosealicense.com, GitHub, undated)",https://choosealicense.com/licenses/,2026-11-24,skimmed
+lic-s58,"Non-Software Licenses (choosealicense.com, GitHub, undated)",https://choosealicense.com/non-software/,2026-11-24,full
+lic-s59,"Licensing a repository (GitHub Docs, undated)",https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository,2026-11-24,full
+lic-s60,"Easily discover and navigate to multiple licenses in repositories (GitHub changelog, 2022-05-26)",https://github.blog/changelog/2022-05-26-easily-discover-and-navigate-to-multiple-licenses-in-repositories/,2026-11-24,full
+lic-s61,"What we look at (Licensee docs on GitHub, undated)",https://github.com/licensee/licensee/blob/main/docs/what-we-look-at.md,2026-11-24,full
+lic-s62,"REST API endpoints for licenses (GitHub Docs, undated)",https://docs.github.com/en/rest/licenses/licenses,2026-11-24,skimmed
+lic-s63,"REUSE Specification - Version 3.3 (Free Software Foundation Europe, 2024-11-14)",https://reuse.software/spec-3.3/,2026-11-24,skimmed
+lic-s64,"Specifications, list of versions (REUSE, Free Software Foundation Europe, undated)",https://reuse.software/specifications/,2026-11-24,full
+lic-s65,"GitHub Terms of Service (GitHub, effective 2026-04-27)",https://docs.github.com/en/site-policy/github-terms/github-terms-of-service,2026-11-24,skimmed
+lic-s66,"Developer Certificate of Origin, Version 1.1 (Linux Foundation, undated)",https://developercertificate.org/,2026-11-24,full
+lic-s67,"The Legal Side of Open Source (Open Source Guides, GitHub, undated)",https://opensource.guide/legal/,2026-11-24,skimmed
+lic-s68,"Contributor License Agreements (Linux Foundation open source best practices, undated)",https://bestpractices.linuxfoundation.org/ip/contribution-mechanisms-cla.html,2026-11-24,skimmed
+lic-s69,"GitLab switches to DCO license (GitLab blog, 2017-11-01)",https://about.gitlab.com/blog/2017/11/01/gitlab-switches-to-dco-license,2026-11-24,skimmed
+lic-s70,"Apache License, Version 2.0 (Apache Software Foundation, January 2004)",https://www.apache.org/licenses/LICENSE-2.0,2026-11-24,skimmed
+lic-s71,"Zero-Clause BSD (Open Source Initiative, undated; approval dated 2015-10-14)",https://opensource.org/license/0bsd,2026-11-24,full
+lic-s72,"The MIT License (Open Source Initiative, undated)",https://opensource.org/license/mit,2026-11-24,full
+lic-s73,Unlicense.org (undated),https://unlicense.org/,2026-11-24,full
+lic-s74,"Copyright and Artificial Intelligence, initiative page (U.S. Copyright Office, undated)",https://www.copyright.gov/ai/,2026-11-24,full
+lic-s75,"Copyright and Artificial Intelligence, Part 2: Copyrightability (U.S. Copyright Office, January 2025) - read pages ii-iii, 1-2, 24-31",https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf,2026-11-24,skimmed
+lic-s76,"Copyright Registration Guidance: Works Containing Material Generated by Artificial Intelligence (U.S. Copyright Office, March 2023) - read pages 3-5",https://www.copyright.gov/ai/ai_policy_guidance.pdf,2026-11-24,skimmed
+lic-s77,"BLOCKED: Copyright Registration Guidance (Federal Register, 2023-03-16) - redirected to an unblock page",https://www.federalregister.gov/documents/2023/03/16/2023-05321/copyright-registration-guidance-works-containing-material-generated-by-artificial-intelligence,2026-11-24,skimmed
+lic-s78,"Copyright, Designs and Patents Act 1988, section 9 (legislation.gov.uk, undated)",https://www.legislation.gov.uk/ukpga/1988/48/section/9,2026-11-24,full
+lic-s79,"Report on Copyright and Artificial Intelligence (UK Government, 2026-03-18) - first 100,000 characters of 365,444 read",https://www.gov.uk/government/publications/report-and-impact-assessment-on-copyright-and-artificial-intelligence/report-on-copyright-and-artificial-intelligence,2026-11-24,skimmed
+lic-s80,"Docket for No. 25-449, Thaler v. Perlmutter (Supreme Court of the United States, undated)",https://www.supremecourt.gov/docket/docketfiles/html/public/25-449.html,2026-11-24,full
+lic-s81,"Policy questionnaire on the relationship between generative AI and copyright - Revised Presidency summary, 16710/1/24 REV 1 (Council of the European Union, 2024-12-20) - read pages 15-17",https://data.consilium.europa.eu/doc/document/ST-16710-2024-REV-1/en/pdf,2026-11-24,skimmed
+lic-s82,"What Does Copyright Protect? FAQ (U.S. Copyright Office, undated)",https://www.copyright.gov/help/faq/faq-protect.html,2026-11-24,skimmed
+lic-s83,"BLOCKED: Feist Publications v. Rural Telephone Service, 499 U.S. 340 (Justia) - HTTP 403",https://supreme.justia.com/cases/federal/us/499/340/,2026-11-24,skimmed
+lic-s84,"Feist Publications, Inc. v. Rural Telephone Service Co., 499 U.S. 340 (Cornell Legal Information Institute, decided 1991-03-27)",https://www.law.cornell.edu/supremecourt/text/499/340,2026-11-24,skimmed
+lic-s85,EMPTY: Directive 96/9/EC on the legal protection of databases (EUR-Lex) - two URLs returned no text,https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A31996L0009,2026-11-24,skimmed
+lic-s86,"Protection of databases (European Commission, last update 2026-11-20)",https://digital-strategy.ec.europa.eu/en/policies/protection-databases,2026-11-24,full
+lic-s87,"Database protection (Your Europe, European Union, last checked 12/10/2026 as shown)",https://europa.eu/youreurope/business/running-business/intellectual-property/database-protection/index_en.htm,2026-11-24,full
+lic-s88,"Guidance on the Implementation of Plan S (cOAlition S, undated)",https://www.coalition-s.org/guidance-on-the-implementation-of-plan-s/,2026-11-24,skimmed
+lic-s89,"Conformant Licenses (Open Definition, Open Knowledge Foundation, undated)",https://opendefinition.org/licenses/,2026-11-24,full
+lic-s90,"Ten years on from the Budapest Open Access Initiative (BOAI10, 2012-09-12)",https://www.budapestopenaccessinitiative.org/boai10/,2026-11-24,skimmed
+lic-s91,"Commons:Licensing (Wikimedia Commons, undated)",https://commons.wikimedia.org/wiki/Commons:Licensing,2026-11-24,skimmed
+lic-s92,"Open Content - A Practical Guide to Using Creative Commons Licences, section 3 (Meta-Wiki, Wikimedia, undated, about 2014)",https://meta.wikimedia.org/wiki/Open_Content_-_A_Practical_Guide_to_Using_Creative_Commons_Licences/The_Creative_Commons_licencing_scheme,2026-11-24,skimmed
+lic-s93,"How to License Research Data (Digital Curation Centre, 2011-02-09, revised 2014-07-17)",https://dcc.ac.uk/guidance/how-guides/license-research-data,2026-11-24,skimmed
+lic-s94,"The Data Provenance Initiative: A Large Scale Audit of Dataset Licensing & Attribution in AI, abstract only (arXiv 2310.16787, 2023-10-25, revised 2023-11-04)",https://arxiv.org/abs/2310.16787,2026-11-24,skimmed
+lic-s95,"The AI Community Building the Future? A Quantitative Analysis of Development Activity on Hugging Face Hub, abstract only (arXiv 2405.13058, 2024-05-20, revised 2024-06-05)",https://arxiv.org/abs/2405.13058,2026-11-24,skimmed
+lic-s96,"The Route to an Open Scholarly Ecosystem Runs through CC BY (Katina Magazine, dated 07.02.2025 as shown; PDF copy hosted by enssib) - read pages 1-4 of 9",https://www.enssib.fr/bibliotheque-numerique/documents/73500-the-route-to-an-open-scholarly-ecosystem-runs-through-cc-by.pdf,2026-11-24,skimmed
+lic-s97,"Structuring knowledge commons (Growing the Commons, Substack, 2025-11-16) - nothing on licences",https://growingcommons.substack.com/p/structuring-knowledge-commons,2026-11-24,full
+lic-s98,NOT RETRIEVED: Governing Knowledge Reuse through Research Infrastructure: Evidence from the arXiv License Interface (working paper) - 301 then HTTP 404; seen in search snippets only,https://zhejianw.github.io/files/Governing_Knowledge_Reuse_arXiv_License.pdf,2026-11-24,skimmed
+lic-s99,"Search results only: licence shares on Hugging Face (search snippets, 2026-11-24)",search: study distribution of licenses Hugging Face datasets percentage no license measured analysis dataset licensing,2026-11-24,full
+lic-s100,"Search results only: attribution stacking (search snippets, 2026-11-24)","search: ""attribution stacking"" data licensing CC0 recommend science databases Creative Commons",2026-11-24,full
+lic-s101,"Search results only: GitHub display of several licence files (search snippets, 2026-11-24)","search: GitHub repository multiple license files LICENSE-CODE LICENSE-DATA displayed sidebar ""licenses found"" multiple licenses detection",2026-11-24,full
+lic-s102,"Search results only: arXiv licence shares (search snippets, 2026-11-24)",search: arXiv license distribution share of papers CC BY versus arXiv non-exclusive license percentage statistics,2026-11-24,full
+lic-s103,"Search results only: arXiv licence working paper (search snippets, 2026-11-24)","search: ""Governing Knowledge Reuse"" arXiv license menu redesign November 2020 natural experiment Creative Commons adoption working paper",2026-11-24,full
+lic-s104,"Search results only: Thaler v. Perlmutter status (search snippets, 2026-11-24)",search: Thaler v. Perlmutter D.C. Circuit 2025 human authorship Supreme Court certiorari 2026 AI generated work copyright,2026-11-24,full
+lic-s105,"Search results only: UK report on copyright and AI (search snippets, 2026-11-24)",search: UK government copyright and artificial intelligence consultation response computer-generated works section 9(3) removal report 2026,2026-11-24,full
+lic-s106,"Search results only: OpenStreetMap share-alike rationale (search snippets, 2026-11-24)","search: OpenStreetMap Foundation why share-alike ODbL rationale ""share-alike"" licence choice community reasons",2026-11-24,full
+lic-s107,"Search results only: DCO versus CLA, no measured friction study found (search snippets, 2026-11-24)",search: DCO vs CLA small open source project which to use contributor friction study pull requests abandoned CLA,2026-11-24,full
+lic-s108,Search found nothing: measured prevalence of CLA or DCO among projects (2026-11-24),search: empirical study prevalence contributor license agreement developer certificate of origin GitHub projects percent use CLA,2026-11-24,full
+lic-s109,Search found nothing: licence shares across Zenodo records (2026-11-24),search: Zenodo records license distribution analysis percentage CC BY 4.0 CC0 share of datasets measured,2026-11-24,full
+lic-s110,"Search results only: licensing AI-generated text (search snippets, 2026-11-24)","search: can you license AI-generated text under Creative Commons or open source license if not copyrightable enforceability ""public domain"" license on uncopyrightable AI output",2026-11-24,full
+lic-s111,"Search results only, blogs: arguments for share-alike in open science (search snippets, 2026-11-24)",search: why share-alike copyleft license for open research knowledge commons arguments in favour CC BY-SA instead of CC BY open science,2026-11-24,full
+lic-s112,Search found nothing: evidence that share-alike benefits a research commons (2026-11-24),"search: open knowledge base documentation projects choose CC BY-SA copyleft prevents proprietary enclosure of commons argument research data ""share-alike"" benefits evidence",2026-11-24,full
+lic-s113,Search found no essay arguing share-alike over CC BY for scientific knowledge (2026-11-24),search: copyleft share-alike licence for scientific knowledge argued better than CC BY prevents enclosure by publishers AI companies essay open science,2026-11-24,full
+lic-s114,"Search results only: Copyright Office Part 3 final version or 2026 guidance update, none confirmed (search snippets, 2026-11-24)",search: US Copyright Office generative AI report Part 3 final version 2026 OR registration guidance update AI-assisted works compendium 2026,2026-11-24,full
+lic-s115,"Search results only: licence choices of documentation projects, share-alike examples (search snippets, 2026-11-24)",search: documentation projects licensed CC BY-SA share-alike examples open knowledge projects common licence choice,2026-11-24,full
+lic-s116,"Search results only: arguments in favour of share-alike for open data (search snippets, 2026-11-24)",search: arguments in favour of share-alike CC BY-SA for open data commons protect from enclosure,2026-11-24,full
+lic-s117,"Comments on the Panton Principles and Data Licensing (Open Knowledge Foundation blog, 2010-03-25)",https://blog.okfn.org/?p=2162,2026-11-24,full
+lic-s118,"DocumentationProject/Guide/Licensing (GNOME wiki, last edited 2024-10-23)",https://wiki.gnome.org/DocumentationProject/Guide/Licensing,2026-11-24,skimmed
+lic-s119,BLOCKED: Panton Principles home page - host did not resolve from this session (DNS refused),https://pantonprinciples.org/,2026-11-24,skimmed
+lic-s120,BLOCKED on re-open: Protection of databases (European Commission) - HTTP 503 twice on 2026-11-24; earlier helper had read it as lic-s86,https://digital-strategy.ec.europa.eu/en/policies/protection-databases,2026-11-24,skimmed
+com-s001,"README.md, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/README.md,2026-11-24,full
+com-s002,"mdn/content repository home page (GitHub, undated)",https://github.com/mdn/content,2026-11-24,skimmed
+com-s003,"mdn/content .github/workflows directory listing (GitHub, undated)",https://github.com/mdn/content/tree/main/.github/workflows,2026-11-24,full
+com-s004,"pr-test.yml, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/.github/workflows/pr-test.yml,2026-11-24,full
+com-s005,"pr-check-lint_content.yml, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/.github/workflows/pr-check-lint_content.yml,2026-11-24,full
+com-s006,"pr-check_redirects.yml, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/.github/workflows/pr-check_redirects.yml,2026-11-24,full
+com-s007,"test.yml, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/.github/workflows/test.yml,2026-11-24,full
+com-s008,"front-matter-config.json, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/front-matter-config.json,2026-11-24,skimmed
+com-s009,"CONTRIBUTING.md, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/CONTRIBUTING.md,2026-11-24,skimmed
+com-s010,"files/en-us/_redirects.txt, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/files/en-us/_redirects.txt,2026-11-24,skimmed
+com-s011,"package.json, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/package.json,2026-11-24,skimmed
+com-s012,"files/en-us/web/html/reference/elements/img/index.md, mdn/content (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/mdn/content/main/files/en-us/web/html/reference/elements/img/index.md,2026-11-24,skimmed
+com-s013,"PR Test workflow runs, mdn/content (GitHub Actions, runs listed 2026-11-24)",https://github.com/mdn/content/actions/workflows/pr-test.yml,2026-11-24,full
+com-s014,"Check Redirects workflow runs, mdn/content (GitHub Actions, runs listed 2026-11-24)",https://github.com/mdn/content/actions/workflows/pr-check_redirects.yml,2026-11-24,full
+com-s015,"en-US search-index.json (MDN Web Docs, undated; fetched 2026-11-24)",https://developer.mozilla.org/en-US/search-index.json,2026-11-24,full
+com-s016,"python/peps repository home page (GitHub, undated)",https://github.com/python/peps,2026-11-24,skimmed
+com-s017,"python/peps .github/workflows directory listing (GitHub, undated)",https://github.com/python/peps/tree/main/.github/workflows,2026-11-24,full
+com-s018,"README.rst, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/README.rst,2026-11-24,skimmed
+com-s019,".gitignore, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/.gitignore,2026-11-24,full
+com-s020,"lint.yml, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/.github/workflows/lint.yml,2026-11-24,full
+com-s021,"render.yml, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/.github/workflows/render.yml,2026-11-24,full
+com-s022,"check-peps.py, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/check-peps.py,2026-11-24,skimmed
+com-s023,"pep_zero_generator/pep_index_generator.py, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/pep_sphinx_extensions/pep_zero_generator/pep_index_generator.py,2026-11-24,skimmed
+com-s024,"pep_zero_generator/writer.py, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/pep_sphinx_extensions/pep_zero_generator/writer.py,2026-11-24,skimmed
+com-s025,"pep_zero_generator/subindices.py, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/pep_sphinx_extensions/pep_zero_generator/subindices.py,2026-11-24,skimmed
+com-s026,"api/peps.json (peps.python.org, undated; fetched 2026-11-24)",https://peps.python.org/api/peps.json,2026-11-24,full
+com-s027,"PEP 0 - Index of Python Enhancement Proposals (peps.python.org, undated; fetched 2026-11-24)",https://peps.python.org/pep-0000/,2026-11-24,skimmed
+com-s028,".pre-commit-config.yaml, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/.pre-commit-config.yaml,2026-11-24,skimmed
+com-s029,"Render PEPs workflow runs, python/peps (GitHub Actions, runs listed 2026-11-24)",https://github.com/python/peps/actions/workflows/render.yml,2026-11-24,full
+com-s030,"peps/pep-0001.rst, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/peps/pep-0001.rst,2026-11-24,skimmed
+com-s031,"CONTRIBUTING.rst, python/peps (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/python/peps/main/CONTRIBUTING.rst,2026-11-24,skimmed
+com-s032,"rust-lang/rfcs repository home page (GitHub, undated)",https://github.com/rust-lang/rfcs,2026-11-24,skimmed
+com-s033,"generate-book.py, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/generate-book.py,2026-11-24,full
+com-s034,"book.toml, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/book.toml,2026-11-24,full
+com-s035,".gitignore, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/.gitignore,2026-11-24,full
+com-s036,"README.md, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/README.md,2026-11-24,skimmed
+com-s037,"The Rust RFC Book table of contents toc.html (rust-lang.github.io, undated; fetched 2026-11-24)",https://rust-lang.github.io/rfcs/toc.html,2026-11-24,full
+com-s038,"The Rust RFC Book search index file (rust-lang.github.io, undated; size measured 2026-11-24)",https://rust-lang.github.io/rfcs/searchindex-ec8e1f4c.js,2026-11-24,skimmed
+com-s039,"rust-lang/rfcs .github/workflows directory listing (GitHub, undated)",https://github.com/rust-lang/rfcs/tree/master/.github/workflows,2026-11-24,full
+com-s040,"deploy.yml, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/.github/workflows/deploy.yml,2026-11-24,full
+com-s041,"0000-template.md, rust-lang/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rust-lang/rfcs/master/0000-template.md,2026-11-24,skimmed
+com-s042,"tldr-pages/tldr repository home page (GitHub, undated)",https://github.com/tldr-pages/tldr,2026-11-24,skimmed
+com-s043,"tldr-pages/tldr .github/workflows directory listing (GitHub, undated)",https://github.com/tldr-pages/tldr/tree/main/.github/workflows,2026-11-24,skimmed
+com-s044,"README.md, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/README.md,2026-11-24,skimmed
+com-s045,"ci.yml, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/.github/workflows/ci.yml,2026-11-24,full
+com-s046,"scripts/test.sh, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/scripts/test.sh,2026-11-24,full
+com-s047,"package.json, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/package.json,2026-11-24,full
+com-s048,"scripts/build-index.js, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/scripts/build-index.js,2026-11-24,skimmed
+com-s049,".gitignore, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/.gitignore,2026-11-24,full
+com-s050,"scripts/check-pr.sh, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/scripts/check-pr.sh,2026-11-24,skimmed
+com-s051,"scripts/build.sh, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/scripts/build.sh,2026-11-24,full
+com-s052,"scripts/deploy.sh, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/scripts/deploy.sh,2026-11-24,skimmed
+com-s053,"CONTRIBUTING.md, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/CONTRIBUTING.md,2026-11-24,skimmed
+com-s054,"CLIENT-SPECIFICATION.md, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/CLIENT-SPECIFICATION.md,2026-11-24,skimmed
+com-s055,"index.json, latest release asset of tldr-pages/tldr (GitHub Releases, undated; fetched 2026-11-24)",https://github.com/tldr-pages/tldr/releases/latest/download/index.json,2026-11-24,full
+com-s056,"pages/common directory listing, tldr-pages/tldr (GitHub, undated; read 2026-11-24)",https://github.com/tldr-pages/tldr/tree/main/pages/common,2026-11-24,skimmed
+com-s057,"CI workflow runs, tldr-pages/tldr (GitHub Actions, runs listed 2026-11-24)",https://github.com/tldr-pages/tldr/actions/workflows/ci.yml,2026-11-24,full
+com-s058,"tldr.sh/assets/index.json returned HTTP 404 (tldr.sh, fetched 2026-11-24); the raw file in the site repository also returned 404",https://tldr.sh/assets/index.json,2026-11-24,full
+com-s059,"monthly-check.yml, tldr-pages/tldr (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/tldr-pages/tldr/main/.github/workflows/monthly-check.yml,2026-11-24,skimmed
+com-s060,"Repository limits (GitHub Docs, undated)",https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits,2026-11-24,full
+com-s061,"REST API endpoints for Git trees (GitHub Docs, undated)",https://docs.github.com/en/rest/git/trees,2026-11-24,skimmed
+com-s062,"Search, no primary source found for the web listing's 1,000-entry truncation message","search: GitHub docs ""truncate this directory to 1,000 files"" repository directory listing limit",2026-11-24,full
+com-s063,"Troubleshooting required status checks (GitHub Docs, undated)",https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/collaborating-on-repositories-with-code-quality-features/troubleshooting-required-status-checks,2026-11-24,skimmed
+com-s064,"Get up to speed with partial clone and shallow clone (The GitHub Blog, 2020-12-21, updated 2021-04-28)",https://github.blog/open-source/git/get-up-to-speed-with-partial-clone-and-shallow-clone/,2026-11-24,skimmed
+com-s065,"Bring your monorepo down to size with sparse-checkout (The GitHub Blog, 2020-01-17, updated 2022-05-16)",https://github.blog/open-source/git/bring-your-monorepo-down-to-size-with-sparse-checkout/,2026-11-24,skimmed
+com-s066,"Design: phases (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/architecture/design/phases/,2026-11-24,full
+com-s067,"Design: URIs (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/architecture/design/uri/,2026-11-24,full
+com-s068,"Architecture: workflow (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/architecture/workflow/,2026-11-24,full
+com-s069,"Design: the DAG (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/architecture/design/dag/,2026-11-24,full
+com-s070,"API overview (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/api/,2026-11-24,skimmed
+com-s071,"Guide: update data (Our World in Data ETL documentation, undated)",https://docs.owid.io/projects/etl/guides/data-work/update-data/,2026-11-24,full
+com-s072,"owid/etl repository home page (GitHub, undated)",https://github.com/owid/etl,2026-11-24,skimmed
+com-s073,"dag directory listing, owid/etl (GitHub, undated; read 2026-11-24)",https://github.com/owid/etl/tree/master/dag,2026-11-24,skimmed
+com-s074,"etl/steps/data/garden directory listing, owid/etl (GitHub, undated; read 2026-11-24)",https://github.com/owid/etl/tree/master/etl/steps/data/garden,2026-11-24,skimmed
+com-s075,"snapshots/gapminder/2023-03-31/population.xlsx.dvc, owid/etl (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/owid/etl/master/snapshots/gapminder/2023-03-31/population.xlsx.dvc,2026-11-24,full
+com-s076,".gitignore, owid/etl (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/owid/etl/master/.gitignore,2026-11-24,skimmed
+com-s077,"dag/main.yml, owid/etl (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/owid/etl/master/dag/main.yml,2026-11-24,skimmed
+com-s078,"README.md, owid/etl (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/owid/etl/master/README.md,2026-11-24,skimmed
+com-s079,"dag/archive/main.yml, owid/etl (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/owid/etl/master/dag/archive/main.yml,2026-11-24,skimmed
+com-s080,"the-turing-way/the-turing-way repository home page (GitHub, undated)",https://github.com/the-turing-way/the-turing-way,2026-11-24,skimmed
+com-s081,"book/website directory listing, the-turing-way (GitHub, undated; read 2026-11-24)",https://github.com/the-turing-way/the-turing-way/tree/main/book/website,2026-11-24,skimmed
+com-s082,"the-turing-way .github/workflows directory listing (GitHub, undated)",https://github.com/the-turing-way/the-turing-way/tree/main/.github/workflows,2026-11-24,skimmed
+com-s083,"ci.yml, the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/.github/workflows/ci.yml,2026-11-24,skimmed
+com-s084,"no-bad-latin.yml and tests/no-bad-latin.py, the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/.github/workflows/no-bad-latin.yml,2026-11-24,skimmed
+com-s085,"test-file-size.yml, the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/.github/workflows/test-file-size.yml,2026-11-24,full
+com-s086,"book/website/myst.yml, the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/book/website/myst.yml,2026-11-24,skimmed
+com-s087,"external_link_check.yml, the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/.github/workflows/external_link_check.yml,2026-11-24,skimmed
+com-s088,"RFC 0140: Simple Package Paths, NixOS/rfcs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/NixOS/rfcs/master/rfcs/0140-simple-package-paths.md,2026-11-24,skimmed
+com-s089,"pkgs/by-name/README.md, NixOS/nixpkgs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/NixOS/nixpkgs/master/pkgs/by-name/README.md,2026-11-24,skimmed
+com-s090,"doc/Authoring.md, microsoft/winget-pkgs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/microsoft/winget-pkgs/master/doc/Authoring.md,2026-11-24,skimmed
+com-s091,"README.md, microsoft/winget-pkgs (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/microsoft/winget-pkgs/master/README.md,2026-11-24,skimmed
+com-s092,"microsoft/winget-pkgs repository home page (GitHub, undated)",https://github.com/microsoft/winget-pkgs,2026-11-24,skimmed
+com-s093,"Formula Cookbook (Homebrew Documentation, undated)",https://docs.brew.sh/Formula-Cookbook,2026-11-24,skimmed
+com-s094,"Homebrew 4.0.0 (Homebrew blog, 2023-02-16)",https://brew.sh/2023/02/16/homebrew-4.0.0/,2026-11-24,skimmed
+com-s095,"Search, Homebrew's own reason for first-letter folders not found","search: homebrew-core Formula directory sharded by first letter ""Formula/"" subdirectories why GitHub 1,000 files truncate",2026-11-24,full
+com-s096,"Search, Homebrew's own reason for first-letter folders not found (second wording)","search: Homebrew pull request ""shard"" Formula directory by first letter homebrew-core reason GitHub directory listing",2026-11-24,full
+com-s097,Search that led to the CocoaPods post-mortem,"search: CocoaPods Specs repo sharding prefix directories GitHub asked large directory performance ""shard""",2026-11-24,full
+com-s098,"Master Spec Repo Rate Limiting Post-Mortem (CocoaPods blog, 2016-05-04)",https://blog.cocoapods.org/Master-Spec-Repo-Rate-Limiting-Post-Mortem/,2026-11-24,full
+com-s099,"Registry Index, The Cargo Book (doc.rust-lang.org, undated)",https://doc.rust-lang.org/cargo/reference/registry-index.html,2026-11-24,skimmed
+com-s100,"README.md, DefinitelyTyped/DefinitelyTyped (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/master/README.md,2026-11-24,skimmed
+com-s101,"README.md, github/advisory-database (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/github/advisory-database/main/README.md,2026-11-24,skimmed
+com-s102,"CONTRIBUTING.md, github/advisory-database (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/github/advisory-database/main/CONTRIBUTING.md,2026-11-24,skimmed
+com-s103,"advisories/github-reviewed/2024 directory listing, github/advisory-database (GitHub, undated; read 2026-11-24)",https://github.com/github/advisory-database/tree/main/advisories/github-reviewed/2024,2026-11-24,full
+com-s104,"advisories/github-reviewed/2024/01 directory listing, github/advisory-database (GitHub, undated; read 2026-11-24)",https://github.com/github/advisory-database/tree/main/advisories/github-reviewed/2024/01,2026-11-24,skimmed
+com-s105,"README.md, CVEProject/cvelistV5 (GitHub, undated; branch head read 2026-11-24; top note dated 2026-02-10)",https://raw.githubusercontent.com/CVEProject/cvelistV5/main/README.md,2026-11-24,skimmed
+com-s106,"cves/2024 directory listing, CVEProject/cvelistV5 (GitHub, undated; read 2026-11-24)",https://github.com/CVEProject/cvelistV5/tree/main/cves/2024,2026-11-24,skimmed
+com-s107,"README.md, rustsec/advisory-db (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rustsec/advisory-db/main/README.md,2026-11-24,skimmed
+com-s108,"CONTRIBUTING.md, rustsec/advisory-db (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/rustsec/advisory-db/main/CONTRIBUTING.md,2026-11-24,skimmed
+com-s109,"README.md, greenelab/covid19-review (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/greenelab/covid19-review/master/README.md,2026-11-24,skimmed
+com-s110,"CONTRIBUTING.md, greenelab/covid19-review (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/greenelab/covid19-review/master/CONTRIBUTING.md,2026-11-24,skimmed
+com-s111,"keps/README.md, kubernetes/enhancements (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/kubernetes/enhancements/master/keps/README.md,2026-11-24,skimmed
+com-s112,"keps/NNNN-kep-template/kep.yaml, kubernetes/enhancements (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/kubernetes/enhancements/master/keps/NNNN-kep-template/kep.yaml,2026-11-24,skimmed
+com-s113,"Archives of the Stanford Encyclopedia of Philosophy (plato.stanford.edu, undated; latest edition listed Fall 2026, 2026-09-21)",https://plato.stanford.edu/archives/,2026-11-24,full
+com-s114,"How to Cite the SEP (plato.stanford.edu, undated; copyright 2026)",https://plato.stanford.edu/cite.html,2026-11-24,full
+com-s115,"Pagefind home page (pagefind.app, undated; names version 1.5.0)",https://pagefind.app/,2026-11-24,skimmed
+com-s116,"Getting Started with Pagefind (pagefind.app, undated)",https://pagefind.app/docs/,2026-11-24,skimmed
+com-s117,"Performance (Fuse.js documentation, undated; benchmark states v7.6.0)",https://www.fusejs.io/performance.html,2026-11-24,full
+com-s118,"Built-in search plugin (Material for MkDocs documentation, undated)",https://squidfunk.github.io/mkdocs-material/plugins/search/,2026-11-24,skimmed
+com-s119,"Search, client-side search library limits; only vendor pages and third-party blogs found","search: lunr.js OR minisearch OR fuse.js client-side search index size limit number of documents performance benchmark 10,000 documents",2026-11-24,full
+com-s120,"Avoid an excessive DOM size (Chrome for Developers, Lighthouse docs, undated)",https://developer.chrome.com/docs/lighthouse/performance/dom-size,2026-11-24,skimmed
+com-s121,Search that led to the folder-versus-tag study,"search: Bergman ""Folder versus tag preference in personal information management"" results users preferred folders",2026-11-24,full
+com-s122,"Folder versus tag preference in personal information management, abstract record (IDEAS/RePEc, JASIST 64(10), 2013)",https://ideas.repec.org/a/bla/jamist/v64y2013i10p1995-2012.html,2026-11-24,skimmed
+com-s123,"Search against H12, nothing specific to document repositories found","search: documentation repository monorepo CI ""only changed files"" lint missed broken links cross-file checks problem full build needed",2026-11-24,full
+com-s124,"Search against H10, only secondary pages about dynamic tables found","search: static site single index page thousands of entries HTML table 5,000 rows loads fine no pagination needed browser performance",2026-11-24,full
+com-s125,"Search against H1, no account of a project moving from tags back to folders found","search: docs repository migrated from tags back to folder hierarchy ""tags"" did not work content organization lessons learned flat structure regret",2026-11-24,full
+com-s126,api.github.com repository endpoint returned HTTP 403 through the session proxy; not retried,https://api.github.com/repos/mdn/content,2026-11-24,full
+com-s127,"CONTRIBUTING.md, the-turing-way/the-turing-way (GitHub, undated; branch head read 2026-11-24)",https://raw.githubusercontent.com/the-turing-way/the-turing-way/main/CONTRIBUTING.md,2026-11-24,skimmed
+com-s128,"CI workflow runs, the-turing-way/the-turing-way (GitHub Actions, runs listed 2026-11-24)",https://github.com/the-turing-way/the-turing-way/actions/workflows/ci.yml,2026-11-24,full
+com-s129,"Formula directory listing, Homebrew/homebrew-core (GitHub, undated; read 2026-11-24)",https://github.com/Homebrew/homebrew-core/tree/main/Formula,2026-11-24,skimmed
+com-s130,"Search, Homebrew's own reason for first-letter folders not found (third wording); only a third-party PR noting the new Formula/g/gh.rb path","search: homebrew-core ""Formula"" subdirectories first letter sharding performance GitHub large directory 2023",2026-11-24,full
+com-s131,"Search against H1 (second helper), no account of a docs project leaving tags for folders found; only secondary pages",search: docs site moved from flat tags to folder hierarchy navigation because tags became unmanageable,2026-11-24,full
+com-s132,"Search against H10 (second helper), no benchmark of a single static list of thousands of items found; only blogs and forum posts",search: static site generator single page list of 10000 items performance pagination not needed,2026-11-24,full
+com-s133,"Search against H12 (second helper), only build-tool docs and vendor blogs on 'affected' builds found","search: ""affected"" only changed files CI misses breakage dependent files incremental check full rebuild required",2026-11-24,full
+com-s134,"The Rust RFC Book home page (rust-lang.github.io, undated; fetched 2026-11-24; names its search index file)",https://rust-lang.github.io/rfcs/,2026-11-24,skimmed
+a-s01,"claude-code-action action.yml, main branch (Anthropic, read 2026-11-24)",https://github.com/anthropics/claude-code-action/blob/main/action.yml,2026-11-24,full
+a-s02,"claude-code-action docs/security.md, main branch (Anthropic, read 2026-11-24)",https://github.com/anthropics/claude-code-action/blob/main/docs/security.md,2026-11-24,full
+a-s03,"claude-code-action tags, listed with git ls-remote (Anthropic, 2026-11-24)",https://github.com/anthropics/claude-code-action/tags,2026-11-24,full
+a-s04,"onRails research skill, SKILL.md and references (onRails, commit c75f937)",https://github.com/jsmigendevelopment/onRails/tree/c75f937/.agents/skills/research,2026-11-24,full
+a-s05,"onRails check-research.mjs (onRails, commit c75f937)",https://github.com/jsmigendevelopment/onRails/blob/c75f937/scripts/check-research.mjs,2026-11-24,full
+a-s06,"Public research commons: a standard, tags, review and storage (onRails issue #89, 2026-11-24)",https://github.com/jsmigendevelopment/onRails/issues/89,2026-11-24,full
+a-s07,"Split onRails into core + domain packs (onRails issue #86, 2026-11-24)",https://github.com/jsmigendevelopment/onRails/issues/86,2026-11-24,full
+a-s08,"GitHub REST API GET /user, as this session's token sees it (2026-11-24)","api: GET https://api.github.com/user, field plan",2026-11-24,full
+a-s09,"Securely using pull_request_target, re-read by the author (GitHub Docs, undated, notice dated 2026-12-02)",https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target,2026-11-24,full
