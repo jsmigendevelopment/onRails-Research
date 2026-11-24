@@ -50,7 +50,7 @@ Your final message back is a five-line summary and the path of your part folder.
 
 ## Your cluster: contribution workflow, CI, review and security
 
-ID prefix: `con`. Part folder: `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/parts/contributions/`.
+ID prefix: `con`. Part folder: the path given in the message that started you.
 
 Hypotheses under test (written before any search):
 - **H11.** A generated index file that every pull request regenerates makes open pull requests conflict with each other, so shared generated files should be built after merge, away from contributors.

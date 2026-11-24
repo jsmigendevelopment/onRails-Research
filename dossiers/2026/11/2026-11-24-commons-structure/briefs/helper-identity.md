@@ -50,7 +50,7 @@ Your final message back is a five-line summary and the path of your part folder.
 
 ## Your cluster: identity, versions, superseding, retraction and freshness
 
-ID prefix: `idv`. Part folder: `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/parts/identity/`.
+ID prefix: `idv`. Part folder: the path given in the message that started you.
 
 Hypotheses under test (written before any search):
 - **H6.** An ID made of the creation date plus a short slug, never changed afterwards, is better than a running number, because running numbers collide when two pull requests are open at once.

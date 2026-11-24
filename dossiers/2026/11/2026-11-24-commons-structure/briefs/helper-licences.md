@@ -50,7 +50,7 @@ Your final message back is a five-line summary and the path of your part folder.
 
 ## Your cluster: licences for text, code and data
 
-ID prefix: `lic`. Part folder: `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/parts/licences/`.
+ID prefix: `lic`. Part folder: the path given in the message that started you.
 
 Hypothesis under test (written before any search):
 - **H18.** The common pattern for an open research commons is CC BY 4.0 for text, a permissive licence (MIT or Apache-2.0) for code, and CC0 or CC BY for data. Share-alike is rare outside Wikipedia. Also check: can text written with AI help carry a licence at all?

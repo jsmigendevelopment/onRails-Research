@@ -50,7 +50,7 @@ Your final message back is a five-line summary and the path of your part folder.
 
 ## Your cluster: grouping, categories and tags
 
-ID prefix: `cls`. Part folder: `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/parts/classification/`.
+ID prefix: `cls`. Part folder: the path given in the message that started you.
 
 Hypotheses under test (written before any search):
 - **H1.** A flat store with tags in a metadata file and a generated index beats a folder tree as the main way to group.

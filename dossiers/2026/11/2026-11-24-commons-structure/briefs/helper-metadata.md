@@ -50,7 +50,7 @@ Your final message back is a five-line summary and the path of your part folder.
 
 ## Your cluster: metadata standards for dossiers and data
 
-ID prefix: `met`. Part folder: `/tmp/claude-0/-home-user/bc22ab20-7f4f-5c29-a7d3-1f602cdbd278/scratchpad/parts/metadata/`.
+ID prefix: `met`. Part folder: the path given in the message that started you.
 
 Hypotheses under test (written before any search):
 - **H5.** Tags should live in a small JSON file per dossier, not in YAML front matter, because the checker must run on plain Node with no dependencies and Node has no built-in YAML reader.
