@@ -34,9 +34,9 @@ jobs:
         run: node --test "scripts/test/*.test.mjs"
       - name: What this pull request may change, and the dossier it touches
         if: github.event_name == 'pull_request'
+        # No private-terms list here: this step runs the pull request's own copy of the checker, and its
+        # log is public. The trusted check and the scan on push to main cover the list.
         env:
-          # A secret, so it never reaches pull requests from forks; there the step skips it and says so.
-          PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
           MAINTAINER: ${{ github.event.pull_request.author_association == 'OWNER' && '--maintainer' || '' }}
           BASE_REF: ${{ github.base_ref }}
         run: node scripts/check.mjs --base "origin/$BASE_REF" $MAINTAINER

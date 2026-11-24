@@ -5,7 +5,7 @@
 #   in `check`, and a contributor can edit that copy; this one they can't.
 # - Then Claude reviews it and posts one verdict. Automatically when the author has write access.
 #   For anyone else, the maintainer starts it: Actions > review > Run workflow, with the number
-#   (or `gh workflow run review.yml -f pr=<number>`). The Claude action refuses to run for authors
+#   (or `gh workflow run review.yml -f pr=<number> -f sha=<head commit>`). The Claude action refuses to run for authors
 #   without write access, so it is never started by a stranger.
 # - Until the CLAUDE_CODE_OAUTH_TOKEN secret is set, the review job is skipped and says so.
 #
@@ -22,6 +22,9 @@ on:
       pr:
         description: Pull request number
         required: true
+      sha:
+        description: The pull request's head commit you mean to review (optional; the run stops if the head differs)
+        required: false
 
 permissions: {}
 
@@ -58,6 +61,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           INPUT_PR: ${{ github.event.inputs.pr }}
+          INPUT_SHA: ${{ github.event.inputs.sha }}
           RUN_SHA: ${{ github.event.workflow_run.head_sha }}
           RUN_PRS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
           HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
@@ -78,6 +82,7 @@ jobs:
           fi
           json=$(gh api "repos/$REPO/pulls/$number")
           sha=$(jq -r .head.sha <<<"$json")
+          if [ -n "${INPUT_SHA:-}" ] && [ "$INPUT_SHA" != "$sha" ]; then echo "::error::The pull request's head is $sha, not the commit you asked for ($INPUT_SHA). Nothing was reviewed."; exit 1; fi
           if [ -n "$RUN_SHA" ] && [ "$sha" != "$RUN_SHA" ]; then echo "The pull request has moved on since this run; the next run reviews it."; exit 0; fi
           assoc=$(jq -r .author_association <<<"$json")
           case "$assoc" in OWNER|MEMBER|COLLABORATOR) trusted=true;; *) trusted=false;; esac
