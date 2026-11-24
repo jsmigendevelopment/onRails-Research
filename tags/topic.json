@@ -1,0 +1,151 @@
+{
+  "schema": "research-tags/1",
+  "facet": "topic",
+  "about": "What the dossier is about, whatever the domain. A dossier has one to three. Keep this list short: a topic should fit many dossiers.",
+  "values": [
+    {
+      "id": "agents",
+      "label": "AI agents",
+      "means": "How AI agents work and how to run them: tools, permissions, memory, sandboxes, multi-agent setups.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "ai-models",
+      "label": "AI models",
+      "means": "Choosing and using models: quality, cost, speed, effort settings, context limits and provider terms.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "prompting",
+      "label": "Prompts and skills",
+      "means": "Writing for models: prompts, instruction files, skills and how well each one is followed.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "workflow",
+      "label": "Workflow",
+      "means": "How work moves from idea to done: planning, slicing, issues, review, merging and release.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "research-methods",
+      "label": "Research methods",
+      "means": "How to find, check and record evidence: sources, fact-checks, provenance and statistics.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "knowledge",
+      "label": "Knowledge keeping",
+      "means": "Organising what is known: tags, indexes, IDs, versions, docs and keeping them fresh.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "performance",
+      "label": "Performance",
+      "means": "Making things fast and small: load time, latency, memory, bundle size and how to measure them.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "security",
+      "label": "Security",
+      "means": "Stopping attacks and abuse: access control, secrets, injection, bots, rate limits and incident lessons.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "privacy",
+      "label": "Privacy",
+      "means": "Keeping personal data private: what is collected, who can see it, and how to get it removed.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "accessibility",
+      "label": "Accessibility",
+      "means": "Making things usable by everyone: screen readers, keyboards, contrast, motion and WCAG.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "testing",
+      "label": "Testing",
+      "means": "Proving that something works: unit and end-to-end tests, evals, flaky tests and test data.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "ci-cd",
+      "label": "CI and delivery",
+      "means": "Automatic checks and shipping: pipelines, previews, deploys, rollbacks and their cost.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "architecture",
+      "label": "Architecture",
+      "means": "How a system is put together: layers, modules, APIs, boundaries and the trade-offs between designs.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "databases",
+      "label": "Databases",
+      "means": "Storing and querying app data: schemas, migrations, SQL engines, sync and backups.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "storage",
+      "label": "File storage",
+      "means": "Where big files live: object stores, Git LFS, datasets, quotas, checksums and links that last.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "hosting",
+      "label": "Hosting",
+      "means": "Where things run: serverless platforms, small servers, containers, DNS and their limits and prices.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "design",
+      "label": "Design",
+      "means": "How things look and feel: layout, colour, type, motion, design systems and critique.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "graphics",
+      "label": "Graphics and 3D",
+      "means": "Drawing on screen: SVG, canvas, WebGL, 3D scenes, shaders and frame rate.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "voice",
+      "label": "Voice",
+      "means": "Speaking and listening: speech to text, text to speech, wake words and spoken assistants.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "seo",
+      "label": "Search and sharing",
+      "means": "Being found and shared: search engines, AI crawlers, metadata and link previews.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "licensing",
+      "label": "Licensing",
+      "means": "Licences for code, text and data: what they allow, how they mix and how to choose one.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "open-source",
+      "label": "Open source",
+      "means": "Running or using open projects: contributions, governance, maintenance and dependencies.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "hardware",
+      "label": "Hardware and devices",
+      "means": "Physical things: phones, laptops, home devices, printers, sensors and how they behave.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "pricing",
+      "label": "Pricing and plans",
+      "means": "What things cost: plans, quotas, free tiers and how the bill grows.",
+      "added": "2026-11-24"
+    }
+  ]
+}

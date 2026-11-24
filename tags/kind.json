@@ -1,0 +1,37 @@
+{
+  "schema": "research-tags/1",
+  "facet": "kind",
+  "about": "What shape the dossier has, by what the reader came to do. A dossier has exactly one. Each kind has its own required sections (see CONTRIBUTING.md).",
+  "values": [
+    {
+      "id": "comparison",
+      "label": "Comparison",
+      "means": "Helps the reader choose. At least three options weighed against evidence, with a recommendation.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "how-to",
+      "label": "How-to",
+      "means": "Helps the reader do one thing. Steps that were tried, and a way to check that it worked.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "trap",
+      "label": "Trap",
+      "means": "Warns the reader. One thing that goes wrong, how to spot it, why it happens and the fix.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "benchmark",
+      "label": "Benchmark",
+      "means": "Gives the reader numbers. Something measured with a method others can rerun, kept as run folders.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "dataset",
+      "label": "Dataset",
+      "means": "Gives the reader data. A described set of files with links, checksums, licences and how it was made.",
+      "added": "2026-11-24"
+    }
+  ]
+}

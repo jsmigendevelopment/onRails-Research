@@ -1,0 +1,91 @@
+{
+  "schema": "research-tags/1",
+  "facet": "domain",
+  "about": "The area of life or work the dossier helps with. These follow the onRails packs. A dossier has one to three, and the first is its main home.",
+  "values": [
+    {
+      "id": "core",
+      "label": "Core method",
+      "means": "How to work with AI agents on any job: planning, questions, review, memory, safety and the research method itself.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "apps",
+      "label": "Apps",
+      "means": "Building software: web, mobile and desktop apps, their code, tests, hosting and launch checks.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "research",
+      "label": "Research",
+      "means": "Doing research well: finding sources, checking facts, keeping data, and running a commons like this one.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "data",
+      "label": "Data",
+      "means": "Working with data: SQL, pipelines, dashboards, reports, file formats and data quality.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "infra",
+      "label": "Infrastructure",
+      "means": "Servers, home labs, DNS, cloud setup, containers and the cost of running them.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "personal-security",
+      "label": "Personal security",
+      "means": "Protecting a person: accounts, passwords, two-factor, privacy settings and getting your data removed.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "online-presence",
+      "label": "Online presence",
+      "means": "How a person or brand shows up online: profiles, social media, a personal site and its links.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "content",
+      "label": "Content",
+      "means": "Writing and publishing: a blog, a newsletter, a talk, and checking facts and reading level.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "business",
+      "label": "Business",
+      "means": "Running a small business: admin, clients, invoices, contracts, licences and deadlines.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "launch",
+      "label": "Launch",
+      "means": "After the first version: going public, search, the marketing site, analytics and first users.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "career",
+      "label": "Career",
+      "means": "Finding work: a resume, a portfolio, applications and interview prep.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "learn",
+      "label": "Learning",
+      "means": "Learning a skill: study plans, exercises and how to tell that you got better.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "money",
+      "label": "Money",
+      "means": "Personal money: budgets, debt, savings and getting taxes in order.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "life",
+      "label": "Life admin",
+      "means": "Life tasks with forms and deadlines: a move, a vehicle, an event, a home project.",
+      "added": "2026-11-24"
+    }
+  ]
+}

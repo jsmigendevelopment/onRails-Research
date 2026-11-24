@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-provenance/1",
+  "title": "Research provenance",
+  "description": "provenance.json: who did each role on one dossier, on which model and effort, in which session. The same record onRails's research skill writes (research-provenance/1), plus a session for every role. A value nobody recorded is \"unknown\", never a guess. scripts/check.mjs enforces this.",
+  "type": "object",
+  "required": ["schema", "dossier", "stores", "roles"],
+  "properties": {
+    "schema": { "const": "research-provenance/1" },
+    "dossier": { "const": "README.md", "description": "The dossier's file, next to this record." },
+    "stores": { "type": "array", "minItems": 1, "items": { "enum": ["desk", "measurements"] }, "uniqueItems": true, "description": "Every dossier has the desk store. Add measurements when it holds runs." },
+    "roles": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/role" } }
+  },
+  "$defs": {
+    "date": { "type": "string", "pattern": "^(unknown|\\d{4}-\\d{2}-\\d{2}.*)$" },
+    "effort": { "enum": ["minimal", "low", "medium", "high", "xhigh", "max", "unknown"] },
+    "model": { "type": "string", "pattern": "^(unknown|human|[a-z0-9][a-z0-9._:/@-]*)$", "description": "The exact model ID the session reports, not a marketing name. \"human\" when a person did the role by hand." },
+    "role": {
+      "type": "object",
+      "required": ["role", "model", "effort", "harness", "session", "started", "finished", "brief"],
+      "properties": {
+        "role": { "enum": ["author", "helper", "fact-check", "reviewer"] },
+        "model": { "$ref": "#/$defs/model" },
+        "effort": { "$ref": "#/$defs/effort" },
+        "harness": { "type": "string", "minLength": 1, "description": "The tool and version, and whether it ran as a subagent. \"none\" for a person." },
+        "session": { "type": "string", "minLength": 1, "description": "The session's ID as the tool reports it, a short label you make up when the tool shows none (\"fact-check subagent 1\"), or unknown. The fact-check's session must differ from the author's." },
+        "started": { "$ref": "#/$defs/date" },
+        "finished": { "$ref": "#/$defs/date" },
+        "brief": { "type": "string", "minLength": 1, "description": "Path to the committed brief, relative to the dossier folder, or unknown." },
+        "requested": {
+          "type": "object",
+          "required": ["model", "effort"],
+          "properties": { "model": { "$ref": "#/$defs/model" }, "effort": { "$ref": "#/$defs/effort" } },
+          "description": "What the agent that started this role asked for. When it differs from model or effort, notes says why."
+        },
+        "disposition": { "type": "string", "description": "fact-check only: the file where each finding is fixed, disputed or accepted." },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

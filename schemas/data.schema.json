@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-data/1",
+  "title": "Data links",
+  "description": "data.json: the big files behind a dossier. The files live outside this repository. This record keeps where each one is, how big it is, its checksum, its licence and how it was made. Field names follow the Frictionless Data Package resource (path, bytes, hash, format, mediatype, licenses, sources) so the record converts cleanly.",
+  "type": "object",
+  "required": ["schema", "resources"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": { "const": "research-data/1" },
+    "resources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "title", "path", "bytes", "hash", "format", "licenses", "created", "made_by"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string", "pattern": "^[a-z0-9]+([._-][a-z0-9]+)*$", "maxLength": 80 },
+          "title": { "type": "string", "minLength": 4, "maxLength": 160 },
+          "path": { "type": "string", "pattern": "^https://", "description": "Where to download the file. Pin it to a commit, a release or a version so it can't change under the checksum." },
+          "mirrors": { "type": "array", "uniqueItems": true, "items": { "type": "string", "pattern": "^https://" }, "description": "Other places that hold the same bytes." },
+          "bytes": { "type": "integer" },
+          "hash": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "format": { "type": "string", "pattern": "^[a-z0-9.+-]{1,20}$", "description": "The file extension, without the dot: csv, parquet, json, zip." },
+          "mediatype": { "type": "string", "pattern": "^[a-z0-9.+-]+/[a-z0-9.+-]+$" },
+          "licenses": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["name"],
+              "additionalProperties": false,
+              "properties": {
+                "name": { "type": "string", "pattern": "^[A-Za-z0-9.+-]+$", "description": "An SPDX licence ID, such as CC0-1.0 or CC-BY-4.0." },
+                "path": { "type": "string", "pattern": "^https://" },
+                "title": { "type": "string" }
+              }
+            }
+          },
+          "created": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "made_by": { "type": "string", "minLength": 12, "description": "How the file was made: the run folder and command, or where it was downloaded from and when." },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["title"],
+              "additionalProperties": false,
+              "properties": { "title": { "type": "string", "minLength": 1 }, "path": { "type": "string", "pattern": "^https://" } }
+            },
+            "description": "Upstream data this file was built from, each with its own licence where it differs."
+          },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  }
+}
