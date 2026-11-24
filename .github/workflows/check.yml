@@ -35,14 +35,18 @@ jobs:
           # A secret, so it never reaches pull requests from forks; there the step skips it and says so.
           PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
           MAINTAINER: ${{ github.event.pull_request.author_association == 'OWNER' && '--maintainer' || '' }}
-        run: node scripts/check.mjs --base "origin/${{ github.base_ref }}" $MAINTAINER
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check.mjs --base "origin/$BASE_REF" $MAINTAINER
       - name: Every dossier, the tag lists and every file
         if: github.event_name == 'push'
         env:
+          # The log is public, so a private term is reported without its file (see check.mjs --show-private).
           PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
         run: node scripts/check.mjs --all
       - name: Links in the changed dossier resolve
         if: github.event_name == 'pull_request'
-        run: node scripts/check-links.mjs --base "origin/${{ github.base_ref }}"
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check-links.mjs --base "origin/$BASE_REF"
       - name: The index still builds
         run: node scripts/build-index.mjs --out "$RUNNER_TEMP/index"
