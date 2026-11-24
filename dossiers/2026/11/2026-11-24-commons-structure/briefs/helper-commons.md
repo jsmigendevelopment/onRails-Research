@@ -1,6 +1,6 @@
 # Brief: helper, how large text and research repositories are built
 
-The brief this helper got, word for word. The helper was started with only a pointer to this file.
+The brief this helper got, word for word. The helper was started with only a pointer to this file and the path of a scratch folder for its part files.
 
 ## Who you are helping
 
