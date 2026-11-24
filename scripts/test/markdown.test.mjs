@@ -14,7 +14,8 @@ const TOKENS = [
   "$", "*", "_", "\"", "'", "\\", "-", "=", ":", "//x.example", "https://x.example/a", "\n", "\n", "\n\n", "> ", "- ", "1. ",
   "    ", "\t", "\r", "<!--", "-->", "&#x202E;", "&#8238;", "&amp;", "&nbsp;", "&lt;", "<span hidden>", "</span>", "<b>",
   "[t](u)", "[t]: u", "![i](u)", "](", "\"title\"", "<>", "&#", "&x;", "|", " | ", "\\|", "| --- |", "---|---", ":-:", "\n| a | b |\n|---|---|\n",
-  "~~", "- [ ] ", "www.x.example", "[^1]", "```mermaid\n", "```text\n", cp(0x202e), cp(0xa0), cp(0x200b), cp(0xad),
+  "~~", "- [ ] ", "www.x.example", "[^1]", "```mermaid\n", "```text\n", "[](u)", "[ ](u)", "[t](u \"x\")", "[t](u 'x')", "[[t]](u)",
+  "[t](https://x.example/a)", "(", "u)", cp(0x202e), cp(0xa0), cp(0x200b), cp(0xad),
 ];
 
 /** A small seeded random generator, so a failure can be replayed. */
@@ -50,6 +51,10 @@ test("random dossier Markdown that passes renders with nothing hidden", async ()
       for (const [, name] of html.matchAll(/<\/?([A-Za-z][A-Za-z0-9]*)/g)) assert.ok(TAGS.has(name.toLowerCase()), `<${name}> in ${where}`);
       assert.ok(!HIDDEN.test(decode(html.replace(/<[^>]*>/g, " "))), `hidden text in ${where}`);
       assert.ok(!HIDDEN.test(decode(html)), `hidden character in an attribute: ${where}`);
+      for (const [, attributes, inner] of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)) {
+        assert.ok(!/\btitle=/.test(attributes), `a link with a title: ${where}`);
+        assert.ok(decode(inner.replace(/<[^>]*>/g, "")).trim(), `a link with no text: ${where}`);
+      }
       assert.ok(!/class="language-(?!(text|txt|json|csv|js|mjs|ts|sh|bash|py|toml|yaml|yml|diff|md)")/.test(html), `a fence language off the list: ${where}`);
     }
   }

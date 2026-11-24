@@ -400,7 +400,7 @@ test("wider hidden-character rule, for contents and paths", async () => {
   const { scanText } = await import("../lib/hygiene.mjs");
   const { collector } = await import("../lib/store.mjs");
   const hidden = ["\u00A0", "\u2007", "\u3000", "\u00AD", "\u115F", "\u1160", "\u3164", "\uFFA0", "\u180B", "\u180E", "\uFFF9", "\uFE00", "\uFE0E",
-    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378", "\u2800", "\u17B4", "\u17B5", "\u034F", "\u2065", "\u0001", "\u001B", "\u007F", "\u0085", "\u009B", "\u000B", "\u000C"];
+    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378", "\u2800", "\u17B4", "\u17B5", "\u034F", "\u2065", "\u0001", "\u001B", "\u007F", "\u0085", "\u009B", "\u000B", "\u000C", "\u{16FE4}", "\u{1D159}", "\uFFFC", "\u3030"];
   for (const ch of hidden) {
     const problems = collector();
     scanText(`before${ch}after`, "a.md", { hiddenText: true }, problems);
@@ -444,9 +444,16 @@ test("simpler dossier Markdown rules: every probe is refused, plain Markdown pas
     ["Bidi &#x202E; and &#8238; and &rlo; and &nbsp;", "character reference"],
     ["Math $x$ here", "$ character"],
     ["An image ![i](//x.example/p.png)", "image"],
-    ['A [titled](//x.example "hidden title") link', "link title"],
-    ["A [titled](//x.example (hidden title)) link", "link title"],
-    ["A [split](//x.example", "doesn't close on the same line"],
+    ['A [titled](//x.example "hidden title") link', "isn't plain"],
+    ["A [titled](//x.example (hidden title)) link", "isn't plain"],
+    ["A [split](//x.example", "isn't plain"],
+    ["An empty [](//x.example) link", "isn't plain"],
+    ["A blank [ ](//x.example) link", "isn't plain"],
+    ["A nested [[d]](//x.example) link", "isn't plain"],
+    ["A spaced [t](//x.example/a b) address", "isn't plain"],
+    ["A bracketed [t](//x.example/(a)) address", "isn't plain"],
+    ["A backslashed [t](//x.example\\y) address", "isn't plain"],
+    ["A plain [link](https://x.example/a?b=c#d) and [another](../notes/limits.md)", null],
     ["```a`b", "code fence"],
     ["<b>not a fence: a backtick fence's info can't hold a backtick</b>", "< character"],
     ["~~~&#x202E;", "code fence"],
@@ -504,6 +511,8 @@ test("simpler dossier Markdown rules: every probe is refused, plain Markdown pas
     ["a\tb", "tab after text"],
     ["```text", null],
     ["inside" + " ".repeat(25) + "a fence", "20 or more spaces"],
+    ["y".repeat(201), "code fence longer than 200"],
+    ["y".repeat(200), null],
     ["```", null],
     // A fence after a list or quote marker, or indented, is refused; the file fails on that line.
     ["- ```", "code fence"],
@@ -524,7 +533,7 @@ test("stricter dossier file names", () => {
   const { rel } = addDossier(root);
   commit(root, "add");
   branch(root);
-  const agent = ["agent.md", "Crush.md", "QWEN.md", "warp.md", "notes/Agent.md", "opencode.md", "IFLOW.json", "codebuddy/x.md", "Junie.md", "kiro/a.md", "aider.md", "amp.json", "Cline.md", "roo/x.md", "continue.json", "zed.md", "goose.json", "CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
+  const agent = ["replit.md", ".replit", "codex.md", "CONVENTIONS.md", "rules.md", "memory-bank/notes.md", "skills/review/SKILL.md", "skills/skill.md", "agent.md", "Crush.md", "QWEN.md", "warp.md", "notes/Agent.md", "opencode.md", "IFLOW.json", "codebuddy/x.md", "Junie.md", "kiro/a.md", "aider.md", "amp.json", "Cline.md", "roo/x.md", "continue.json", "zed.md", "goose.json", "CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
   const badName = ["Notes.md", "notes/README.md", "a.md/b.md", "under_score.md", "-dash.md", "data/Big.csv"];
   for (const name of [...agent, ...badName]) {
     mkdirSync(join(root, rel, name, ".."), { recursive: true });
@@ -545,4 +554,33 @@ test("hidden characters inside JSON strings are refused, even when written as es
   assert.ok(has(all(root), `${rel}/extra.json: has an invisible character inside a JSON string`));
   writeFileSync(join(dir, "extra.json"), '{"note": "plain' + "\\n" + 'text"}\n');
   assert.ok(!has(all(root), `${rel}/extra.json: has an invisible`));
+});
+
+test("JSON and CSV: layout rules, duplicate keys and uneven rows are refused", () => {
+  const root = makeCommons();
+  const { dir, rel } = addDossier(root);
+  writeFileSync(join(dir, "extra.json"), `{"a": 1, "b": {"c": 2, "c": 3}, "list": [{"d": 1}, {"d": 2}], "a": 4}\n`);
+  writeFileSync(join(dir, "wide.json"), `{"note": "${"w".repeat(2001)}", "gap": "a${" ".repeat(20)}b"}\n`);
+  writeFileSync(join(dir, "rows.csv"), "x,y,z\n1,2,3\n1,2,3,hidden\n1,2\n\"q,uoted\",2,3\n");
+  writeFileSync(join(dir, "tabs.csv"), "x,y\n1,2\tz\n");
+  const result = all(root);
+  assert.ok(has(result, `${rel}/extra.json: has the key "c" twice`), result.errors.join("\n"));
+  assert.ok(has(result, `${rel}/extra.json: has the key "a" twice`));
+  assert.ok(!has(result, 'has the key "d" twice'));
+  assert.ok(has(result, `${rel}/wide.json:1: is longer than 2,000 characters`));
+  assert.ok(has(result, `${rel}/wide.json:1: has a run of 20 or more spaces`));
+  assert.ok(has(result, `${rel}/rows.csv: row 2: has 4 cells, but the header has 3`));
+  assert.ok(has(result, `${rel}/rows.csv: row 3: has 2 cells`));
+  assert.ok(!has(result, `${rel}/rows.csv: row 4`));
+  assert.ok(has(result, `${rel}/tabs.csv:2: has a tab after text`));
+});
+
+test("a submodule in a pull request is refused", () => {
+  const root = makeCommons();
+  branch(root);
+  sh(root, "update-index", "--add", "--cacheinfo", `160000,${sh(root, "rev-parse", "HEAD").trim()},vendored`);
+  sh(root, "commit", "-q", "-m", "submodule");
+  const result = pr(root);
+  assert.ok(has(result, "vendored: is a symbolic link or a special file"), result.errors.join("\n"));
+  assert.ok(has(all(root), "vendored: is a symbolic link or a special file"));
 });

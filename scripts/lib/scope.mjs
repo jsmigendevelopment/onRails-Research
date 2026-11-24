@@ -19,7 +19,7 @@ const FOLDER = /^[a-z0-9][a-z0-9-]*$/;
 const FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv|tsv|txt|svg|mjs|js|py|sh)$/;
 const CONTRIBUTOR_FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv)$/;
 // Names that instruct or configure agents, refused inside a dossier for everyone, maintainer included.
-export const AGENT_TOOLS = ["claude", "agent", "agents", "gemini", "copilot", "cursor", "windsurf", "crush", "qwen", "warp", "opencode", "iflow", "codebuddy", "junie", "kiro", "aider", "amp", "cline", "roo", "continue", "zed", "goose", "mcp"];
+export const AGENT_TOOLS = ["claude", "agent", "agents", "gemini", "copilot", "cursor", "windsurf", "crush", "qwen", "warp", "opencode", "iflow", "codebuddy", "junie", "kiro", "aider", "amp", "cline", "roo", "continue", "zed", "goose", "mcp", "replit", "codex", "conventions", "rules", "memory-bank"];
 const AGENT_NAME = new RegExp(`^\\.?(${AGENT_TOOLS.join("|")})([.-].*|rules|hints|modes)?$`, "i");
 
 const below = (path) => path.split("/").slice(4);
@@ -31,7 +31,13 @@ function namesFit(path, file) {
 }
 
 /** True for a path inside a dossier with an agent-instruction name at any depth. */
-export const agentFileInDossier = (path) => idOfPath(path) !== null && below(path).some((name) => AGENT_NAME.test(name));
+export function agentFileInDossier(path) {
+  if (idOfPath(path) === null) return false;
+  const names = below(path), last = names.length - 1;
+  // A skill file under any skills/ folder is an agent instruction too.
+  const skill = /^skill\.md$/i.test(names[last]) && names.slice(0, last).some((name) => name.toLowerCase() === "skills");
+  return skill || names.some((name) => AGENT_NAME.test(name));
+}
 
 /** True for a path inside a dossier whose names don't fit the allow list, for anyone. */
 export const badDossierName = (path) => idOfPath(path) !== null && !namesFit(path, FILE);

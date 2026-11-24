@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import { checkCard, checkLinks } from "./lib/card.mjs";
 import { today as now } from "./lib/dates.mjs";
 import { checkStores } from "./lib/desk.mjs";
-import { changedFiles, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
+import { changedFiles, GITLINK_MODE, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
 import { HIDDEN, privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
 import { agentFileInDossier, badDossierName, checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
@@ -46,6 +46,9 @@ function checkDossier(entry, card, lists, today, problems) {
   checkFiles(entry.dir, entry.id, problems);
 }
 
+// Licence texts are copied word for word, tabs included, so the layout rules skip them.
+const LICENCE = /(^|\/)LICEN[CS]E[^/]*$/;
+
 // The full run on main has a public log, so it says only that a term was found, not where.
 export const PRIVATE_FOUND = "a private term was found. Rerun locally with --all --show-private to see where";
 
@@ -56,7 +59,7 @@ function scanFiles(root, paths, { hideWhere, every }, problems) {
   for (const path of paths) {
     const inStore = path.startsWith(`${STORE}/`);
     if (!(every || TEXT.test(path) || inStore) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
-    scanText(readText(join(root, path)), path, { terms, hiddenText: true, markdown: inStore && /\.md$/i.test(path), onTerm }, problems);
+    scanText(readText(join(root, path)), path, { terms, hiddenText: true, markdown: inStore && /\.md$/i.test(path), layout: !LICENCE.test(path), onTerm }, problems);
   }
   if (found) problems.errors.push(PRIVATE_FOUND);
   return terms.length;
@@ -105,7 +108,7 @@ function listPaths(root, base, all, problems) {
   if (!from) { problems.error("--base", `git could not find the merge base with ${base}`); return null; }
   const changes = changedFiles(root, from), kept = changes.filter((c) => c.status !== "D");
   checkStorePaths(changes.map((c) => c.path), problems);
-  return { from, changes, paths: kept.map((c) => c.path), links: kept.filter((c) => c.mode === LINK_MODE).map((c) => c.path) };
+  return { from, changes, paths: kept.map((c) => c.path), links: kept.filter((c) => c.mode === LINK_MODE || c.mode === GITLINK_MODE).map((c) => c.path) };
 }
 
 /** Runs the checks. Returns { errors, warnings, checked, total, terms }. */

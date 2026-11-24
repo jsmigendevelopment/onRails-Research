@@ -1,3 +1,5 @@
+import { parseCsv } from "./csv.mjs";
+
 // What must never be in the commons: secrets, e-mail addresses, private paths and names, hidden text.
 // Dossier text is untrusted input for every agent that later reads it, so hidden text is refused.
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]*[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}\b/g;
@@ -8,8 +10,8 @@ const SAFE_HOME = /^(user|username|you|me|name|runner|ubuntu|node|root|shared|pu
 // Characters a reader can't see, by Unicode category: format (Cf), private use (Co), unassigned (Cn),
 // line and paragraph separators, every space but U+0020, variation selectors (U+FE0F only right after
 // an emoji), C0 and C1 controls but tab, LF and CR, default-ignorable code points, blank Braille, and
-// the fillers and invisible operators that render as nothing.
-export const HIDDEN = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\p{Cf}\p{Co}\p{Cn}\p{Zl}\p{Zp}\u00AD\u115F\u1160\u17B4\u17B5\u2800\u3164\uFFA0\u180B-\u180F\uFFF9-\uFFFB\uFE00-\uFE0E\u{E0100}-\u{E01EF}]|(?!\uFE0F)\p{Default_Ignorable_Code_Point}|(?! )\p{Zs}|(?<!\p{Extended_Pictographic})\uFE0F/u;
+// the fillers, placeholders and invisible operators that render as nothing or as an empty box.
+export const HIDDEN = /[\u{16FE4}\u{1D159}\uFFFC\u3030\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\p{Cf}\p{Co}\p{Cn}\p{Zl}\p{Zp}\u00AD\u115F\u1160\u17B4\u17B5\u2800\u3164\uFFA0\u180B-\u180F\uFFF9-\uFFFB\uFE00-\uFE0E\u{E0100}-\u{E01EF}]|(?!\uFE0F)\p{Default_Ignorable_Code_Point}|(?! )\p{Zs}|(?<!\p{Extended_Pictographic})\uFE0F/u;
 const SECRETS = [
   ["a private key", /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
   ["a GitHub token", /\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{22,})/],
@@ -62,10 +64,13 @@ export const MARKDOWN_RULES = [
   [/^(?: {0,3}>)* {0,3}\[[^\]]*$/, "starts with [ and doesn't close it on the same line: keep a link's text on one line"],
   [/\$/, "has a $ character: math isn't allowed; write the amount in words, such as 20 dollars"],
   [/!\[/, "has an image (![): link to it instead"],
-  [/\]\([^)]*[ \t]["'(]/, "has a link title: write the link as [text](url) only"],
-  [/\]\([^)]*$/, "has a link that doesn't close on the same line: keep [text](url) on one line"],
 ];
-// Everywhere in the file, fences included: no line so long, or space so wide, that text sits off-screen.
+// The only link form allowed: some text, then an address with no space, parenthesis, angle bracket or
+// backslash, and link text with no brackets in it. Any other ]( (a title, a split link, empty text,
+// nested brackets) is refused.
+const LINK = /\[[^\[\]]*[^\s\[\]][^\[\]]*\]\([^\s()<>\\]+\)/g;
+export const LINK_MESSAGE = "has a link that isn't plain [text](address) on one line, with some text and an address without spaces, brackets or backslashes: write it as [text](https://...)";
+// Every scanned text file, fences included: no line so long, or space so wide, that text sits off-screen.
 export const LAYOUT_RULES = [
   [/^.{2001}/, "is longer than 2,000 characters: break it up"],
   [/ {20}/, "has a run of 20 or more spaces: text can hide off-screen after it"],
@@ -90,13 +95,19 @@ export function cellCount(row) {
   return (text.match(PIPE) ?? []).length + 1;
 }
 
+// Code in a fence doesn't wrap, so its lines are short. A brief keeps its prompt word for word in a fence,
+// so its lines may be as long as any other (2,000 characters).
+const FENCE_LINE = 200;
+export const FENCE_LINE_MESSAGE = `is a line in a code fence longer than ${FENCE_LINE} characters: code doesn't wrap, so break it up`;
+
 /** Reports hidden Markdown in one dossier Markdown file. */
 export function scanMarkdown(text, where, problems) {
+  const fenceLimit = !/(^|\/)briefs\/[^/]+$/.test(where);
   let fence = null, columns = 0, previous = "";
   text.split(/\r\n|\r|\n/).forEach((line, n) => {
     const at = `${where}:${n + 1}`;
-    for (const [rule, message] of LAYOUT_RULES) if (rule.test(line)) problems.error(at, message);
     if (fence) {
+      if (fenceLimit && line.length > FENCE_LINE) problems.error(at, FENCE_LINE_MESSAGE);
       const close = CLOSE.exec(line);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) fence = null;
       return;
@@ -113,16 +124,49 @@ export function scanMarkdown(text, where, problems) {
     }
     for (const [rule, message] of MARKDOWN_RULES) if (rule.test(line)) problems.error(at, message);
     if ((line.match(SPAN_RUNS) ?? []).length % 2) problems.error(at, SPAN_MESSAGE);
+    if (line.replace(LINK, "").includes("](")) problems.error(at, LINK_MESSAGE);
     if (columns) { if (cellCount(inner) !== columns) problems.error(at, TABLE_MESSAGE); }
     else if (inner.includes("|") && DELIMITER.test(inner.trim()) && previous.trim() && cellCount(inner) === cellCount(previous)) columns = cellCount(inner);
     previous = inner;
   });
 }
 
+/** The keys that appear twice in one JSON object: JSON.parse keeps only the last, so the first hides. */
+export function duplicateKeys(text) {
+  const stack = [], found = [];
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i], top = stack[stack.length - 1];
+    if (ch === "{") stack.push({ keys: new Set(), key: true });
+    else if (ch === "[") stack.push(null);
+    else if (ch === "}" || ch === "]") stack.pop();
+    else if (ch === ":" && top) top.key = false;
+    else if (ch === "," && top) top.key = true;
+    else if (ch === '"') {
+      let end = i + 1;
+      while (end < text.length && text[end] !== '"') end += text[end] === "\\" ? 2 : 1;
+      if (top?.key) {
+        const key = JSON.parse(text.slice(i, end + 1));
+        if (top.keys.has(key)) found.push(key);
+        top.keys.add(key);
+      }
+      i = end;
+    }
+  }
+  return found;
+}
+
+/** Reports a CSV row whose cell count differs from the header's: a reader of the table drops or invents cells. */
+export function scanCsvRows(text, where, problems) {
+  const rows = parseCsv(text).filter((row, n, all) => !(n === all.length - 1 && row.length === 1 && row[0] === ""));
+  const width = rows[0]?.length ?? 0;
+  rows.forEach((row, n) => { if (n && row.length !== width) problems.error(`${where}: row ${n}`, `has ${row.length} cells, but the header has ${width}: every row has exactly as many cells as the header`); });
+}
+
 /** Reports an invisible character inside any string of a JSON file, as JSON can spell one as an escape. */
 export function scanJsonStrings(text, where, problems) {
   let value;
   try { value = JSON.parse(text); } catch { return; }
+  for (const key of new Set(duplicateKeys(text))) problems.error(where, `has the key ${JSON.stringify(key)} twice in one object: JSON keeps only the last, so remove the other`);
   const strings = [];
   const walk = (v) => {
     if (typeof v === "string") strings.push(v);
@@ -133,14 +177,16 @@ export function scanJsonStrings(text, where, problems) {
 }
 
 /** Scans one text file. `hiddenText` also refuses invisible characters; `markdown` refuses hidden Markdown (dossier files). */
-export function scanText(text, where, { terms = [], hiddenText = false, markdown = false, onTerm } = {}, problems) {
+export function scanText(text, where, { terms = [], hiddenText = false, markdown = false, layout = false, onTerm } = {}, problems) {
   if (hiddenText && /\.json$/i.test(where)) scanJsonStrings(text, where, problems);
+  if (hiddenText && /\.csv$/i.test(where)) scanCsvRows(text, where, problems);
   // Once per file, with no line number and no term: the log of a fork's run is public, and a line or
   // an index would tell a stranger which of their guesses is on the list.
   const lower = text.toLowerCase();
   if (terms.some((term) => lower.includes(term))) (onTerm ?? (() => problems.error(where, PRIVATE_TERM)))();
-  text.split(/\r?\n/).forEach((line, n) => {
+  text.split(/\r\n|\r|\n/).forEach((line, n) => {
     for (const message of new Set(scanLine(line))) problems.error(`${where}:${n + 1}`, message);
+    if (layout) for (const [rule, message] of LAYOUT_RULES) if (rule.test(line)) problems.error(`${where}:${n + 1}`, message);
     if (hiddenText && HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (a format, private-use, unassigned, separator or filler character, or a space other than U+0020): remove it");
   });
   if (markdown) scanMarkdown(text, where, problems);
