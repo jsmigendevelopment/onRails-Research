@@ -1,0 +1,7 @@
+{
+  "comparison": "## Options compared\n\n[[fill: At least three options. \"Build it ourselves\" and \"do nothing\" count when they are real.]]\n\n| Option | Strengths | Weaknesses | Cost | Fit |\n|---|---|---|---|---|\n| [[fill: A]] |  |  |  |  |\n| [[fill: B]] |  |  |  |  |\n| [[fill: C]] |  |  |  |  |\n\n## Recommendation\n\n[[fill: The pick, your confidence (high, medium or low) and why. Then: what would change the answer.]]",
+  "how-to": "## Steps\n\n[[fill: Numbered steps someone else can follow. Name versions. Each step says what you should see.]]\n\n## Check it worked\n\n[[fill: A command, a number or a screen that proves it worked, and what failure looks like.]]",
+  "trap": "## The trap\n\n[[fill: What goes wrong, when, and how you notice it. Include the exact error or symptom.]]\n\n## The fix\n\n[[fill: What to do instead, why it works, and how to check the fix held.]]",
+  "benchmark": "## What was measured\n\n[[fill: The question, the cases, the metric and its unit, the machine, and the exact command. The manifest in runs/<run-id>/ was written before the data.]]\n\n## Results\n\n[[fill: Per machine: n, median and spread. Every number is labelled measured (with its run ID) or estimated (with how).]]",
+  "dataset": "## What is in it\n\n[[fill: What each file holds, its columns or fields, its size and its time span. data.json has the links, checksums and licences.]]\n\n## How it was made\n\n[[fill: Where the data came from, each upstream source's licence, and the exact steps or command that built it.]]"
+}

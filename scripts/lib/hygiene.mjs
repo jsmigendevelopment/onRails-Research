@@ -27,7 +27,8 @@ export function privateTerms(env = process.env) {
 function scanLine(line, terms) {
   const found = [];
   for (const [name, pattern] of SECRETS) if (pattern.test(line)) found.push(`looks like ${name}: remove it, and revoke it if it is real`);
-  for (const match of line.match(EMAIL) ?? []) if (!SAFE_EMAIL.test(match)) found.push("has an e-mail address: remove it, or use an example.com address");
+  if (line.includes("@") && line.length <= 20000)
+    for (const match of line.match(EMAIL) ?? []) if (!SAFE_EMAIL.test(match)) found.push("has an e-mail address: remove it, or use an example.com address");
   for (const match of line.matchAll(HOME_PATH)) if (!SAFE_HOME.test(match[1])) found.push("has a path inside someone's home folder: write ~ or <home> instead");
   const lower = line.toLowerCase();
   terms.forEach((term, n) => { if (lower.includes(term)) found.push(`has private term #${n + 1} from the maintainer's list: remove it`); });

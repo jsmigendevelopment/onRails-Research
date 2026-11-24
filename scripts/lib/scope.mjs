@@ -27,10 +27,21 @@ export function classify(changes) {
 
 const parse = (text) => { try { return JSON.parse(text); } catch { return null; } };
 
-/** True when a dossier's only change is its card being marked as superseded by `byId`. */
+/** True when every line of `before` is still in `after`, in order: text was only added. */
+function onlyAdded(before, after) {
+  const want = before.replace(/\r\n/g, "\n").split("\n");
+  let i = 0;
+  for (const line of after.replace(/\r\n/g, "\n").split("\n")) if (i < want.length && line === want[i]) i++;
+  return i === want.length;
+}
+
+/** True when a dossier's only changes mark it as superseded by `byId`: lifecycle fields in its card, and a notice added to its README. */
 function onlySuperseded(root, base, id, changes, byId) {
-  if (changes.length !== 1 || changes[0].status !== "M" || !changes[0].path.endsWith(`/${CARD}`)) return false;
-  const before = parse(fileAt(root, base, changes[0].path) ?? ""), after = parse(readFileSync(join(root, changes[0].path), "utf8"));
+  const card = changes.find((c) => c.path.endsWith(`/${id}/${CARD}`));
+  const readme = changes.find((c) => c.path.endsWith(`/${id}/README.md`));
+  if (!card || card.status !== "M" || changes.some((c) => c !== card && c !== readme)) return false;
+  if (readme && (readme.status !== "M" || !onlyAdded(fileAt(root, base, readme.path) ?? "", readFileSync(join(root, readme.path), "utf8")))) return false;
+  const before = parse(fileAt(root, base, card.path) ?? ""), after = parse(readFileSync(join(root, card.path), "utf8"));
   if (!before || !after || after.superseded_by !== byId) return false;
   const keys = new Set([...Object.keys(before), ...Object.keys(after)]);
   return [...keys].every((key) => LIFECYCLE.includes(key) || JSON.stringify(before[key]) === JSON.stringify(after[key]));

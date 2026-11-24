@@ -5,14 +5,15 @@ import { join } from "node:path";
 import { readTable } from "./csv.mjs";
 import { validDate } from "./dates.mjs";
 import { loadSchema, validate } from "./schema.mjs";
-import { readJson } from "./store.mjs";
+import { readJson, walk } from "./store.mjs";
 
 export const LABELS = ["measured", "read-in-source", "vendor-claim", "anecdote", "summary-only"];
 export const SOURCE_COLUMNS = ["id", "title", "location", "accessed", "read"];
 export const CLAIM_COLUMNS = ["id", "claim", "label", "sources", "date"];
 export const RESULT_COLUMNS = ["run", "machine", "case", "metric", "unit", "iteration", "phase", "value", "status"];
 const MANIFEST_FIELDS = ["run", "created", "question", "machine", "command", "cases", "metrics"];
-const HEADINGS = ["## The question", "## Summary", "## Evidence", "## Fact-check"];
+const HEADINGS = ["## The question", "## Summary", "## Evidence", "## Gaps", "## Fact-check"];
+const FILL = /\[\[fill:/;
 const KIND_RULES = {
   comparison: { files: ["coverage.md"], headings: ["## Options compared", "## Recommendation"] },
   "how-to": { files: [], headings: ["## Steps", "## Check it worked"] },
@@ -110,8 +111,16 @@ function checkWriteUp(dir, id, card, problems) {
   if (!/^# \S/.test(text)) problems.error(where, "must start with a title: # <title>");
   for (const heading of [...HEADINGS, ...(KIND_RULES[card?.tags?.kind]?.headings ?? [])])
     if (!lines.has(heading)) problems.error(where, `missing the section "${heading}"`);
-  if (/TODO|<[A-Za-z][^<>\n]*>/.test(text.replace(/```[\s\S]*?```/g, "").replace(/`[^`\n]*`/g, "")))
-    problems.error(where, "still has a TODO or a <placeholder> from the template (code spans are fine)");
+  if (card?.status === "superseded" && !text.includes(card.superseded_by ?? "\0")) problems.error(where, `a superseded dossier says so at the top and links ${card.superseded_by}`);
+  if (card?.status === "retracted" && !/^> \*\*Retracted/m.test(text)) problems.error(where, 'a retracted dossier starts with a notice: "> **Retracted on <date>.** <why>"');
+}
+
+function checkBlanks(dir, id, problems) {
+  for (const rel of walk(dir).filter((f) => /\.(md|json|csv)$/.test(f))) {
+    const lines = readFileSync(join(dir, rel), "utf8").split(/\r?\n/);
+    const n = lines.findIndex((line) => FILL.test(line));
+    if (n >= 0) problems.error(`${id}/${rel}:${n + 1}`, "still has a [[fill: ...]] blank from the template");
+  }
 }
 
 /** Checks everything in a dossier folder except the card and the provenance record. */
@@ -126,4 +135,5 @@ export function checkStores(root, dir, id, card, record, problems) {
   if (stores.includes("measurements")) checkMeasurements(dir, id, problems);
   if (existsSync(join(dir, "data.json"))) checkData(root, dir, id, problems);
   checkWriteUp(dir, id, card, problems);
+  checkBlanks(dir, id, problems);
 }

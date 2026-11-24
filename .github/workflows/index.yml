@@ -1,0 +1,53 @@
+# Builds the browsable index and publishes it to the `index` branch: after each merge, and once a
+# day so a dossier turns stale on its re-check date with nobody touching it. The index never lives
+# on main, so no pull request has to regenerate it and no two pull requests conflict over it.
+name: index
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Build
+        run: node scripts/build-index.mjs --out "$RUNNER_TEMP/index" --repo "$GITHUB_REPOSITORY" --branch main
+      - name: Publish to the index branch (a normal commit, never a force-push)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          work="$RUNNER_TEMP/branch"
+          if git ls-remote --exit-code --heads "$url" index >/dev/null; then
+            git clone --quiet --depth 1 --branch index "$url" "$work"
+          else
+            git init --quiet -b index "$work"
+            git -C "$work" remote add origin "$url"
+          fi
+          find "$work" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R "$RUNNER_TEMP/index/." "$work/"
+          cd "$work"
+          git add -A
+          if git diff --cached --quiet; then echo "The index has not changed."; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "Rebuild the index from ${GITHUB_SHA::7}"
+          git push --quiet origin index

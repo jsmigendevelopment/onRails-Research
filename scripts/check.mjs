@@ -8,7 +8,7 @@
 //   --root <dir>        the repository root (default: the folder above scripts/)
 //
 // Errors fail the run. Each line says where the problem is and what to do about it.
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkCard, checkLinks } from "./lib/card.mjs";
@@ -17,7 +17,7 @@ import { checkStores } from "./lib/desk.mjs";
 import { changedFiles, git, mergeBase } from "./lib/git.mjs";
 import { privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
-import { checkFiles, checkScope } from "./lib/scope.mjs";
+import { checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
 import { CARD, collector, idOfPath, listDossiers, readJson } from "./lib/store.mjs";
 import { loadTags } from "./lib/tags.mjs";
 
@@ -45,7 +45,7 @@ function checkDossier(root, entry, card, lists, today, problems) {
 function scanFiles(root, paths, problems) {
   const terms = privateTerms();
   for (const path of paths) {
-    if (!TEXT.test(path) || !existsSync(join(root, path))) continue;
+    if (!TEXT.test(path) || !existsSync(join(root, path)) || statSync(join(root, path)).size > MAX_FILE) continue;
     scanText(readFileSync(join(root, path), "utf8"), path, { terms, hiddenText: Boolean(idOfPath(path)) }, problems);
   }
   return terms.length;
