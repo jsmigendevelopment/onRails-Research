@@ -1,0 +1,6 @@
+# Trusted reviewers, added later, one line per folder or tag area. GitHub asks them to review
+# pull requests that touch their lines. While the maintainer is the only reviewer, nothing is set.
+#
+# Examples (on a personal account, name people, not teams):
+#   /tags/ @maintainer-login
+#   /scripts/ /schemas/ /.github/ @maintainer-login

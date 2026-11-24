@@ -1,0 +1,55 @@
+# Runs on every pull request, before anyone reads it. It fails fast with the exact problem.
+# This file runs from the pull request's own branch, so a contributor could change it. The trusted
+# copy of these checks runs from main in review.yml, after this one, and reports "trusted-check".
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      # Never run a Git LFS download (or any smudge filter) on checked-out files.
+      GIT_LFS_SKIP_SMUDGE: "1"
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+      - name: Unit tests for the checker and the index
+        run: node --test "scripts/test/*.test.mjs"
+      - name: What this pull request may change, and the dossier it touches
+        if: github.event_name == 'pull_request'
+        # No private-terms list here: this step runs the pull request's own copy of the checker, and its
+        # log is public. The trusted check and the scan on push to main cover the list.
+        env:
+          MAINTAINER: ${{ github.event.pull_request.author_association == 'OWNER' && '--maintainer' || '' }}
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check.mjs --base "origin/$BASE_REF" $MAINTAINER
+      - name: Every dossier, the tag lists and every file
+        if: github.event_name == 'push'
+        env:
+          # The log is public, so a private term is reported without its file (see check.mjs --show-private).
+          PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
+        run: node scripts/check.mjs --all
+      - name: Links in the changed dossier resolve
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: node scripts/check-links.mjs --base "origin/$BASE_REF"
+      - name: The index still builds
+        run: node scripts/build-index.mjs --out "$RUNNER_TEMP/index"

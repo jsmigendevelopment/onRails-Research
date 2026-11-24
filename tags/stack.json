@@ -1,0 +1,145 @@
+{
+  "schema": "research-tags/1",
+  "facet": "stack",
+  "about": "The tool or platform the answer depends on. Leave it empty when the dossier would read the same for any tool. Up to four.",
+  "values": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "means": "The answer depends on how GitHub works: repositories, pull requests, limits or settings.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "github-actions",
+      "label": "GitHub Actions",
+      "means": "The answer depends on GitHub Actions workflows, runners, triggers or secrets.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "git",
+      "label": "Git",
+      "means": "The answer depends on Git itself: history, merges, large files or repository layout.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "claude-code",
+      "label": "Claude Code",
+      "means": "The answer depends on Claude Code: its settings, skills, hooks, sessions or its GitHub action.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "means": "The answer depends on OpenAI's Codex coding agent and how it loads instructions.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "node",
+      "label": "Node.js",
+      "means": "The answer depends on Node.js, its built-in modules or its package tools.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "typescript",
+      "label": "TypeScript",
+      "means": "The answer depends on TypeScript, its compiler or its type system.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "react",
+      "label": "React",
+      "means": "The answer depends on React or a library built on it.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "tanstack-start",
+      "label": "TanStack Start",
+      "means": "The answer depends on TanStack Start or TanStack Router.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "vite",
+      "label": "Vite",
+      "means": "The answer depends on Vite, its plugins or its build output.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "cloudflare-workers",
+      "label": "Cloudflare Workers",
+      "means": "The answer depends on Cloudflare Workers, D1, R2 or other Cloudflare developer products.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "expo",
+      "label": "Expo",
+      "means": "The answer depends on Expo or React Native.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "electron",
+      "label": "Electron",
+      "means": "The answer depends on Electron or its build and update tools.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "python",
+      "label": "Python",
+      "means": "The answer depends on Python or its package tools.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "rust",
+      "label": "Rust",
+      "means": "The answer depends on Rust or its ecosystem.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "sqlite",
+      "label": "SQLite",
+      "means": "The answer depends on SQLite or a database built on it.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "docker",
+      "label": "Docker",
+      "means": "The answer depends on Docker or another container runtime.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "linux",
+      "label": "Linux",
+      "means": "The answer depends on Linux: its kernel features, services or distributions.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "windows",
+      "label": "Windows",
+      "means": "The answer depends on Windows or WSL.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "threejs",
+      "label": "three.js",
+      "means": "The answer depends on three.js or React Three Fiber.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "playwright",
+      "label": "Playwright",
+      "means": "The answer depends on Playwright or browser automation built on it.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "hugging-face",
+      "label": "Hugging Face",
+      "means": "The answer depends on the Hugging Face Hub: its datasets, models, cards or limits.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "home-assistant",
+      "label": "Home Assistant",
+      "means": "The answer depends on Home Assistant or devices driven through it.",
+      "added": "2026-11-24"
+    }
+  ]
+}

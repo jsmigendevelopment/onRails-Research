@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 210" width="1200" height="210" role="img" aria-label="How to contribute in five steps: make the folder with the generator, write your hypotheses first, research and log sources and claims, get a fact-check in a fresh session, then open one pull request per dossier.">
+<title>How to contribute in five steps: make the folder with the generator, write your hypotheses first, research and log sources and claims, get a fact-check in a fresh session, then open one pull request per dossier.</title>
+<defs><radialGradient id="sb" cx="34%" cy="30%" r="75%"><stop offset="0" stop-color="#fffbe6"/><stop offset=".2" stop-color="#ffd166"/><stop offset=".58" stop-color="#ff7a45"/><stop offset="1" stop-color="#d0186f"/></radialGradient>
+<radialGradient id="sg"><stop offset=".45" stop-color="#ff8a00" stop-opacity="0.5"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></radialGradient>
+<radialGradient id="ss" cx="70%" cy="74%" r="60%"><stop offset="0" stop-color="#140a3c" stop-opacity="0.3"/><stop offset="1" stop-color="#140a3c" stop-opacity="0"/></radialGradient><style>@media (prefers-reduced-motion: reduce){.m{animation:none!important}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 40s linear infinite}
+.swirl{transform-box:fill-box;transform-origin:center;animation:spin 20s linear infinite reverse}
+.pulse{animation:flow 9s linear infinite}
+.breathe{animation:breathe 6s ease-in-out infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes flow{from{stroke-dashoffset:1600}to{stroke-dashoffset:0}}
+@keyframes breathe{50%{opacity:.75}}</style></defs>
+<rect width="1200" height="210" rx="24" fill="#fff8ef" stroke="#f3dfcb"/>
+<path d="M80 92H1078" stroke="#e8a878" stroke-width="3" stroke-linecap="round"/>
+<path class="m pulse" d="M80 92H1078" fill="none" stroke="#ff4f9a" stroke-width="4" stroke-linecap="round" stroke-dasharray="70 1530"/>
+<circle cx="80" cy="92" r="22" fill="#ffffff" stroke="#c2410c" stroke-width="2.5"/><text x="80" y="99" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#a63407">1</text>
+<text x="80" y="150" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#2b1638">Make it</text>
+<text x="80" y="176" text-anchor="middle" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="16" fill="#5e4763">the generator</text>
+<circle cx="310" cy="92" r="22" fill="#ffffff" stroke="#c2410c" stroke-width="2.5"/><text x="310" y="99" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#a63407">2</text>
+<text x="310" y="150" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#2b1638">Guess first</text>
+<text x="310" y="176" text-anchor="middle" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="16" fill="#5e4763">hypotheses</text>
+<circle cx="540" cy="92" r="22" fill="#ffffff" stroke="#c2410c" stroke-width="2.5"/><text x="540" y="99" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#a63407">3</text>
+<text x="540" y="150" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#2b1638">Research</text>
+<text x="540" y="176" text-anchor="middle" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="16" fill="#5e4763">sources, claims</text>
+<circle cx="770" cy="92" r="22" fill="#ffffff" stroke="#c2410c" stroke-width="2.5"/><text x="770" y="99" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#a63407">4</text>
+<text x="770" y="150" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#2b1638">Fact-check</text>
+<text x="770" y="176" text-anchor="middle" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="16" fill="#5e4763">a fresh session</text>
+<circle cx="1000" cy="92" r="22" fill="#ffffff" stroke="#c2410c" stroke-width="2.5"/><text x="1000" y="99" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="800" fill="#a63407">5</text>
+<text x="1000" y="150" text-anchor="middle" font-family="'Bricolage Grotesque','Segoe UI Variable Display','Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="700" fill="#2b1638">Pull request</text>
+<text x="1000" y="176" text-anchor="middle" font-family="Figtree,'Segoe UI',system-ui,-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="16" fill="#5e4763">one dossier</text>
+<circle class="m breathe" cx="1112" cy="92" r="64.6" fill="url(#sg)"/>
+<circle class="m spin" cx="1112" cy="92" r="42.84" fill="none" stroke="#e8a878" stroke-width="1.5" stroke-dasharray="5 7"/>
+<circle cx="1112" cy="92" r="34" fill="url(#sb)"/>
+<circle cx="1112" cy="92" r="34" fill="url(#ss)"/>
+<g transform="translate(1078 58) scale(0.68)"><g class="m swirl" stroke="#fff3c4" opacity=".8"><rect width="100" height="100" fill="none" stroke="none"/><path d="M22 58c6-22 30-34 52-22" fill="none" stroke-linecap="round" stroke-width="3.68"/><path d="M30 76c18 6 40-4 46-24" fill="none" stroke-linecap="round" stroke-width="3.68"/><g stroke="#fffbe6" opacity=".7"><path d="M36 30c10-8 26-8 34 2" fill="none" stroke-linecap="round" stroke-width="3.68"/></g></g></g>
+</svg>

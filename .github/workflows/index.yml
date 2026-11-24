@@ -1,0 +1,77 @@
+# Builds the browsable index and publishes it to the `index` branch: after each merge, and once a
+# day so a dossier turns stale on its re-check date with nobody touching it. The index never lives
+# on main, so no pull request has to regenerate it and no two pull requests conflict over it.
+name: index
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: index
+  cancel-in-progress: false
+
+jobs:
+  # Runs the repo's code with a read-only token. It hands the built files on as an artifact.
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # Never run a Git LFS download (or any smudge filter) on checked-out files.
+      GIT_LFS_SKIP_SMUDGE: "1"
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 22
+      - name: Build
+        run: node scripts/build-index.mjs --out "$RUNNER_TEMP/index" --repo "$GITHUB_REPOSITORY" --branch main
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: index
+          path: ${{ runner.temp }}/index
+          if-no-files-found: error
+          retention-days: 1
+
+  # Holds the write token, so it runs no repo code: it only downloads the built files, commits and pushes.
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: index
+          path: ${{ runner.temp }}/index
+      - name: Publish to the index branch (a normal commit, never a force-push)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          url="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          work="$RUNNER_TEMP/branch"
+          if git ls-remote --exit-code --heads "$url" index >/dev/null; then
+            git clone --quiet --depth 1 --branch index "$url" "$work"
+          else
+            git init --quiet -b index "$work"
+            git -C "$work" remote add origin "$url"
+          fi
+          find "$work" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -R "$RUNNER_TEMP/index/." "$work/"
+          cd "$work"
+          git add -A
+          if git diff --cached --quiet; then echo "The index has not changed."; exit 0; fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit --quiet -m "Rebuild the index from ${GITHUB_SHA::7}"
+          git push --quiet origin index

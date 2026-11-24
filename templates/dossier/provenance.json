@@ -1,0 +1,28 @@
+{
+  "schema": "research-provenance/1",
+  "dossier": "README.md",
+  "stores": {{stores}},
+  "roles": [
+    {
+      "role": "author",
+      "model": "[[fill: the exact model ID your session reports, human, or unknown]]",
+      "effort": "[[fill: minimal, low, medium, high, xhigh, max or unknown]]",
+      "harness": "[[fill: the tool and its version, main thread or subagent; none for a person]]",
+      "session": "[[fill: the session ID your tool shows, or unknown]]",
+      "started": "{{created}}",
+      "finished": "[[fill: YYYY-MM-DD]]",
+      "brief": "briefs/author.md"
+    },
+    {
+      "role": "fact-check",
+      "model": "[[fill: the checker's exact model ID, human, or unknown]]",
+      "effort": "[[fill: the checker's effort]]",
+      "harness": "[[fill: the checker's tool and version]]",
+      "session": "[[fill: the checker's session ID: never the author's]]",
+      "started": "[[fill: YYYY-MM-DD]]",
+      "finished": "[[fill: YYYY-MM-DD]]",
+      "brief": "briefs/fact-check.md",
+      "disposition": "fact-check.csv"
+    }
+  ]
+}

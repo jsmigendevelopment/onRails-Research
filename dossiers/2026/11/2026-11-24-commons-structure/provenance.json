@@ -1,0 +1,258 @@
+{
+  "schema": "research-provenance/1",
+  "dossier": "README.md",
+  "stores": [
+    "desk",
+    "measurements"
+  ],
+  "roles": [
+    {
+      "role": "author",
+      "model": "claude-fable-5-2",
+      "effort": "high",
+      "harness": "Claude Code 2.1.331, cloud session, main thread",
+      "session": "session_01TbAsgsVp4BDaDSkCSpWuDv",
+      "started": "2026-11-24T11:58Z",
+      "finished": "2026-11-24T12:20Z",
+      "brief": "briefs/author.md",
+      "notes": "Model and effort read from the session's own record (get_session, session_context.model and effort_level) at the start. This part wrote the brief, the hypotheses and the helper briefs, started the first seven helpers, and wrote the first schemas and checker modules. It stopped when the account hit its usage limit for this model."
+    },
+    {
+      "role": "author",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "harness": "Claude Code 2.1.331, cloud session, main thread",
+      "session": "session_01TbAsgsVp4BDaDSkCSpWuDv",
+      "started": "2026-11-24T12:22Z",
+      "finished": "2026-11-24",
+      "brief": "briefs/author.md",
+      "notes": "Same session. The owner switched the session's model after the usage limit. Model and effort read from the session's own record after the switch: session_context.model claude-opus-5-5, effort_level xhigh (last_served_model still showed the earlier model, from the turn before the switch). This part restarted the helpers, ran the scale runs, merged the stores and wrote the dossier."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round limits helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-limits.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round classification helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-classification.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round identity helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-identity.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round metadata helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-metadata.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round contributions helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-contributions.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round licences helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-licences.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-fable-5-2",
+        "effort": "high"
+      },
+      "model": "claude-fable-5-2",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "first-round commons helper (no session id shown)",
+      "started": "2026-11-24T12:08Z",
+      "finished": "2026-11-24T12:18Z",
+      "brief": "briefs/helper-commons.md",
+      "notes": "A subagent inherits the parent's model; the error that stopped it named the model it was sent to (claude-fable-5-2). Its effort level was never read from its own session, so it is unknown. It stopped at the usage limit before writing notes; its sources (and for limits and identity, claims) were kept and continued by the restarted helper."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted limits helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-limits.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/limits.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted classification helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-classification.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/classification.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted identity helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-identity.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/identity.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted metadata helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-metadata.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/metadata.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted contributions helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-contributions.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/contributions.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted licences helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-licences.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/licences.md."
+    },
+    {
+      "role": "helper",
+      "requested": {
+        "model": "claude-opus-5-5",
+        "effort": "high"
+      },
+      "model": "claude-opus-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "restarted commons helper (no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/helper-commons.md",
+      "notes": "Started with briefs/helper-restart.md as well. It reported its own model ID as claude-opus-5-5. Its session showed no named effort level (two helpers saw a numeric reasoning-effort value of 15), so the effort is unknown. Its notes are notes/commons.md."
+    },
+    {
+      "role": "fact-check",
+      "requested": {
+        "model": "claude-sonnet-5-5",
+        "effort": "high"
+      },
+      "model": "claude-sonnet-5-5",
+      "effort": "unknown",
+      "harness": "Claude Code 2.1.331, cloud session, subagent",
+      "session": "fact-check subagent (fresh context; no session id shown)",
+      "started": "2026-11-24",
+      "finished": "2026-11-24",
+      "brief": "briefs/fact-check.md",
+      "disposition": "fact-check.csv",
+      "notes": "A fresh subagent that never saw the author's session, started with only a pointer to its brief, on a different model from both author passes. It reported its own model ID as claude-sonnet-5-5; its session showed only a numeric reasoning effort of 10 and no named level, so the effort is unknown. It checked all 174 claim IDs cited in the dossier against their sentences, re-opened 61 source pages (60 readable) and recomputed the counts and the scale table: 34 findings (0 blocking, 17 should-fix, 17 minor). The author applied them; the corrected text was not re-checked by a second pass."
+    }
+  ]
+}

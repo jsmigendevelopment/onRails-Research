@@ -1,0 +1,19 @@
+{
+  "schema": "research-dossier/1",
+  "id": "{{id}}",
+  "title": "{{title}}",
+  "question": "{{question}}",
+  "summary": "[[fill: The answer in two or three sentences, 40 to 600 characters.]]",
+  "created": "{{created}}",
+  "checked": "{{created}}",
+  "recheck": "{{recheck}}",
+  "status": "current",
+  "version": 1,
+  "tags": {{tags}},
+  "supersedes": {{supersedes}},
+  "superseded_by": null,
+  "retraction": null,
+  "history": [
+    { "version": 1, "date": "{{created}}", "change": "published", "note": "First version." }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "onrails-research",
+  "private": true,
+  "type": "module",
+  "description": "The checks and generators for the onRails research commons. No dependencies.",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "new": "node scripts/new-dossier.mjs",
+    "check": "node scripts/check.mjs --all && node --test \"scripts/test/*.test.mjs\"",
+    "check:pr": "node scripts/check.mjs --base origin/main",
+    "check:links": "node scripts/check-links.mjs",
+    "index": "node scripts/build-index.mjs",
+    "art": "node scripts/build-art.mjs",
+    "test": "node --test \"scripts/test/*.test.mjs\""
+  }
+}
