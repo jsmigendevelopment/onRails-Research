@@ -6,6 +6,7 @@
 //   --maintainer        the pull request is the maintainer's: it may mix tooling, tag lists and one dossier
 //   --today YYYY-MM-DD  sets the date (for tests)
 //   --root <dir>        the repository root (default: the folder above scripts/)
+//   --show-private      with --all, name the files that hold a private term (local runs only: CI logs are public)
 //
 // The schemas always come from this checker's own checkout, not from --root. A symbolic link or a
 // special file anywhere in what is checked stops the run before any file is read.
@@ -17,7 +18,7 @@ import { fileURLToPath } from "node:url";
 import { checkCard, checkLinks } from "./lib/card.mjs";
 import { today as now } from "./lib/dates.mjs";
 import { checkStores } from "./lib/desk.mjs";
-import { changedFiles, git, LINK_MODE, mergeBase, trackedLinks } from "./lib/git.mjs";
+import { changedFiles, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
 import { privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
 import { checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
@@ -45,26 +46,42 @@ function checkDossier(entry, card, lists, today, problems) {
   checkFiles(entry.dir, entry.id, problems);
 }
 
-function scanFiles(root, paths, problems) {
+// The full run on main has a public log, so it says only that a term was found, not where.
+export const PRIVATE_FOUND = "a private term was found. Rerun locally with --all --show-private to see where";
+
+function scanFiles(root, paths, { hideWhere }, problems) {
   const terms = privateTerms();
+  let found = false;
+  const onTerm = hideWhere ? () => { found = true; } : undefined;
   for (const path of paths) {
     if (!TEXT.test(path) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
-    scanText(readText(join(root, path)), path, { terms, hiddenText: Boolean(idOfPath(path)) }, problems);
+    scanText(readText(join(root, path)), path, { terms, hiddenText: Boolean(idOfPath(path)), onTerm }, problems);
   }
+  if (found) problems.errors.push(PRIVATE_FOUND);
   return terms.length;
 }
 
-/** Symbolic links (git mode 120000) and anything on disk that isn't a regular file. Reports each; true if any. */
-function refuseLinks(root, paths, links, problems) {
-  const bad = new Set(links);
-  for (const path of paths) if (lstatSync(join(root, path), { throwIfNoEntry: false }) && !isFile(join(root, path))) bad.add(path);
-  for (const path of bad) problems.error(path, NOT_REGULAR);
+const CONTROL = /[\u0000-\u001f\u007f-\u009f]/;
+
+/**
+ * Every listed path must be a regular file on disk, with no control characters in its name: a link
+ * (git mode 120000), a special file, or a name the checker can't map to a file would skip its rules.
+ * Reports each; true if any.
+ */
+function refusePaths(root, paths, links, problems) {
+  const bad = new Map(links.map((path) => [path, NOT_REGULAR]));
+  for (const path of paths) {
+    if (CONTROL.test(path)) bad.set(path, "has a control character in its name: rename it");
+    else if (bad.has(path) || isFile(join(root, path))) continue;
+    else bad.set(path, lstatSync(join(root, path), { throwIfNoEntry: false }) ? NOT_REGULAR : "is listed by git but is not a file on disk");
+  }
+  for (const [path, message] of bad) problems.error(CONTROL.test(path) ? JSON.stringify(path) : path, message);
   return bad.size > 0;
 }
 
 /** What to check: every file, or a pull request's changes against the merge base. Null when git can't tell. */
 function listPaths(root, base, all, problems) {
-  if (all || !base) return { paths: git(["ls-files", "--cached", "--others", "--exclude-standard"], root).split("\n").filter(Boolean), links: trackedLinks(root) };
+  if (all || !base) return { paths: listedFiles(root), links: trackedLinks(root) };
   const from = mergeBase(root, base);
   if (!from) { problems.error("--base", `git could not find the merge base with ${base}`); return null; }
   const changes = changedFiles(root, from), kept = changes.filter((c) => c.status !== "D");
@@ -72,18 +89,18 @@ function listPaths(root, base, all, problems) {
 }
 
 /** Runs the checks. Returns { errors, warnings, checked, total, terms }. */
-export function check({ root, base, all = false, maintainer = false, today = now() }) {
+export function check({ root, base, all = false, maintainer = false, showPrivate = false, today = now() }) {
   const problems = collector();
   const stop = () => ({ errors: problems.errors, warnings: problems.warnings, checked: 0, total: 0, terms: 0 });
   const listed = listPaths(root, base, all, problems);
-  if (!listed || refuseLinks(root, listed.paths, listed.links, problems)) return stop();
+  if (!listed || refusePaths(root, listed.paths, listed.links, problems)) return stop();
   const lists = loadTags(root, problems);
   const { cards, where } = loadCards(root, problems);
   checkLinks(cards, problems);
   let ids = [...where.keys()];
   if (listed.changes) ids = checkScope(root, listed.from, listed.changes, { maintainer }, problems).filter((id) => where.has(id));
   for (const id of ids) checkDossier(where.get(id), cards.get(id), lists, today, problems);
-  const terms = scanFiles(root, listed.paths, problems);
+  const terms = scanFiles(root, listed.paths, { hideWhere: !listed.changes && !showPrivate }, problems);
   return { errors: problems.errors, warnings: problems.warnings, checked: ids.length, total: where.size, terms };
 }
 
@@ -92,7 +109,7 @@ function main(argv) {
   const opt = (name) => { const i = args.indexOf(name); return i >= 0 ? args.splice(i, 2)[1] : undefined; };
   const flag = (name) => { const i = args.indexOf(name); if (i >= 0) args.splice(i, 1); return i >= 0; };
   const root = resolve(opt("--root") ?? join(dirname(fileURLToPath(import.meta.url)), ".."));
-  const result = check({ root, base: opt("--base"), today: opt("--today"), all: flag("--all"), maintainer: flag("--maintainer") });
+  const result = check({ root, base: opt("--base"), today: opt("--today"), all: flag("--all"), maintainer: flag("--maintainer"), showPrivate: flag("--show-private") });
   for (const e of result.errors) console.error(`error: ${e}`);
   for (const w of result.warnings) console.log(`warn:  ${w}`);
   console.log(`check: ${result.checked} of ${result.total ?? 0} dossiers checked, ${result.errors.length} errors, ${result.warnings.length} warnings. Private-terms list: ${result.terms ? "set" : "not set, skipped"}.`);

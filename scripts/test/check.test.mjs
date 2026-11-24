@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { appendFileSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
-import { check } from "../check.mjs";
+import { check, PRIVATE_FOUND } from "../check.mjs";
 import { addDossier, commit, editJson, makeCommons, sh, TODAY } from "./helpers.mjs";
 
 const all = (root, extra = {}) => check({ root, all: true, today: TODAY, ...extra });
@@ -176,9 +176,13 @@ test("secrets, e-mail addresses, home paths, hidden text and private terms are r
   for (const text of ["GitHub token", "e-mail address", "home folder", "invisible character", "HTML comment"]) assert.ok(has(result, text), text);
   process.env.PRIVATE_TERMS = "other thing, project zebra";
   try {
-    const terms = check({ root, all: true, today: TODAY }).errors.filter((e) => e.includes("private term"));
+    const terms = (extra) => check({ root, today: TODAY, ...extra }).errors.filter((e) => e.includes("private term"));
     // Once per file, with no line number and no term index: a fork's public log must not say which guess matched.
-    assert.deepEqual(terms, [`${rel}/README.md: has a private term`]);
+    assert.deepEqual(terms({ all: true, showPrivate: true }), [`${rel}/README.md: has a private term`]);
+    // The full run on main has a public log too: it says only that a term was found.
+    assert.deepEqual(terms({ all: true }), [PRIVATE_FOUND]);
+    branch(root);
+    assert.deepEqual(terms({ base: "main" }), [`${rel}/README.md: has a private term`]);
   } finally { delete process.env.PRIVATE_TERMS; }
 });
 
@@ -315,4 +319,36 @@ test("the link check never looks outside the repo", async () => {
   assert.ok(has(problems, "links ../../../../../../../../etc/hostname, which is outside the repo"), problems.errors.join("\n"));
   assert.ok(has(problems, "links missing.md, which is not in the repo"));
   assert.ok(!has(problems, "dossier.json"));
+});
+
+test("non-ASCII file names are checked like any other", () => {
+  const root = makeCommons();
+  commit(root, "start");
+  branch(root);
+  mkdirSync(join(root, ".github/workflows"), { recursive: true });
+  mkdirSync(join(root, "scripts/lib"), { recursive: true });
+  writeFileSync(join(root, ".github/workflows/ü.yml"), "on: pull_request_target\n");
+  writeFileSync(join(root, "scripts/lib/ñ.mjs"), `export const token = "ghp_${"a".repeat(36)}";\n`);
+  commit(root, "unicode names");
+  const result = pr(root);
+  assert.ok(has(result, ".github/workflows/ü.yml: only a maintainer may change"), result.errors.join("\n"));
+  assert.ok(has(result, "scripts/lib/ñ.mjs: only a maintainer may change"));
+  assert.ok(has(result, "scripts/lib/ñ.mjs:1: looks like a GitHub token"));
+  assert.ok(has(pr(root, { maintainer: true }), "scripts/lib/ñ.mjs:1: looks like a GitHub token"));
+  assert.ok(has(all(root), "scripts/lib/ñ.mjs:1: looks like a GitHub token"));
+});
+
+test("a listed path with a control character, or one missing from disk, is refused", () => {
+  const root = makeCommons();
+  branch(root);
+  writeFileSync(join(root, "odd\tname.md"), "Text.\n");
+  let result = pr(root);
+  assert.ok(has(result, '"odd\\tname.md": has a control character in its name'), result.errors.join("\n"));
+  assert.equal(result.checked, 0);
+  rmSync(join(root, "odd\tname.md"));
+  writeFileSync(join(root, "gone.md"), "Text.\n");
+  commit(root, "gone");
+  rmSync(join(root, "gone.md"));
+  result = all(root);
+  assert.ok(has(result, "gone.md: is listed by git but is not a file on disk"), result.errors.join("\n"));
 });

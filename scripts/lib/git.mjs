@@ -10,25 +10,32 @@ export function mergeBase(root, base) {
 
 export const LINK_MODE = "120000";
 
+// File lists come NUL-separated and unquoted. With git's default core.quotepath, a name such as
+// .github/workflows/ü.yml comes back as "\303\274"-escaped text in quotes, which no rule matches.
+const list = (args, root) => git(["-c", "core.quotepath=off", ...args, "-z"], root).split("\0").filter(Boolean);
+
+/** Every file git tracks or would add: tracked plus untracked, ignoring what .gitignore excludes. */
+export const listedFiles = (root) => list(["ls-files", "--cached", "--others", "--exclude-standard"], root);
+
 /**
  * Files that differ between a commit and the working tree, as [{ status: "A"|"M"|"D", path, mode }].
  * `mode` is the git mode after the change (120000 is a symbolic link). Renames count as a delete and an add.
  */
 export function changedFiles(root, from) {
-  const tracked = git(["diff", "--raw", "--no-renames", from], root);
-  const untracked = git(["ls-files", "--others", "--exclude-standard"], root);
-  const changes = tracked.split("\n").filter(Boolean).map((line) => {
-    const [meta, ...rest] = line.split("\t");
-    const [, mode, , , status] = meta.split(" ");
-    return { status: status[0], path: rest.join("\t"), mode };
-  });
-  for (const path of untracked.split("\n").filter(Boolean)) changes.push({ status: "A", path, mode: null });
+  // With -z, --raw gives ":<old mode> <new mode> <sha> <sha> <status>" and then the path, as two fields.
+  const fields = list(["diff", "--raw", "--no-renames", from], root);
+  const changes = [];
+  for (let i = 0; i + 1 < fields.length; i += 2) {
+    const [, mode, , , status] = fields[i].split(" ");
+    changes.push({ status: status[0], path: fields[i + 1], mode });
+  }
+  for (const path of list(["ls-files", "--others", "--exclude-standard"], root)) changes.push({ status: "A", path, mode: null });
   return changes;
 }
 
 /** Tracked files that git stores as symbolic links. */
 export function trackedLinks(root) {
-  return git(["ls-files", "--stage"], root).split("\n").filter((line) => line.startsWith(`${LINK_MODE} `)).map((line) => line.split("\t").slice(1).join("\t"));
+  return list(["ls-files", "--stage"], root).filter((entry) => entry.startsWith(`${LINK_MODE} `)).map((entry) => entry.slice(entry.indexOf("\t") + 1));
 }
 
 /** A file's text at a commit, or null when it isn't there. */

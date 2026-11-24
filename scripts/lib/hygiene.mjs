@@ -37,11 +37,11 @@ function scanLine(line) {
 }
 
 /** Scans one text file. `hiddenText` also refuses invisible characters and HTML comments (for dossier files). */
-export function scanText(text, where, { terms = [], hiddenText = false } = {}, problems) {
+export function scanText(text, where, { terms = [], hiddenText = false, onTerm } = {}, problems) {
   // Once per file, with no line number and no term: the log of a fork's run is public, and a line or
   // an index would tell a stranger which of their guesses is on the list.
   const lower = text.toLowerCase();
-  if (terms.some((term) => lower.includes(term))) problems.error(where, PRIVATE_TERM);
+  if (terms.some((term) => lower.includes(term))) (onTerm ?? (() => problems.error(where, PRIVATE_TERM)))();
   text.split(/\r?\n/).forEach((line, n) => {
     for (const message of new Set(scanLine(line))) problems.error(`${where}:${n + 1}`, message);
     if (!hiddenText) return;
