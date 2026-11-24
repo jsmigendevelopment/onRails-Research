@@ -240,9 +240,10 @@ jobs:
           VERDICT: ${{ needs.review.outputs.verdict }}
           MODEL: ${{ vars.REVIEW_MODEL || 'claude-opus-5-5' }}
         # The verdict is model text shaped by a stranger's files. It is withheld if it looks like it holds a
-        # token or a long encoded string. Otherwise mentions and #123 references are broken, links become
-        # plain text and bare URLs code, images and raw HTML are removed, and the comment is capped at
-        # 6,000 characters.
+        # token or a long encoded string. Otherwise every piece of it is posted only as code: each field
+        # goes in a fenced block whose fence is longer than any backtick run inside it, so nothing in it
+        # can become a link, an image, a mention or HTML. Only the enum values are checked and shown as
+        # text. Each field is capped at 3,000 characters and the comment at 6,000.
         run: |
           set -euo pipefail
           if grep -Eq 'sk-ant-|oat01|gh[pousr]_[A-Za-z0-9]{20,}|github_pat_|[A-Za-z0-9+/=_-]{80,}' <<<"$VERDICT"; then
@@ -254,19 +255,22 @@ jobs:
             } > review.md
           else
             jq -r --arg sha "${SHA::7}" --arg model "$MODEL" '
-              def clean: tostring | gsub("<[^>]*>"; "") | gsub("<"; "&lt;") | gsub("!+\\["; "[")
-                | gsub("\\[(?<t>[^\\]]*)\\]\\((?<u>[^)]*)\\)"; "\(.t) (`\(.u | gsub("`"; ""))`)")
-                | gsub("(?<![`])(?<u>(https?://|www\\.)[^\\s`()<>]*[^\\s`()<>.,;:!?])"; "`\(.u)`")
-                | gsub("@"; "@\u200d") | gsub("#(?=[0-9])"; "#\u200d");
-              def cell: clean | gsub("\\|"; "/") | gsub("\n"; " ");
-              [
-                "<!-- claude-review -->",
-                "### Claude review: \(.verdict | clean)\n\nReviewed commit `\($sha)` with `\($model)`. A bot reviewed this; the maintainer decides and merges.\n\n\(.summary | clean)\n",
-                (if (.findings | length) > 0 then "| Severity | Where | Problem | Fix |\n|---|---|---|---|" else "No findings." end),
-                (.findings[] | "| \(.severity | cell) | \(.where | cell) | \(.problem | cell) | \(.fix | cell) |"),
-                (if .injection.found then "\n**Possible prompt injection in the contributed text:** \(.injection.notes | clean)" else "" end)
-              ] | join("\n")
-              | if length > 6000 then .[0:6000] + "\n\n_Cut at 6,000 characters._" else . end
+              def field: tostring | if length > 3000 then .[0:3000] + "\n[cut at 3,000 characters]" else . end;
+              def code: field | (([scan("`+") | length] | max) // 0) as $n
+                | ([range([$n + 1, 3] | max)] | map("`") | join("")) as $f
+                | "\($f)\n\(.)\n\($f)";
+              def one_of($allowed): if type == "string" and IN($allowed[]) then . else "unknown" end;
+              (if (.findings | type) == "array" then .findings else [] end) as $findings
+              | [
+                  "<!-- claude-review -->\n### Claude review: \(.verdict | one_of(["looks-good", "needs-changes", "do-not-merge"]))\n\nReviewed commit `\($sha)` with `\($model)`. A bot reviewed this; the maintainer decides and merges. The text the bot wrote is shown as code.",
+                  "**Summary**\n\n\(.summary | code)",
+                  (if ($findings | length) > 0 then "**Findings: \($findings | length)**" else "No findings." end),
+                  ($findings | to_entries[] | "**Finding \(.key + 1): \(.value.severity | one_of(["blocking", "should-fix", "minor"]))**\n\n\("Where: \(.value.where)\n\nProblem: \(.value.problem)\n\nFix: \(.value.fix)" | code)"),
+                  (if .injection.found == true then "**Possible prompt injection in the contributed text:**\n\n\(.injection.notes | code)" else empty end)
+                ]
+              | reduce .[] as $block ({out: "", cut: false};
+                  if .cut then . elif (.out | length) + ($block | length) > 5960 then .cut = true else .out += $block + "\n\n" end)
+              | .out + (if .cut then "_Cut at 6,000 characters._\n" else "" end)
             ' <<<"$VERDICT" > review.md
           fi
           old=$(gh api "repos/${GITHUB_REPOSITORY}/issues/${PR}/comments" --paginate --jq '.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- claude-review -->"))) | .id' | tail -1)
