@@ -1,0 +1,22 @@
+{
+  "run": "2026-11-24-scale",
+  "created": "2026-11-24",
+  "question": "Do the commons' checker and index builder stay fast, and its folders and pages stay inside GitHub's limits, at 10, 1,000 and 10,000 dossiers?",
+  "machine": "cloud-linux-4cpu: the cloud container this session ran in (Linux, 4 vCPUs, about 16 GB of memory)",
+  "command": "node dossiers/2026/11/2026-11-24-commons-structure/runs/2026-11-24-scale/measure.mjs > dossiers/2026/11/2026-11-24-commons-structure/runs/2026-11-24-scale/results.csv",
+  "cases": ["n10", "n1000", "n10000"],
+  "metrics": [
+    { "name": "check_all", "unit": "ms", "what": "node scripts/check.mjs --all over the whole synthetic commons" },
+    { "name": "check_pr", "unit": "ms", "what": "node scripts/check.mjs --base main, a pull request that adds one dossier" },
+    { "name": "build_index", "unit": "ms", "what": "node scripts/build-index.mjs into an empty folder" },
+    { "name": "store_bytes", "unit": "bytes", "what": "total size of the files under dossiers/" },
+    { "name": "index_json_bytes", "unit": "bytes", "what": "size of index.json" },
+    { "name": "largest_page_bytes", "unit": "bytes", "what": "size of the largest Markdown page the index builder writes" },
+    { "name": "largest_folder_entries", "unit": "entries", "what": "the most entries in any one folder under dossiers/" }
+  ],
+  "warmup": 1,
+  "iterations": 3,
+  "design": "Each case builds a fresh temporary git repository: the real schemas, tag lists and template, plus n copies of one generated and filled-in dossier (about 5 KB each: one source, one claim, one finding). Copies get new ids, dates spread evenly over 2026 to 2030, and tags drawn with a fixed seed. Everything is committed except the one new dossier of the check_pr case. Timings are wall-clock for a child Node process, so they include Node's start-up. Size metrics are measured once per case (iteration 1, phase measure).",
+  "threats": "Synthetic dossiers are far smaller than real ones (the first real dossier is about 700 KB), so store_bytes is a floor, not an estimate of a real commons. A real dossier's CSVs are longer, which makes check_all slower; check_pr reads only one dossier's CSVs, so it is less affected. One machine, one run.",
+  "versions": { "node": "v22.23.5", "git": "2.43.0" }
+}
