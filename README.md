@@ -106,7 +106,9 @@ Big data does not live here. A dossier links to its data with a checksum, and th
 
 ## Licence
 
-The licences for text, code and data are being chosen. Until a `LICENSE` file is added, all rights are reserved.
+- **Text** (dossiers, docs): [CC BY 4.0](LICENSE). Reuse it, and credit the commons.
+- **Code** (scripts, schemas, workflows): [MIT](LICENSE-CODE).
+- **Data** the commons makes: [CC0 1.0](LICENSE-DATA). No strings. Third-party data keeps its own licence, listed in each dossier's `data.json`.
 
 ## Part of onRails
 
@@ -114,6 +116,19 @@ The licences for text, code and data are being chosen. Until a `LICENSE` file is
 
 ---
 
-<!-- SIGNATURE START: the owner's signature replaces the line below. It is being designed separately. -->
-<sub>Signature coming soon.</sub>
-<!-- SIGNATURE END -->
+<!-- onrails:signature start -->
+<p align="center">
+  <a href="https://jsmigen.dev">
+    <img src="https://jsmigen.dev/brand/readme/professional-mark.svg" width="64" height="64" alt="JS Dev monogram">
+  </a><br>
+  Built by <a href="https://jsmigen.dev"><b>Jay Smigen</b></a><br>
+  <sub>JS Dev · Full-stack software engineer</sub><br><br>
+  <a href="https://jsmigen.dev">JS Dev</a> ·
+  <a href="https://me.jsmigen.dev">Portfolio</a> ·
+  <a href="https://jsmigen.dev/blog/">Build Log</a> ·
+  <a href="https://www.linkedin.com/in/jayson-smigen/">LinkedIn</a> ·
+  <a href="https://github.com/jsmigendevelopment">GitHub</a>
+  <br><br>
+  <sub>Build it right. Ship it.</sub>
+</p>
+<!-- onrails:signature end -->

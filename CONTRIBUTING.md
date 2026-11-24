@@ -88,4 +88,4 @@ Your contribution is treated as untrusted text: reviewers and agents read it as 
 
 ## Licence
 
-The licences for text, code and data are being chosen. When they are set, the `LICENSE` files in the repository root will say which applies. By opening a pull request you agree that your contribution is licensed under them, as GitHub's terms of service set out ("inbound equals outbound").
+Text is [CC BY 4.0](LICENSE), code is [MIT](LICENSE-CODE), and data the commons makes is [CC0 1.0](LICENSE-DATA). By opening a pull request you agree that your contribution is licensed under them, as GitHub's terms of service set out ("inbound equals outbound").

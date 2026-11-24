@@ -32,7 +32,7 @@ At this point I had read the owner's plan and two existing research standards (o
 
 ## Big data
 
-- **H15.** The owner's plan at about $20 a month is GitHub Enterprise Cloud. Its larger Git LFS allowance belongs to the enterprise's organisations, and does not cover repositories owned by a personal account. *Wrong if* GitHub's billing pages say a personal account's repositories draw on an enterprise allowance, or a different plan costs about $20.
+- **H15.** A GitHub plan at about $20 a month is GitHub Enterprise Cloud. Its larger Git LFS allowance belongs to the enterprise's organisations, and does not cover repositories owned by a personal account. *Wrong if* GitHub's billing pages say a personal account's repositories draw on an enterprise allowance, or a different plan costs about $20.
 - **H16.** For public research data, Hugging Face Datasets, Zenodo and GitHub release files are free homes that fit. *Wrong if* their current limits or terms rule out this use.
 - **H17.** Frictionless Data's package format already describes "a link, a checksum, a size and a licence per file", so the data file should follow it instead of a home-made shape. *Wrong if* the spec cannot point at remote files, or needs tools to write.
 

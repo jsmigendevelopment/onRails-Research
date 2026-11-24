@@ -141,7 +141,7 @@ The folder count depends on how many dossiers start in one month: run 1, with th
 
 ### 5. Big data and the LFS question
 
-**The owner's plan.** About $20 a month fits GitHub Enterprise Cloud at $21 per user per month (lim-c01); Copilot Business at $19 a seat also fits, and the part of its page read lists no storage benefit (lim-c83). GitHub's docs describe no way to put a personal account's own repositories on Enterprise (lim-c05). I could not read the owner's plan from here (a-c12).
+**Which plan costs about $20.** About $20 a month fits GitHub Enterprise Cloud at $21 per user per month (lim-c01); Copilot Business at $19 a seat also fits, and the part of its page read lists no storage benefit (lim-c83). GitHub's docs describe no way to put a personal account's own repositories on Enterprise (lim-c05). Which plan a given account is on was not read (a-c12).
 
 **The quota.** A personal account is always on Free or Pro (lim-c03). Git LFS storage and bandwidth are always charged to the account that owns the repository, and forks and clones use the owner's bandwidth (lim-c11). Free and Pro accounts get 10 GiB of storage and 10 GiB of download a month; Team and Enterprise Cloud accounts get 250 GiB of each (lim-c07). No GitHub page says an enterprise's allowance covers a member's personal repositories (lim-c12); the one exception, managed user accounts, can only own private repositories (lim-c86). **So a data repository owned by the personal account gets 10 GiB of storage and 10 GiB of download a month.** To use 250 GiB it would have to be owned by an organisation inside the enterprise. With a $0 budget, going over blocks LFS for the rest of the month (lim-c13), which for public data means every reader's download stops.
 
@@ -210,7 +210,7 @@ The hypotheses were committed before the first search ([hypotheses.md](hypothese
 | H12 | Checking only changes keeps CI flat | Weakened: the pull request check still grew from 89 to 606 ms; checking everything was cheap on small synthetic dossiers (not yet on real ones), and cross-item checks need it | a-c01, a-c02, com-c027, com-c007 |
 | H13 | Fork pull requests get no secrets | Holds | con-c24, con-c34, a-c09 |
 | H14 | Rules and bots keep review cheap | Holds, with a qualification: size alone doesn't predict merge time | con-c77, con-c73, con-c84 |
-| H15 | About $20 is Enterprise; its quota skips personal repositories | The billing rules hold; the owner's actual plan is unverified, and Copilot Business also fits the price | lim-c01, lim-c11, lim-c12, lim-c83, a-c12 |
+| H15 | About $20 is Enterprise; its quota skips personal repositories | The billing rules hold; a given account's plan is unverified, and Copilot Business also fits the price | lim-c01, lim-c11, lim-c12, lim-c83, a-c12 |
 | H16 | Free homes fit public data | Holds, with qualifications: Zenodo and releases fit; Hugging Face is best-effort | lim-c34, lim-c67, lim-c60 |
 | H17 | Follow Frictionless for data files | Holds, with a qualification: write `sha256:` explicitly | met-c02, met-c04 |
 | H18 | CC BY text, MIT code, CC0 or CC BY data; share-alike rare | Partly refuted: share-alike is common in documentation | lic-c09, lic-c13, lic-c05, lic-c08 |
@@ -227,7 +227,7 @@ The hypotheses were committed before the first search ([hypotheses.md](hypothese
 
 ## Gaps
 
-- **The owner's plan** could not be read from this session (a-c12), so the LFS answer rests on GitHub's billing rules, not on the account.
+- **The account's plan** was not read (a-c12), so the LFS answer rests on GitHub's billing rules, not on the account.
 - **Real dossiers were not timed.** The scale runs used small synthetic ones; full checks of real ones will be slower.
 - **The review workflow has not run.** It needs the token, and a pull request after it is on `main`, because `workflow_run` workflows only run from the default branch.
 - **The 60-day rule.** GitHub turns off scheduled workflows in a public repository after 60 days with no activity (lim-c41). If nothing merges for two months, the daily stale rebuild stops until the owner turns it back on.
