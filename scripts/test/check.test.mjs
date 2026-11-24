@@ -400,7 +400,7 @@ test("wider hidden-character rule, for contents and paths", async () => {
   const { scanText } = await import("../lib/hygiene.mjs");
   const { collector } = await import("../lib/store.mjs");
   const hidden = ["\u00A0", "\u2007", "\u3000", "\u00AD", "\u115F", "\u1160", "\u3164", "\uFFA0", "\u180B", "\u180E", "\uFFF9", "\uFE00", "\uFE0E",
-    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378", "\u2800", "\u17B4", "\u17B5", "\u034F", "\u2065"];
+    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378", "\u2800", "\u17B4", "\u17B5", "\u034F", "\u2065", "\u0001", "\u001B", "\u007F", "\u0085", "\u009B", "\u000B", "\u000C"];
   for (const ch of hidden) {
     const problems = collector();
     scanText(`before${ch}after`, "a.md", { hiddenText: true }, problems);
@@ -460,6 +460,51 @@ test("simpler dossier Markdown rules: every probe is refused, plain Markdown pas
     ["~~~", null],
     ["Inside a tilde fence: <b> and ```", null],
     ["~~~", null],
+    // Tables: every row has exactly as many cells as its header.
+    ["", null],
+    ["| a | b |", null],
+    ["|---|:-:|", null],
+    ["| 1 | 2 |", null],
+    ["| 1 | 2 | hidden |", "table row"],
+    ["| only one |", "table row"],
+    ["| `x|y` | z |", "table row"],
+    ["| x \\| y | z |", null],
+    ["| x \\\\| y | z |", "table row"],
+    ["", null],
+    ["a | b", null],
+    ["--|--", null],
+    ["c | d | e", "table row"],
+    ["", null],
+    ["> | a | b |", null],
+    ["> |---|---|", null],
+    ["> | 1 | 2 | 3 |", "table row"],
+    ["", null],
+    ["after | the | table", null],
+    // Fence languages: an allow list.
+    ["```mermaid", "code fence"],
+    ["```", null],
+    ["```math", "code fence"],
+    ["```", null],
+    ["```geojson", "code fence"],
+    ["```", null],
+    ["```topojson", "code fence"],
+    ["```", null],
+    ["~~~stl", "code fence"],
+    ["~~~", null],
+    ["```Text", "code fence"],
+    ["```", null],
+    ["```json", null],
+    ["{ \"inside\": \"a fence\" }", null],
+    ["```", null],
+    ["~~~md", null],
+    ["~~~", null],
+    // Layout, fences included.
+    ["x".repeat(2001), "longer than 2,000"],
+    ["wide" + " ".repeat(20) + "gap", "20 or more spaces"],
+    ["a\tb", "tab after text"],
+    ["```text", null],
+    ["inside" + " ".repeat(25) + "a fence", "20 or more spaces"],
+    ["```", null],
     // A fence after a list or quote marker, or indented, is refused; the file fails on that line.
     ["- ```", "code fence"],
     ["> ```", "code fence"],
@@ -479,7 +524,7 @@ test("stricter dossier file names", () => {
   const { rel } = addDossier(root);
   commit(root, "add");
   branch(root);
-  const agent = ["agent.md", "Crush.md", "QWEN.md", "warp.md", "notes/Agent.md", "CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
+  const agent = ["agent.md", "Crush.md", "QWEN.md", "warp.md", "notes/Agent.md", "opencode.md", "IFLOW.json", "codebuddy/x.md", "Junie.md", "kiro/a.md", "aider.md", "amp.json", "Cline.md", "roo/x.md", "continue.json", "zed.md", "goose.json", "CLAUDE.local.md", "notes/AGENTS.override.md", "GEMINI.local.md", "copilot-instructions.md", "cursor-notes.md", ".cursorrules", ".windsurfrules", "windsurf.md"];
   const badName = ["Notes.md", "notes/README.md", "a.md/b.md", "under_score.md", "-dash.md", "data/Big.csv"];
   for (const name of [...agent, ...badName]) {
     mkdirSync(join(root, rel, name, ".."), { recursive: true });
@@ -491,4 +536,13 @@ test("stricter dossier file names", () => {
   }
   for (const name of [...agent, ...badName]) assert.ok(has(pr(root), `${rel}/${name}: only a maintainer may change`), name);
   assert.ok(!has(pr(root), `${rel}/README.md: has a name`));
+});
+
+test("hidden characters inside JSON strings are refused, even when written as escapes", () => {
+  const root = makeCommons();
+  const { dir, rel } = addDossier(root);
+  writeFileSync(join(dir, "extra.json"), '{"note": "a' + "\\u202E" + 'b", "k' + "\\u0007" + '": 1}\n');
+  assert.ok(has(all(root), `${rel}/extra.json: has an invisible character inside a JSON string`));
+  writeFileSync(join(dir, "extra.json"), '{"note": "plain' + "\\n" + 'text"}\n');
+  assert.ok(!has(all(root), `${rel}/extra.json: has an invisible`));
 });

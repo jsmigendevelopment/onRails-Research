@@ -62,3 +62,15 @@ export async function loadCommonmark() {
   const commonmark = mod.Parser ? mod : mod.default;
   return { render: (markdown) => new commonmark.HtmlRenderer().render(new commonmark.Parser().parse(markdown)) };
 }
+
+/**
+ * micromark with GFM from the node_modules folder in MICROMARK_GFM (kept out of this repo's
+ * dependencies), or null when unset. Raw HTML is let through, as GitHub lets some through.
+ */
+export async function loadGfm() {
+  if (!process.env.MICROMARK_GFM) return null;
+  const from = (name) => import(pathToFileURL(join(resolve(process.env.MICROMARK_GFM), name, "index.js")).href);
+  const { micromark } = await from("micromark");
+  const { gfm, gfmHtml } = await from("micromark-extension-gfm");
+  return { render: (markdown) => micromark(markdown, { extensions: [gfm()], htmlExtensions: [gfmHtml()], allowDangerousHtml: true }) };
+}

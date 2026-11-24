@@ -7,9 +7,9 @@ const HOME_PATH = /(?:[A-Za-z]:[\\/]+Users[\\/]+|\/Users\/|\/home\/)([A-Za-z0-9.
 const SAFE_HOME = /^(user|username|you|me|name|runner|ubuntu|node|root|shared|public|default)$/i;
 // Characters a reader can't see, by Unicode category: format (Cf), private use (Co), unassigned (Cn),
 // line and paragraph separators, every space but U+0020, variation selectors (U+FE0F only right after
-// an emoji), default-ignorable code points, blank Braille and the fillers and invisible operators that
-// render as nothing.
-export const HIDDEN = /[\p{Cf}\p{Co}\p{Cn}\p{Zl}\p{Zp}\u00AD\u115F\u1160\u17B4\u17B5\u2800\u3164\uFFA0\u180B-\u180F\uFFF9-\uFFFB\uFE00-\uFE0E\u{E0100}-\u{E01EF}]|(?!\uFE0F)\p{Default_Ignorable_Code_Point}|(?! )\p{Zs}|(?<!\p{Extended_Pictographic})\uFE0F/u;
+// an emoji), C0 and C1 controls but tab, LF and CR, default-ignorable code points, blank Braille, and
+// the fillers and invisible operators that render as nothing.
+export const HIDDEN = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F\p{Cf}\p{Co}\p{Cn}\p{Zl}\p{Zp}\u00AD\u115F\u1160\u17B4\u17B5\u2800\u3164\uFFA0\u180B-\u180F\uFFF9-\uFFFB\uFE00-\uFE0E\u{E0100}-\u{E01EF}]|(?!\uFE0F)\p{Default_Ignorable_Code_Point}|(?! )\p{Zs}|(?<!\p{Extended_Pictographic})\uFE0F/u;
 const SECRETS = [
   ["a private key", /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
   ["a GitHub token", /\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{22,})/],
@@ -45,14 +45,16 @@ function scanLine(line) {
 // past them. Outside fenced code: no `<` at all (no HTML, comments or autolinks), no character
 // references, no reference definitions, no math, no images, no link titles, no link that doesn't close
 // on its line, and every code span closes on its line. Inside a fence only the character rules apply.
-// A fence opens only at the very start of a line, with at most a plain word after it, and closes the
-// way CommonMark closes it. Anything else that CommonMark could read as a fence (indented, after a quote
-// or list marker, or with another info string) is refused, so this reading never drifts from CommonMark's.
-const OPEN = /^(`{3,}|~{3,})[A-Za-z0-9+._-]*[ \t]*$/;
+// A fence opens only at the very start of a line, with no info string or one from a short list of
+// plain languages, and closes the way CommonMark closes it. Anything else that CommonMark could read as
+// a fence (indented, after a quote or list marker, or with another info string, which GitHub may render
+// as a diagram, map, model or math) is refused, so this reading never drifts from CommonMark's.
+export const FENCE_LANGUAGES = ["text", "txt", "json", "csv", "js", "mjs", "ts", "sh", "bash", "py", "toml", "yaml", "yml", "diff", "md"];
+const OPEN = new RegExp(`^(\`{3,}|~{3,})(?:${FENCE_LANGUAGES.join("|")})?[ \\t]*$`);
 const FENCE_LIKE = /^(?:[ \t]*(?:>|[-*+]|\d{1,9}[.)]))*[ \t]*(`{3,}|~{3,})/;
 const ROOT_OPEN = /^ {0,3}(`{3,}(?!.*`)|~{3,})/;
 const CLOSE = /^ {0,3}(`{3,}|~{3,})[ \t]*$/;
-export const FENCE_MESSAGE = "looks like a code fence that doesn't start the line or has more than a plain word after it: start fences at the very start of a line, as ``` or ```js";
+export const FENCE_MESSAGE = `looks like a code fence that doesn't start the line, or names a language not on the list: start fences at the very start of a line, as \`\`\` or \`\`\`text (allowed: ${FENCE_LANGUAGES.join(", ")})`;
 export const MARKDOWN_RULES = [
   [/</, "has a < character: it can start HTML or a comment. Put code that needs it in a fenced block"],
   [/&(#|[A-Za-z][A-Za-z0-9]*;)/, "has a character reference (&#...; or &name;): write the character itself"],
@@ -63,33 +65,76 @@ export const MARKDOWN_RULES = [
   [/\]\([^)]*[ \t]["'(]/, "has a link title: write the link as [text](url) only"],
   [/\]\([^)]*$/, "has a link that doesn't close on the same line: keep [text](url) on one line"],
 ];
+// Everywhere in the file, fences included: no line so long, or space so wide, that text sits off-screen.
+export const LAYOUT_RULES = [
+  [/^.{2001}/, "is longer than 2,000 characters: break it up"],
+  [/ {20}/, "has a run of 20 or more spaces: text can hide off-screen after it"],
+  [/\S.*\t/, "has a tab after text: use spaces"],
+];
 const SPAN_RUNS = /`+/g;
 export const SPAN_MESSAGE = "has a code span that doesn't close on the same line: keep each `code` on one line";
 
+// GFM tables: a row with more cells than its header drops the extra cells from the page. Every row of a
+// table must have exactly as many cells as its header. Cells are split on every pipe not escaped by an
+// odd number of backslashes, inside code spans too, as GFM splits them.
+const QUOTED = /^(?:[ \t]*>)*[ \t]*(?:(?:[-*+]|\d{1,9}[.)])[ \t]+)?/;
+const DELIMITER = /^\|?[ \t]*:?-+:?[ \t]*(?:\|[ \t]*:?-+:?[ \t]*)*\|?[ \t]*$/;
+const PIPE = /(?<=(?:^|[^\\])(?:\\\\)*)\|/g;
+export const TABLE_MESSAGE = "is a table row with a different number of cells from its header: give every row exactly as many cells as the header";
+
+/** The number of cells GFM finds in a table row. */
+export function cellCount(row) {
+  let text = row.trim();
+  if (text.startsWith("|")) text = text.slice(1);
+  if (/(?:^|[^\\])(?:\\\\)*\|$/.test(text)) text = text.slice(0, -1);
+  return (text.match(PIPE) ?? []).length + 1;
+}
+
 /** Reports hidden Markdown in one dossier Markdown file. */
 export function scanMarkdown(text, where, problems) {
-  let fence = null;
+  let fence = null, columns = 0, previous = "";
   text.split(/\r\n|\r|\n/).forEach((line, n) => {
+    const at = `${where}:${n + 1}`;
+    for (const [rule, message] of LAYOUT_RULES) if (rule.test(line)) problems.error(at, message);
     if (fence) {
       const close = CLOSE.exec(line);
       if (close && close[1][0] === fence[0] && close[1].length >= fence.length) fence = null;
       return;
     }
+    const inner = line.replace(QUOTED, "");
+    if (columns && !inner.trim()) columns = 0;
     const open = OPEN.exec(line);
-    if (open) { fence = open[1]; return; }
+    if (open) { fence = open[1]; columns = 0; previous = ""; return; }
     if (FENCE_LIKE.test(line)) {
-      problems.error(`${where}:${n + 1}`, FENCE_MESSAGE);
+      problems.error(at, FENCE_MESSAGE);
       // The file fails either way; follow CommonMark's fence so the lines after it are read as it reads them.
       const root = ROOT_OPEN.exec(line);
-      if (root) { fence = root[1]; return; }
+      if (root) { fence = root[1]; columns = 0; return; }
     }
-    for (const [rule, message] of MARKDOWN_RULES) if (rule.test(line)) problems.error(`${where}:${n + 1}`, message);
-    if ((line.match(SPAN_RUNS) ?? []).length % 2) problems.error(`${where}:${n + 1}`, SPAN_MESSAGE);
+    for (const [rule, message] of MARKDOWN_RULES) if (rule.test(line)) problems.error(at, message);
+    if ((line.match(SPAN_RUNS) ?? []).length % 2) problems.error(at, SPAN_MESSAGE);
+    if (columns) { if (cellCount(inner) !== columns) problems.error(at, TABLE_MESSAGE); }
+    else if (inner.includes("|") && DELIMITER.test(inner.trim()) && previous.trim() && cellCount(inner) === cellCount(previous)) columns = cellCount(inner);
+    previous = inner;
   });
+}
+
+/** Reports an invisible character inside any string of a JSON file, as JSON can spell one as an escape. */
+export function scanJsonStrings(text, where, problems) {
+  let value;
+  try { value = JSON.parse(text); } catch { return; }
+  const strings = [];
+  const walk = (v) => {
+    if (typeof v === "string") strings.push(v);
+    else if (v && typeof v === "object") for (const [key, inner] of Object.entries(v)) { strings.push(key); walk(inner); }
+  };
+  walk(value);
+  if (strings.some((s) => HIDDEN.test(s))) problems.error(where, "has an invisible character inside a JSON string (it may be written as an escape): remove it");
 }
 
 /** Scans one text file. `hiddenText` also refuses invisible characters; `markdown` refuses hidden Markdown (dossier files). */
 export function scanText(text, where, { terms = [], hiddenText = false, markdown = false, onTerm } = {}, problems) {
+  if (hiddenText && /\.json$/i.test(where)) scanJsonStrings(text, where, problems);
   // Once per file, with no line number and no term: the log of a fork's run is public, and a line or
   // an index would tell a stranger which of their guesses is on the list.
   const lower = text.toLowerCase();
