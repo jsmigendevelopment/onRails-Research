@@ -8,6 +8,10 @@
 // A missing page (404, 410) or a host that does not exist fails. Sites that refuse robots (401, 403,
 // 429 and the like) and timeouts only warn: a person checks those by hand. Links inside the repo
 // must point at a file that exists.
+//
+// Only sources that a claim cites are checked: sources.csv also logs failed attempts on purpose.
+// Skipped too: a source whose title marks a failed attempt (NOT FOUND:, BLOCKED:, HTTP 404), and a
+// source named by a later row whose location is "gone: <id>".
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,13 +22,26 @@ import { collector, idOfPath, listDossiers, walk } from "./lib/store.mjs";
 const TIMEOUT = 15000, WORKERS = 6;
 const AGENT = "onrails-research-link-check/1 (+https://github.com/jsmigendevelopment/onRails-Research)";
 const MD_LINK = /\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g;
+const FAILED = /^(NOT FOUND|BLOCKED|NOT RETRIEVED|GONE)\b|HTTP 404/i;
+
+/** The ids of sources that claims cite. */
+function citedSources(dir, id, problems) {
+  if (!existsSync(join(dir, "claims.csv"))) return new Set();
+  const rows = readTable(join(dir, "claims.csv"), ["id", "claim", "label", "sources", "date"], problems, `${id}/claims.csv`) ?? [];
+  return new Set(rows.flatMap((r) => r.sources.split(";").map((s) => s.trim())));
+}
 
 /** Every link in a dossier: { url, where } for the web, { path, where } for files in the repo. */
 export function linksOf(dir, id, problems) {
   const links = [];
   if (existsSync(join(dir, "sources.csv"))) {
-    for (const row of readTable(join(dir, "sources.csv"), ["id", "title", "location", "accessed", "read"], problems, `${id}/sources.csv`) ?? [])
-      if (/^https?:\/\//.test(row.location)) links.push({ url: row.location, where: `${id}/sources.csv:${row.line}` });
+    const rows = readTable(join(dir, "sources.csv"), ["id", "title", "location", "accessed", "read"], problems, `${id}/sources.csv`) ?? [];
+    const cited = citedSources(dir, id, problems);
+    const gone = new Set(rows.map((r) => /^gone:\s*(\S+)/i.exec(r.location)?.[1]).filter(Boolean));
+    for (const row of rows) {
+      if (!/^https?:\/\//.test(row.location) || !cited.has(row.id) || gone.has(row.id) || FAILED.test(row.title)) continue;
+      links.push({ url: row.location, where: `${id}/sources.csv:${row.line}` });
+    }
   }
   for (const file of walk(dir).filter((f) => f.endsWith(".md"))) {
     readFileSync(join(dir, file), "utf8").split(/\r?\n/).forEach((line, n) => {

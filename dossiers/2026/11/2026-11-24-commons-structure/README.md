@@ -4,7 +4,7 @@
 
 **Kind:** comparison · **Last checked:** 2026-11-24 · **Re-check by:** 2027-02-24 · **Status, version and who checked it:** [dossier.json](dossier.json), [provenance.json](provenance.json)
 
-> **What this is.** Desk research by seven helper agents and the author (746 sources opened or searched, 539 claims), plus one measured run on synthetic data that took three attempts. Nothing was bought, installed or signed up for. The structure it recommends is the one this repository now uses. Five settings are the owner's to decide, two of them real choices (licences and the data home), listed under [Decisions for the owner](#decisions-for-the-owner). The re-check date is three months out, because prices, quotas and GitHub's Actions rules drive several answers.
+> **What this is.** Desk research by seven helper agents and the author (747 sources opened or searched, 540 claims), plus one measured run on synthetic data that took three attempts. Nothing was bought, installed or signed up for. The structure it recommends is the one this repository now uses. Five settings are the owner's to decide, two of them real choices (licences and the data home), listed under [Decisions for the owner](#decisions-for-the-owner). The re-check date is three months out, because prices, quotas and GitHub's Actions rules drive several answers.
 
 ## The question
 
@@ -31,10 +31,10 @@ A research commons takes dossiers from anyone by pull request, for years. The st
 ## How to read the evidence
 
 - Every claim in this text carries its ID from [claims.csv](claims.csv), like (lim-c07). The prefix names the helper cluster: `lim` platform limits, `cls` grouping, `idv` identity, `met` metadata, `con` contributions, `lic` licences, `com` large repositories, `a` the author.
-- Each claim has a label: **measured** (someone ran it and gives the number), **read-in-source** (read on the thing's own page, spec or code), **vendor-claim**, **anecdote** or **summary-only** (a snippet or a secondhand page). Of 539 claims: 459 read-in-source, 26 measured, 29 summary-only, 17 anecdote, 8 vendor-claim (counted from claims.csv, which includes the correction rows).
+- Each claim has a label: **measured** (someone ran it and gives the number), **read-in-source** (read on the thing's own page, spec or code), **vendor-claim**, **anecdote** or **summary-only** (a snippet or a secondhand page). Of 540 claims: 460 read-in-source, 26 measured, 29 summary-only, 17 anecdote, 8 vendor-claim (counted from claims.csv, which includes the correction rows).
 - "Read-in-source" means a page says it. It is not a test of behaviour. Prices and limits were read on 2026-11-24 and change often.
 - The only timings this research measured itself are the scale runs (a-c01 to a-c07, a-c20, a-c21), on synthetic dossiers. Sizes there are a floor. A few counts (for example PEP 0's size, com-c016) were made by a helper on a public page and are labelled read-in-source.
-- The fact-check led to corrections. Where a claim was relabelled or reworded, a new row in claims.csv replaces it (a-c16 to a-c21), and the text cites the new row.
+- The fact-check led to corrections. Where a claim was relabelled or reworded, a new row in claims.csv replaces it (a-c16 to a-c22), and the text cites the new row.
 - "I think" marks opinion. "My arithmetic" marks a sum I did from cited numbers.
 
 ## Options compared
@@ -232,6 +232,7 @@ The hypotheses were committed before the first search ([hypotheses.md](hypothese
 - **The review workflow has not run.** It needs the token, and a pull request after it is on `main`, because `workflow_run` workflows only run from the default branch.
 - **The 60-day rule.** GitHub turns off scheduled workflows in a public repository after 60 days with no activity (lim-c41). If nothing merges for two months, the daily stale rebuild stops until the owner turns it back on.
 - **Not verified:** whether `<picture>` follows the viewer's GitHub theme or their system setting (lim-c49); whether GitHub still renders YAML front matter as a table (met-c43); GitHub Pro's current price (lim-c84); whether GitHub's merge button honours `merge=union` (con-c16).
+- **A source that went away the same day:** the link check after the fact-check found the OSF storage-limits article now redirects elsewhere, so lim-c75 is unchecked (a-c22). It is not used in the text.
 - **Pages that refused the fetch:** COPE, NICE, Stack Overflow's help and meta sites, go-fair.org, the European Commission's database page, Software Heritage. Claims that rest on snippets instead are labelled summary-only.
 - **Helpers stopped at a usage limit.** Seven helpers on one model stopped partway; seven on another model finished the work. Each restarted helper re-opened some earlier sources and lists in its notes which ones it did not; those earlier lines rest on the first helper's reading.
 - **Searches that found nothing:** a public arXiv procedure for new categories, a measured share of cross-listed papers, a numeric guideline on facets, studies of stale documentation rates in software, a Node core YAML proposal, side-car metadata drift, and an official GitHub statement on `merge=union`.
@@ -256,8 +257,8 @@ Every finding and what was done with it is in [fact-check.csv](fact-check.csv).
 | [provenance.json](provenance.json) | Who did each role, on which model and effort |
 | [hypotheses.md](hypotheses.md) | What I expected before searching |
 | [coverage.md](coverage.md) | Options against questions, with the claims for each |
-| [sources.csv](sources.csv) | Every source opened or searched (746) |
-| [claims.csv](claims.csv) | Every claim, its label and its sources (539, including corrections) |
+| [sources.csv](sources.csv) | Every source opened or searched (747) |
+| [claims.csv](claims.csv) | Every claim, its label and its sources (540, including corrections) |
 | [fact-check.csv](fact-check.csv) | The fact-check's findings and what was done with each |
 | [notes/](notes/) | Each helper's own notes: findings, verdicts, what it could not check |
 | [runs/](runs/) and [summaries/](summaries/) | The scale runs: manifests, scripts, raw results, the summary |

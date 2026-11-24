@@ -44,6 +44,8 @@ The folder name is the dossier's **ID**. It is the date you start, plus a short 
    | `anecdote` | One person's report: a forum post, a blog |
    | `summary-only` | You only saw a snippet, a summary or a secondhand page |
 
+   A page you couldn't open still gets a row: start its title with `NOT FOUND:` or `BLOCKED:`. If a source you used goes away later, never edit its row; add a new row with the title `GONE: <id> ...` and the location `gone: <id>`. The link check skips those, and checks only sources that a claim cites.
+
    Then write `README.md` from your claims. Mark each fact with its claim ID, like (c3). Fill in every `[[fill: ...]]` blank.
 5. **Get it fact-checked in a fresh session.** A new session that never saw your work, on another model if you can, or a person. Give it `briefs/fact-check.md`. It writes findings to `fact-check.csv`; you mark each one `fixed`, `disputed` (with evidence) or `accepted`, with a reason. Record both roles in `provenance.json`.
 6. **Check it and open a pull request.**

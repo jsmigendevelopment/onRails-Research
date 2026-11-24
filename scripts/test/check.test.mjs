@@ -217,3 +217,21 @@ test("a dataset needs data.json with checksums and licences", () => {
   editJson(join(dir, "data.json"), (d) => { d.resources[0].hash = "md5:abc"; });
   assert.ok(has(all(root), "does not match"));
 });
+
+test("the link check skips uncited sources, logged failures and sources marked gone", async () => {
+  const { linksOf } = await import("../check-links.mjs");
+  const { collector } = await import("../lib/store.mjs");
+  const root = makeCommons();
+  const { dir, id } = addDossier(root);
+  writeFileSync(join(dir, "sources.csv"), [
+    "id,title,location,accessed,read",
+    "s1,A source,https://example.com/a,2026-11-24,full",
+    "s2,An uncited source,https://example.com/b,2026-11-24,full",
+    "s3,NOT FOUND: a guessed address,https://example.com/c,2026-11-24,full",
+    "s4,A page that went away,https://example.com/d,2026-11-24,full",
+    "s5,GONE: s4 now redirects elsewhere,gone: s4,2026-11-25,full",
+  ].join("\n") + "\n");
+  writeFileSync(join(dir, "claims.csv"), "id,claim,label,sources,date\nc1,A claim.,read-in-source,s1;s3;s4,2026-11-24\n");
+  const urls = linksOf(dir, id, collector()).filter((l) => l.url).map((l) => l.url);
+  assert.deepEqual(urls, ["https://example.com/a"]);
+});
