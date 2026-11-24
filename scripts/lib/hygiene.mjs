@@ -5,7 +5,10 @@ const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]*[A-Za-z][A-Za-z0-9-]*(\.[A-Za-z0-9
 const SAFE_EMAIL = /@(example\.(com|org|net)|users\.noreply\.github\.com)$|^git@|\.(png|jpe?g|gif|svg|webp|avif|ico|pdf)$/i;
 const HOME_PATH = /(?:[A-Za-z]:[\\/]+Users[\\/]+|\/Users\/|\/home\/)([A-Za-z0-9._-]+)/g;
 const SAFE_HOME = /^(user|username|you|me|name|runner|ubuntu|node|root|shared|public|default)$/i;
-export const HIDDEN = /[\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u2069\u{E0000}-\u{E007F}]|(?!^)\uFEFF/u;
+// Characters a reader can't see, by Unicode category: format (Cf), private use (Co), unassigned (Cn),
+// line and paragraph separators, every space but U+0020, variation selectors (U+FE0F only right after
+// an emoji), and the fillers and invisible operators that render as nothing.
+export const HIDDEN = /[\p{Cf}\p{Co}\p{Cn}\p{Zl}\p{Zp}\u00AD\u115F\u1160\u3164\uFFA0\u180B-\u180F\uFFF9-\uFFFB\uFE00-\uFE0E\u{E0100}-\u{E01EF}]|(?! )\p{Zs}|(?<!\p{Extended_Pictographic})\uFE0F/u;
 const SECRETS = [
   ["a private key", /-----BEGIN [A-Z ]*PRIVATE KEY-----/],
   ["a GitHub token", /\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{22,})/],
@@ -44,7 +47,7 @@ export function scanText(text, where, { terms = [], hiddenText = false, comments
   if (terms.some((term) => lower.includes(term))) (onTerm ?? (() => problems.error(where, PRIVATE_TERM)))();
   text.split(/\r?\n/).forEach((line, n) => {
     for (const message of new Set(scanLine(line))) problems.error(`${where}:${n + 1}`, message);
-    if (hiddenText && HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (zero-width or text-direction control): remove it");
+    if (hiddenText && HIDDEN.test(line)) problems.error(`${where}:${n + 1}`, "has an invisible character (a format, private-use, unassigned, separator or filler character, or a space other than U+0020): remove it");
     if (comments && line.includes("<!--")) problems.error(`${where}:${n + 1}`, "has an HTML comment: readers can't see it, so it isn't allowed in a dossier");
   });
 }

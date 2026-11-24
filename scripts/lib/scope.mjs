@@ -2,7 +2,7 @@
 import { lstatSync } from "node:fs";
 import { join } from "node:path";
 import { fileAt } from "./git.mjs";
-import { CARD, idOfPath, isFile, NOT_REGULAR, readText, walk } from "./store.mjs";
+import { CARD, idOfPath, isFile, NOT_REGULAR, readText, STORE, walk } from "./store.mjs";
 
 export const MAX_FILE = 400 * 1024;
 export const MAX_DOSSIER = 1024 * 1024;
@@ -12,18 +12,20 @@ const GROWS = /(^|\/)(sources|claims|fact-check)\.csv$/;
 const FROZEN = /(^|\/)(runs|briefs)\//;
 const CORE = ["README.md", CARD, "provenance.json", "sources.csv", "claims.csv"];
 const LIFECYCLE = ["status", "superseded_by", "recheck", "history"];
-// The checker, its rules and its inputs, and the files that instruct agents and readers. The trusted
-// check runs main's copy on a pull request's files, so a change here from anyone but the maintainer
-// could loosen the rules that judge it, or steer the agents that review it.
-export const PROTECTED = ["schemas/", "scripts/", ".github/", "tags/", "templates/", "docs/", ".claude/"];
-export const PROTECTED_FILES = ["AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "README.md", ".gitattributes", ".gitmodules", "package.json"];
-const LICENCE = /^LICEN[CS]E[^/]*$/i;
+// What a contributor's pull request may touch: Markdown, JSON and CSV files inside one well-formed
+// dossier folder, with plain names. Everything else is the maintainer's: an allow list, case-sensitive,
+// because a block list of what is dangerous always has gaps.
+const NAME = "[A-Za-z0-9][A-Za-z0-9_-]*(?:\\.[A-Za-z0-9_-]+)*";
+const CONTRIBUTOR_PATH = new RegExp(`^${STORE}/\\d{4}/\\d{2}/[a-z0-9-]+/(?:${NAME}/)*${NAME}\\.(?:md|json|csv)$`);
+// Names that instruct or configure agents, refused inside a dossier for everyone, maintainer included.
+const AGENT_NAMES = new Set(["claude.md", "agents.md", "gemini.md", ".claude", ".mcp.json", ".agents"]);
 
-/** True for a path only the maintainer may change. Case-insensitive, as some file systems and GitHub's rendering are. */
-export function isProtected(path) {
-  const lower = path.toLowerCase();
-  return PROTECTED.some((dir) => lower.startsWith(dir)) || PROTECTED_FILES.some((file) => lower === file.toLowerCase()) || LICENCE.test(path);
-}
+/** True for a path a contributor may change. */
+/** True for a path inside a dossier with an agent-instruction name at any depth. */
+export const agentFileInDossier = (path) => idOfPath(path) !== null && path.split("/").slice(4).some((part) => AGENT_NAMES.has(part.toLowerCase()));
+
+/** True for a path a contributor may change. */
+export const contributorMay = (path) => CONTRIBUTOR_PATH.test(path) && idOfPath(path) !== null && !agentFileInDossier(path);
 const kb = (n) => `${Math.ceil(n / 1024)} KB`;
 
 /** Sorts changed paths into dossiers (by id), tag lists and everything else. */
@@ -76,11 +78,11 @@ function checkMix(sorted, maintainer, problems) {
     problems.error("pull request", `changes ${sorted.other[0].path}${sorted.other.length > 1 ? ` and ${sorted.other.length - 1} more` : ""} next to a dossier or a tag list. Changes to scripts, workflows and docs go in their own pull request`);
 }
 
-function checkProtected(changes, maintainer, problems) {
+function checkContributorPaths(changes, maintainer, problems) {
   if (maintainer) return;
   for (const change of changes)
-    if (isProtected(change.path))
-      problems.error(change.path, "only a maintainer may change the checker, its rules, the project's instructions, docs and licences. Open an issue that says what should change, and a maintainer will make it");
+    if (!contributorMay(change.path))
+      problems.error(change.path, "only a maintainer may change this. A contributor's pull request changes only .md, .json and .csv files inside its dossier folder, dossiers/<yyyy>/<mm>/<yyyy-mm-dd-slug>/. Open an issue for anything else");
 }
 
 function checkFrozen(root, base, change, problems) {
@@ -126,7 +128,7 @@ export function checkScope(root, base, changes, { maintainer = false } = {}, pro
   const sorted = classify(changes);
   checkOneDossier(root, base, sorted.dossiers, problems);
   checkMix(sorted, maintainer, problems);
-  checkProtected(changes, maintainer, problems);
+  checkContributorPaths(changes, maintainer, problems);
   for (const [id, list] of sorted.dossiers) checkExisting(root, base, id, list, problems);
   return [...sorted.dossiers.keys()];
 }

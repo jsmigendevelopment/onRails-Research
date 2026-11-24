@@ -21,7 +21,7 @@ import { checkStores } from "./lib/desk.mjs";
 import { changedFiles, LINK_MODE, listedFiles, mergeBase, trackedLinks } from "./lib/git.mjs";
 import { HIDDEN, privateTerms, scanText } from "./lib/hygiene.mjs";
 import { checkProvenance } from "./lib/provenance.mjs";
-import { checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
+import { agentFileInDossier, checkFiles, checkScope, MAX_FILE } from "./lib/scope.mjs";
 import { CARD, collector, isFile, listDossiers, NOT_REGULAR, readJson, readText, STORE, strayInStore } from "./lib/store.mjs";
 import { loadTags } from "./lib/tags.mjs";
 
@@ -49,14 +49,14 @@ function checkDossier(entry, card, lists, today, problems) {
 // The full run on main has a public log, so it says only that a term was found, not where.
 export const PRIVATE_FOUND = "a private term was found. Rerun locally with --all --show-private to see where";
 
-function scanFiles(root, paths, { hideWhere }, problems) {
+function scanFiles(root, paths, { hideWhere, every }, problems) {
   const terms = privateTerms();
   let found = false;
   const onTerm = hideWhere ? () => { found = true; } : undefined;
   for (const path of paths) {
     const inStore = path.startsWith(`${STORE}/`);
-    if (!(TEXT.test(path) || inStore) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
-    scanText(readText(join(root, path)), path, { terms, hiddenText: true, comments: inStore && path.endsWith(".md"), onTerm }, problems);
+    if (!(every || TEXT.test(path) || inStore) || !isFile(join(root, path)) || lstatSync(join(root, path)).size > MAX_FILE) continue;
+    scanText(readText(join(root, path)), path, { terms, hiddenText: true, comments: inStore && /\.md$/i.test(path), onTerm }, problems);
   }
   if (found) problems.errors.push(PRIVATE_FOUND);
   return terms.length;
@@ -80,19 +80,29 @@ function refusePaths(root, paths, links, problems) {
   return bad.size > 0;
 }
 
+const AGENT_FILE = "is an agent instruction or configuration file (CLAUDE.md, AGENTS.md, GEMINI.md, .claude, .mcp.json, .agents). None may sit inside a dossier";
+
+/** Paths under dossiers/ outside a dossier folder, and agent files inside one. Reports each. */
+function checkStorePaths(paths, problems) {
+  for (const path of paths) {
+    if (strayInStore(path)) problems.error(path, STRAY);
+    else if (agentFileInDossier(path)) problems.error(path, AGENT_FILE);
+  }
+}
+
 const STRAY = "is under dossiers/ but not inside a dossier folder, dossiers/<yyyy>/<mm>/<yyyy-mm-dd-slug>/. Make the folder with scripts/new-dossier.mjs";
 
 /** What to check: every file, or a pull request's changes against the merge base. Null when git can't tell. */
 function listPaths(root, base, all, problems) {
   if (all || !base) {
     const paths = listedFiles(root);
-    for (const path of paths) if (strayInStore(path)) problems.error(path, STRAY);
+    checkStorePaths(paths, problems);
     return { paths, links: trackedLinks(root) };
   }
   const from = mergeBase(root, base);
   if (!from) { problems.error("--base", `git could not find the merge base with ${base}`); return null; }
   const changes = changedFiles(root, from), kept = changes.filter((c) => c.status !== "D");
-  for (const { path } of changes) if (strayInStore(path)) problems.error(path, STRAY);
+  checkStorePaths(changes.map((c) => c.path), problems);
   return { from, changes, paths: kept.map((c) => c.path), links: kept.filter((c) => c.mode === LINK_MODE).map((c) => c.path) };
 }
 
@@ -108,7 +118,7 @@ export function check({ root, base, all = false, maintainer = false, showPrivate
   let ids = [...where.keys()];
   if (listed.changes) ids = checkScope(root, listed.from, listed.changes, { maintainer }, problems).filter((id) => where.has(id));
   for (const id of ids) checkDossier(where.get(id), cards.get(id), lists, today, problems);
-  const terms = scanFiles(root, listed.paths, { hideWhere: !listed.changes && !showPrivate }, problems);
+  const terms = scanFiles(root, listed.paths, { hideWhere: !listed.changes && !showPrivate, every: Boolean(listed.changes) }, problems);
   return { errors: problems.errors, warnings: problems.warnings, checked: ids.length, total: where.size, terms };
 }
 

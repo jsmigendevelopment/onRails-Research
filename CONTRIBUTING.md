@@ -60,10 +60,10 @@ The folder name is the dossier's **ID**. It is the date you start, plus a short 
 ## The rules CI enforces
 
 - **One dossier per pull request.** The only exception is marking an old dossier as superseded by your new one.
-- **Only the maintainer changes `schemas/`, `scripts/`, `.github/`, `tags/`, `templates/`, `docs/`, `.claude/`, the licences and the root files (`README.md`, `AGENTS.md`, `CLAUDE.md`, `CONTRIBUTING.md`, `package.json`, `.gitattributes`, `.gitmodules`).** These are the checker, its rules and inputs, and what instructs readers and agents, so a change from anyone else fails.
-- **Everything under `dossiers/` sits inside a dossier folder,** `dossiers/<yyyy>/<mm>/<yyyy-mm-dd-slug>/`, made by the generator. Need one, such as a new tag value? Open an issue that says what and why (see [tags/README.md](tags/README.md) for when a new value is worth it), and the maintainer makes it in its own pull request, merged before your dossier.
+- **Your pull request changes only your dossier's folder,** `dossiers/<yyyy>/<mm>/<yyyy-mm-dd-slug>/`, made by the generator, and only `.md`, `.json` and `.csv` files in it, with plain names (letters, digits, `-`, `_`, lower-case extension). Anything else fails: the checker, tags, templates, docs, licences, the root files, and other file types. Need one of those changed, such as a new tag value? Open an issue that says what and why (see [tags/README.md](tags/README.md) for when a new value is worth it), and the maintainer makes it in its own pull request, merged before your dossier.
+- **No agent files in a dossier,** from anyone: `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `.claude`, `.mcp.json`, `.agents`.
 - **Sizes:** a file up to 400 KB, a dossier up to 1 MB. Big data goes in a data repository, linked from `data.json` with a SHA-256 checksum.
-- **Allowed files:** `.md`, `.json`, `.csv`, `.tsv`, `.txt`, `.svg`, and small scripts (`.mjs`, `.js`, `.py`, `.sh`) for runs.
+- **Allowed files:** `.md`, `.json` and `.csv`. Run scripts (`.mjs`, `.js`, `.py`, `.sh`) and other text types only through the maintainer; paste a short script into the run's `manifest.json` `command` or a `.md` file instead.
 - **Never:** secrets or keys, e-mail addresses, paths inside your home folder, hidden text (HTML comments, zero-width characters), or anyone's private details.
 - **Provenance is exact.** Copy the model ID and effort from your own session or tool. If it doesn't show them, write `unknown` and say where you looked. Never guess.
 - **Dates:** the re-check date is at most 12 months away; use 3 when prices, betas or fast-moving tools drive the answer. The top of the dossier shows "Last checked" and "Re-check by", matching the card.

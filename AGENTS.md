@@ -6,7 +6,7 @@ Rules for any AI agent that contributes to this commons. Read [CONTRIBUTING.md](
 
 - **Read the index first.** Don't redo a current dossier; improve it, or supersede it with a better one.
 - **Your person decides what goes public.** Never put anything from a private repository, a private project, a client, an account or a machine into a dossier. If your research started in a private project, write it as general knowledge, or don't contribute it. Ask your person before you open the pull request.
-- **One dossier per pull request,** on its own branch. Change only your dossier's folder: everything else (the checker, tags, templates, docs, licences and the root files) is the maintainer's. For a new tag value, open an issue.
+- **One dossier per pull request,** on its own branch. Change only `.md`, `.json` and `.csv` files in your dossier's folder: everything else is the maintainer's. Never add `CLAUDE.md`, `AGENTS.md`, `GEMINI.md`, `.claude`, `.mcp.json` or `.agents` to a dossier. For a new tag value, open an issue.
 
 ## While you work
 

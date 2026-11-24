@@ -251,20 +251,34 @@ test("the schemas come from the checker, not from the folder it checks", () => {
   assert.ok(has(all(root), 'is missing "title"'));
 });
 
-const PROTECTED_PATHS = ["schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md", "AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "README.md", ".gitattributes", ".gitmodules", "package.json", "docs/x.md", ".claude/settings.json", "LICENSE-OTHER", "Readme.md"];
+// Paths a contributor may not touch: everything outside their dossier folder, and anything inside it
+// that isn't a plainly named .md, .json or .csv file.
+const D = "dossiers/2026/11/2026-11-24-index-format-scales-ten-thousand";
+const REFUSED_PATHS = [
+  "schemas/x.json", "scripts/x.mjs", ".github/workflows/x.yml", "tags/x.json", "templates/x.md", "AGENTS.md", "CLAUDE.md",
+  "CONTRIBUTING.md", "README.md", ".gitattributes", ".gitmodules", "package.json", "docs/x.md", ".claude/settings.json",
+  "LICENSE-OTHER", "Readme.md", "notes.md", ".lfsconfig", ".mcp.json", ".agents/x.md", "GEMINI.md",
+  `Dossiers/2026/11/2026-11-24-x/a.md`, `dossiers\u22152026/11/2026-11-24-x/a.md`,
+  `${D}/page.html`, `${D}/notes.MD`, `${D}/.mcp.json`, `${D}/.agents/x.md`, `${D}/GEMINI.md`, `${D}/.lfsconfig`, `${D}/run.mjs`,
+];
 
-test("only the maintainer may change the checker, its inputs, the instructions, docs and licences", () => {
+test("a contributor may change only .md, .json and .csv files inside a dossier folder", () => {
   const root = makeCommons();
+  const { rel } = addDossier(root);
+  assert.equal(rel, D);
+  commit(root, "add");
   branch(root);
-  for (const path of PROTECTED_PATHS) {
+  for (const path of REFUSED_PATHS) {
     mkdirSync(join(root, path, ".."), { recursive: true });
     writeFileSync(join(root, path), "{}\n");
   }
-  writeFileSync(join(root, "notes.md"), "A docs change.\n");
   const result = pr(root);
-  for (const path of PROTECTED_PATHS) assert.ok(has(result, `${path}: only a maintainer may change`), path);
-  assert.ok(!has(result, "notes.md: only a maintainer"));
-  assert.ok(!has(pr(root, { maintainer: true }), "only a maintainer may change"));
+  for (const path of REFUSED_PATHS) assert.ok(has(result, `${path}: only a maintainer may change`), `${path}\n${result.errors.join("\n")}`);
+  assert.ok(!has(result, `${D}/README.md: only a maintainer`));
+  const maintainer = pr(root, { maintainer: true });
+  assert.ok(!has(maintainer, "only a maintainer may change"));
+  // Agent files inside a dossier are refused for the maintainer too.
+  for (const name of ["GEMINI.md", ".mcp.json", ".agents/x.md"]) assert.ok(has(maintainer, `${D}/${name}: is an agent instruction`), name);
 });
 
 test("a symbolic link in a pull request is refused before anything is read", () => {
@@ -380,4 +394,32 @@ test("hidden text is refused in any changed text file, and in file names", () =>
   assert.ok(has(result, "notes.md:1: has an invisible character"), result.errors.join("\n"));
   writeFileSync(join(root, "dossiers-note\u202E.md"), "Text.\n");
   assert.ok(has(pr(root), '"dossiers-note\u202E.md": has a control or invisible character in its name'));
+});
+
+test("wider hidden-character rule, for contents and paths", async () => {
+  const { scanText } = await import("../lib/hygiene.mjs");
+  const { collector } = await import("../lib/store.mjs");
+  const hidden = ["\u00A0", "\u2007", "\u3000", "\u00AD", "\u115F", "\u1160", "\u3164", "\uFFA0", "\u180B", "\u180E", "\uFFF9", "\uFE00", "\uFE0E",
+    "x\uFE0F", "\u{E0100}", "\u{E01EF}", "\uE000", "\u{F0000}", "\u2028", "\u2029", "\u200B", "\u2066", "\u{E0041}", "\uFEFF", "\u0378"];
+  for (const ch of hidden) {
+    const problems = collector();
+    scanText(`before${ch}after`, "a.md", { hiddenText: true }, problems);
+    assert.equal(problems.errors.length, 1, `U+${ch.codePointAt(ch.length > 1 && ch[0] === "x" ? 1 : 0).toString(16)}`);
+  }
+  for (const fine of ["plain words and spaces", "a thumbs up \u{1F44D}\uFE0F", "tabs\tare fine", "\u00E9 \u00FC \u00F1 \u4E2D\u6587"]) {
+    const problems = collector();
+    scanText(fine, "a.md", { hiddenText: true }, problems);
+    assert.deepEqual(problems.errors, [], fine);
+  }
+  const root = makeCommons();
+  branch(root);
+  writeFileSync(join(root, "no\u00A0break.md"), "Text.\n");
+  assert.ok(has(pr(root), '"no\u00A0break.md": has a control or invisible character in its name'));
+});
+
+test("an HTML comment in dossier Markdown is refused whatever the extension's case", () => {
+  const root = makeCommons();
+  const { dir, rel } = addDossier(root);
+  writeFileSync(join(dir, "notes.MD"), "<!-- hidden -->\n");
+  assert.ok(has(all(root), `${rel}/notes.MD:1: has an HTML comment`));
 });
