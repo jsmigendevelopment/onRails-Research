@@ -19,7 +19,8 @@ const FOLDER = /^[a-z0-9][a-z0-9-]*$/;
 const FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv|tsv|txt|svg|mjs|js|py|sh)$/;
 const CONTRIBUTOR_FILE = /^[a-z0-9][a-z0-9-]*\.(md|json|csv)$/;
 // Names that instruct or configure agents, refused inside a dossier for everyone, maintainer included.
-const AGENT_NAME = /^(claude|agents?|gemini|copilot|cursor|windsurf|crush|qwen|warp)([.-].*)?$|^\.(claude|agents|mcp\.json|cursorrules|windsurfrules)$/i;
+export const AGENT_TOOLS = ["claude", "agent", "agents", "gemini", "copilot", "cursor", "windsurf", "crush", "qwen", "warp", "opencode", "iflow", "codebuddy", "junie", "kiro", "aider", "amp", "cline", "roo", "continue", "zed", "goose", "mcp"];
+const AGENT_NAME = new RegExp(`^\\.?(${AGENT_TOOLS.join("|")})([.-].*|rules|hints|modes)?$`, "i");
 
 const below = (path) => path.split("/").slice(4);
 

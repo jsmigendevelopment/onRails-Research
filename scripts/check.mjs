@@ -80,7 +80,7 @@ function refusePaths(root, paths, links, problems) {
   return bad.size > 0;
 }
 
-const AGENT_FILE = "is named like an agent instruction or configuration file (claude, agent, agents, gemini, copilot, cursor, windsurf, crush, qwen, warp, .mcp.json and the like). None may sit inside a dossier";
+const AGENT_FILE = "is named like an agent instruction or configuration file (claude, agent, gemini, copilot, cursor, kiro, cline, goose, .mcp.json and the like). None may sit inside a dossier";
 const BAD_NAME = "has a name that isn't lower-case kebab-case: folders use a-z, 0-9 and -, files add one allowed extension. README.md is allowed only at the top of the dossier. Rename it";
 
 /** Paths under dossiers/ outside a dossier folder, and agent files inside one. Reports each. */
