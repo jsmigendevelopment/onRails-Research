@@ -1,0 +1,42 @@
+# Codex command rules for this repo (Starlark). Codex loads them when you trust this project.
+# Codex rules match the start of a command only, so a flag after the branch name
+# (git push origin x --force) can't be caught here. AGENTS.md rule 12 covers that case.
+
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f", "--force-with-lease", "--force-if-includes", "--mirror", "--delete", "-d"]],
+    decision = "forbidden",
+    justification = "No force pushes. Push a normal commit to your feature branch instead.",
+    match = ["git push --force origin feat/1-x", "git push -f", "git push --force-with-lease origin x"],
+    not_match = ["git push origin feat/1-x"],
+)
+
+prefix_rule(
+    pattern = ["git", "push", "origin", ["main", "HEAD:main", "+main", "+HEAD:main"]],
+    decision = "forbidden",
+    justification = "Never push straight to main. Open a pull request from your feature branch.",
+    match = ["git push origin main", "git push origin HEAD:main"],
+    not_match = ["git push origin feat/1-x"],
+)
+
+prefix_rule(
+    pattern = ["git", "push", ["-u", "--set-upstream"], "origin", ["main", "HEAD:main"]],
+    decision = "forbidden",
+    justification = "Never push straight to main. Open a pull request from your feature branch.",
+    match = ["git push -u origin main", "git push --set-upstream origin HEAD:main"],
+    not_match = ["git push -u origin feat/1-x"],
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard", ["origin/main", "main"]],
+    decision = "prompt",
+    justification = "This throws away local work. Ask the person first.",
+)
+
+# The kit's own helper scripts: they only write under ~/.onrails (or ~/.ai-dev-workflow, its old name).
+prefix_rule(
+    pattern = ["node", [".claude/hooks/notify.mjs", ".agents/skills/coordinate/scripts/board.mjs", ".agents/skills/afk/scripts/worklog.mjs"]],
+    decision = "allow",
+    justification = "The kit's notify, board and work-log scripts.",
+    match = ["node .claude/hooks/notify.mjs --level fyi --title x", "node .agents/skills/afk/scripts/worklog.mjs presence"],
+    not_match = ["node evil.mjs"],
+)

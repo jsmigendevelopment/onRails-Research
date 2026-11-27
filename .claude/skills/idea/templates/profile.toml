@@ -1,0 +1,148 @@
+# Your personal onRails profile.
+# Only things that stay the same from app to app. No secrets: this file is copied into projects.
+#
+# Keep your copy at ~/.onrails/profile.toml. /idea copies it into a new project
+# as docs/profile.toml, and the grill confirms these as defaults instead of asking.
+# Delete any line you'd rather be asked about every time.
+
+[me]
+name = ""                       # how agents address you and credit you
+github_owner = ""               # account or organisation new repos go under
+github_plan = "free"            # free | team (decides what setup-github can turn on)
+naming_style = ""               # e.g. "one lowercase word + one capitalised word, festival themed"
+
+[me.signature]
+# The sign-off at the end of every README an agent writes: npx onrails signature --write README.md
+# It's public. Text holds only letters, numbers, emoji (skin tones, joined emoji, keycaps and flags too), single spaces
+# and . , ! ? ' ’ - – : ; ( ) & +. A full stop needs a space after it, so "example.com", "Node.js" and "2.0" are refused:
+# put tech names in a link label, or drop the dot.
+# URLs are plain https:// with a lowercase host: no port, query, fragment, % or &. A blank name means no signature.
+theme = "professional"          # professional | personal (personal applies [me.signature.personal] on top)
+style = "full"                  # full | compact (one line)
+name = ""                       # e.g. "Ada Example"
+name_url = ""                   # e.g. "https://example.com"
+display = ""                    # e.g. "Ada Dev", shown before the tagline
+tagline = ""                    # e.g. "Software engineer"
+mark_light = ""                 # e.g. "https://example.com/mark.svg", your logo or monogram
+mark_dark = ""                  # reserved for a future <picture> version (dark backgrounds); checked but not used yet
+mark_alt = ""                   # e.g. "Ada Dev monogram"
+mark_size = 64
+compact_mark_size = 20
+signoff = ""                    # e.g. "Build it right."
+compact_signoff = ""            # e.g. "Go build."
+links = []                      # e.g. [{ label = "Blog", url = "https://example.com/blog/" }], one per line is fine
+
+[me.signature.personal]
+# Any key above. A non-blank value here wins when the theme is personal.
+
+[defaults]
+repo_visibility = "private"     # private | public
+licence = "none"                # none | MIT | ...
+risk_dial = "move-fast"         # move-fast | careful | strict
+automation = "recommended"      # recommended | full | hands-on | custom (how much agents do without you; the /automation skill)
+grill = "full"                  # full | auto. Full: the grill asks you, topic by topic. Auto: four questions, the AI picks the rest, you review it all at once
+package_manager = "pnpm"
+preset = ""                     # a preset from the idea skill's presets/ folder, e.g. "saas"
+
+[web]
+framework = "TanStack Start"
+ui = "shadcn/ui + Tailwind"
+database = "Cloudflare D1 (SQLite)"
+database_when_outgrown = "Supabase Postgres"
+auth = "Clerk"
+hosting = "Cloudflare Workers"
+payments = "Stripe"
+email = "Resend"
+errors = "Sentry"
+analytics = "Cloudflare Web Analytics"
+file_storage = "Cloudflare R2"
+prefer = "Cloudflare for anything it offers free"
+# How the test site and previews are protected: "access", "password" or "none".
+test_site_protection = "access"
+# Login options for Cloudflare Access, in the order offered. Any of: google, github, facebook, linkedin, yandex, otp.
+test_site_logins = ["google", "otp"]
+avoid = []                      # tools you never want recommended
+
+[design]
+# Your usual look and feel. The grill shows these as defaults to confirm.
+feel = ""            # three words, e.g. "calm, modern, friendly"
+theme = "both"       # "light", "dark" or "both" (follows the device)
+density = "roomy"    # "roomy" or "dense"
+voice = "plain"      # how the copy sounds
+references = []      # apps or sites whose look you like
+
+[routing]
+# Your models per tier. Leave a tier empty if you don't have it.
+strongest = ""                  # e.g. "Claude Fable 5.2"
+everyday = ""                   # e.g. "Claude Opus 5.5"
+creative = ""                   # e.g. "ChatGPT, top model"
+second_opinion = ""             # another vendor's model for risky reviews
+ask_before_strongest = true     # ask before starting anything on the strongest tier
+
+[research]
+# A private repo that every deep research is captured to, across projects (the research skill).
+# library and library_path are personal: profile copy and init never write them into a project.
+library = ""                    # owner/repo of your research library; must be private. Make one: npx onrails research-library init <dir>
+library_path = ""               # optional: a local clone of it, so captures skip the clone
+offered = false                 # true once an agent offered to make one, so it never asks again
+
+[worklog]
+# Track your work hours from session starts and ends, /back and /afk.
+# Kept in ~/.onrails/worklog/, never in a repo.
+# Report with: node .agents/skills/afk/scripts/worklog.mjs report
+enabled = false
+mode = "explicit"          # explicit: your first prompt starts the clock, /afk stops it | activity: a quiet gap stops it
+away_after_minutes = 60   # activity mode only: no prompt in any thread for this long counts as away
+# dir = "G:/My Drive/onrails/worklog"   # optional: a Google Drive desktop folder, so it syncs
+# sheet = "https://docs.google.com/spreadsheets/d/..."   # optional: cloud sessions append here via the Google Sheets connector
+
+[notify]
+# When and how agents ping you (the ask skill). Desktop, plus your phone if NTFY_TOPIC is set.
+ping = "decisions"              # decisions: blockers now, decisions batched | blockers: blockers only | critical: production down or a security hole only
+batch_minutes = 30              # decisions ping at most this often
+quiet_hours = ""                # e.g. "22:00-07:00", local time. Only critical pings get through.
+desktop = true                  # false: phone only
+
+[board]
+# One page per project with what needs you, what's being built and what merged today.
+# Kept in ~/.onrails/boards/, never in a repo.
+# dir = "G:/My Drive/onrails/boards"   # optional: a Google Drive desktop folder, so you can read it on your phone
+# sheet = "https://docs.google.com/spreadsheets/d/..."   # optional: a Google Sheet copy that cloud threads can update ("off": don't offer one)
+# The sheet's Presence tab is the only place /afk is shared beyond this machine. Without a sheet,
+# cloud sessions don't know you're away. Presence never goes in a repo.
+
+[presence]
+machine = ""                    # a label for this machine on the Presence tab, e.g. "laptop" (blank: its hostname)
+
+[workflow]
+grill_questions_per_topic = 10
+afk_hard_stop_hours = 10
+pause_hours = 2                 # after "pause", what's kept (the dev server) stops on its own after this long
+browser_check = "playwright, then my own browser"   # or "playwright only"
+
+[sessions]
+prefer = "cloud"                # cloud | local. Unattended work (overnight, research, reviews, builders) starts in a cloud session.
+                                # Work that needs this machine (simulators, a signed-in browser, local files, hardware) runs here anyway.
+
+[accounts]
+# More than one subscription account? Each one owns its projects and jobs: a fixed split you set.
+# Never by usage. At a limit, that account's work waits for its reset; it never moves to another
+# account. Providers' terms can treat that as account rotation, and it puts your accounts at risk.
+# Empty: every job runs on the account you're signed in with. /idea and /join ask, and walk you
+# through signing each one in (the routing skill's references/accounts.md).
+# One table per account. jobs: live, cto, research, build, review, evals, overnight, or "*".
+# projects: repo names, or "*" for every project no other account names.
+#
+# [accounts.personal]
+# label = "Personal Max"
+# tool = "claude"                      # claude | codex
+# config_dir = "~/.claude"             # its CLAUDE_CONFIG_DIR (claude) or CODEX_HOME (codex)
+# projects = ["*"]
+# jobs = ["*"]
+#
+# [accounts.client]
+# label = "Client team plan"
+# tool = "claude"
+# config_dir = "~/.claude-client"
+# projects = ["client-portal"]
+# jobs = ["*"]
