@@ -1,0 +1,17 @@
+# Codex settings for this repo. Codex loads this file, .codex/rules/ and
+# .codex/hooks.json only after you mark the project as trusted. Then review and
+# trust each hook once with /hooks (again whenever a hook's command changes).
+
+# Agents can edit files in the repo and run commands. Anything outside the
+# sandbox asks you first.
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+
+[sandbox_workspace_write]
+# The loop needs the network for git push, gh, and installing packages.
+network_access = true
+# The kit's scripts keep presence, the work log, the board and held pings in
+# ~/.onrails/, outside the repo. Codex expands "~" to your home folder.
+# ~/.ai-dev-workflow is the same folder's name before the rename to onRails: the scripts
+# use it until you move it (any onrails command offers to).
+writable_roots = ["~/.onrails", "~/.ai-dev-workflow"]

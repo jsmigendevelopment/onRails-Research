@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "research-library/1",
+  "title": "Research library manifest",
+  "description": "research-library.json at the root of a private research library: where each part of a captured entry goes, which provenance format it uses, and the commands that check it. Paths are relative to the library root and use {slug} (the entry) and {name} (a helper). research-library.mjs enforces this without a schema library.",
+  "type": "object",
+  "required": ["schema", "private", "layout", "index", "provenance", "checks"],
+  "properties": {
+    "schema": { "const": "research-library/1" },
+    "private": { "const": true, "description": "The library is a private repo. Capture checks GitHub too, and refuses a public one." },
+    "description": { "type": "string" },
+    "layout": {
+      "type": "object",
+      "required": ["report", "store", "provenance", "briefs", "data"],
+      "properties": {
+        "report": { "$ref": "#/$defs/slugPath", "description": "The report itself, e.g. research/{slug}.md." },
+        "store": { "$ref": "#/$defs/slugPath", "description": "The folder for the entry's desk store: hypotheses, coverage, sources, claims, the fact-check disposition." },
+        "provenance": { "$ref": "#/$defs/slugPath", "description": "The provenance record." },
+        "data": { "$ref": "#/$defs/slugPath", "description": "The folder for measurement runs and raw data. May equal store." },
+        "briefs": {
+          "type": "object",
+          "required": ["author", "helper", "fact-check"],
+          "properties": {
+            "author": { "$ref": "#/$defs/slugPath" },
+            "helper": { "$ref": "#/$defs/path", "pattern": "\\{slug\\}.*\\{name\\}|\\{name\\}.*\\{slug\\}", "description": "One brief per helper; {name} is the helper's short name." },
+            "fact-check": { "$ref": "#/$defs/slugPath" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "index": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Files that list every entry, and how one entry is added to each.",
+      "items": {
+        "type": "object",
+        "required": ["file", "insert", "entry"],
+        "properties": {
+          "file": { "$ref": "#/$defs/path" },
+          "insert": {
+            "enum": ["after-anchor", "line-end", "table-end", "file-end"],
+            "description": "after-anchor: a new block after the anchor line (newest first). line-end: text added to the end of the anchor line. table-end: a row after the last row of the table that starts at the anchor line. file-end: at the end of the file."
+          },
+          "anchor": { "type": "string", "minLength": 1, "description": "The start of the line to find. Needed unless insert is file-end." },
+          "entry": { "type": "string", "minLength": 1, "description": "The text to add. May use {slug}, {date}, {title}, {summary}, {question}, {decision}, {status}, {recheck}, {model}, {effort}, {project}." }
+        },
+        "additionalProperties": false
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["id", "schema", "paths"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "description": "The record format's name, e.g. research-provenance/1. Two libraries can use one name for different shapes, so the schema file decides." },
+        "schema": { "$ref": "#/$defs/path", "description": "The JSON Schema file in the library that the record must match." },
+        "example": { "$ref": "#/$defs/path" },
+        "paths": { "enum": ["store", "root"], "description": "What a brief path inside the record is relative to: the entry's store folder, or the library root." }
+      },
+      "additionalProperties": false
+    },
+    "checks": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "description": "Commands run from the library root. All must pass before the pull request opens." },
+    "frozen": { "type": "array", "items": { "$ref": "#/$defs/path" }, "description": "Files a capture never edits." },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "path": { "type": "string", "minLength": 1, "pattern": "^(?![A-Za-z]:|/)(?!.*(^|/)\\.\\.(/|$))[^\\\\]+$" },
+    "slugPath": { "allOf": [{ "$ref": "#/$defs/path" }, { "pattern": "\\{slug\\}" }] }
+  }
+}

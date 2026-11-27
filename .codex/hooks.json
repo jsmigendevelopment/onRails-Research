@@ -1,0 +1,79 @@
+{
+  "description": "onRails: the same scripts as the Claude Code hooks in .claude/settings.json. Codex runs them only in a trusted project, after you trust each hook in /hooks. Windows (cmd.exe) uses commandWindows, which assumes Codex was opened at the repo root.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/session-start.mjs\"",
+            "commandWindows": "node .claude/hooks/session-start.mjs",
+            "timeout": 15,
+            "statusMessage": "Reading the project state"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.agents/skills/afk/scripts/worklog.mjs\" active",
+            "commandWindows": "node .agents/skills/afk/scripts/worklog.mjs active",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/notify.mjs\"",
+            "commandWindows": "node .claude/hooks/notify.mjs",
+            "timeout": 15,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.claude/hooks/notify.mjs\"",
+            "commandWindows": "node .claude/hooks/notify.mjs",
+            "timeout": 15,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.agents/skills/afk/scripts/worklog.mjs\" log session-end",
+            "commandWindows": "node .agents/skills/afk/scripts/worklog.mjs log session-end",
+            "timeout": 3
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$(git rev-parse --show-toplevel 2>/dev/null || pwd)/.agents/skills/ask/scripts/procs.mjs\" session-end",
+            "commandWindows": "node .agents/skills/ask/scripts/procs.mjs session-end",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  }
+}
