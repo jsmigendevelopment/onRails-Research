@@ -1,6 +1,6 @@
 # The index
 
-Built 2026-11-27 from 1 dossier: 1 fresh, 0 due soon, 0 stale, 0 superseded, 0 retracted. [Stale list](stale.md) · [Superseded and retracted](changes.md) · [index.json](index.json)
+Built 2026-11-28 from 1 dossier: 1 fresh, 0 due soon, 0 stale, 0 superseded, 0 retracted. [Stale list](stale.md) · [Superseded and retracted](changes.md) · [index.json](index.json)
 
 **Freshness** comes from each dossier's re-check date, worked out on the day the index is built. **Checked by** says how far the fact-check went: *cross-checked* means a fresh session on a different model (or a person) checked it; *fact-checked* means a fresh session on the same model did.
 
